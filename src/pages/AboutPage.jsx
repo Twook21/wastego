@@ -126,57 +126,69 @@ function AboutPage() {
       
       {/* Tim */}
       <section className="py-16 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-teal-700 dark:text-lime-400 mb-4">Tim Kami</h2>
             <div className="h-1 w-20 bg-lime-400 dark:bg-lime-300 mx-auto"></div>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
             {/* Anggota Tim 1 */}
             <div className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-              <div className="h-48 bg-gray-200 dark:bg-gray-600"></div>
+              <div className="h-55 bg-gray-200 dark:bg-gray-600"></div>
               <div className="p-6">
-                <h3 className="text-lg font-semibold text-teal-700 dark:text-white">Ahmad Fadli</h3>
-                <p className="text-sm text-lime-600 dark:text-lime-400 mb-2">CEO & Co-Founder</p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Pakar teknologi lingkungan dengan 10+ tahun pengalaman di manajemen limbah dan teknologi ramah lingkungan.
+                <h3 className="text-lg font-semibold text-center text-teal-700 dark:text-white">Theodorus Yosia Raffael Gunawan</h3>
+                <p className="text-sm text-lime-600 text-center dark:text-lime-400 mb-2">Mobile Developer</p>
+                <p className="text-gray-600 dark:text-gray-300 text-center text-sm">
+                    "Together Creating Solutions, Turning Waste into Opportunities, for a Cleaner and More Sustainable Earth."
                 </p>
               </div>
             </div>
             
             {/* Anggota Tim 2 */}
             <div className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-              <div className="h-48 bg-gray-200 dark:bg-gray-600"></div>
+              <div className="h-55 bg-gray-200 dark:bg-gray-600"></div>
               <div className="p-6">
-                <h3 className="text-lg font-semibold text-teal-700 dark:text-white">Siti Nurhaliza</h3>
-                <p className="text-sm text-lime-600 dark:text-lime-400 mb-2">CTO & Co-Founder</p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Pengembang aplikasi dengan fokus pada teknologi berkelanjutan dan pengalaman pengguna yang intuitif.
+                <h3 className="text-lg font-semibold text-center text-teal-700 dark:text-white">Akmal Bintang Budiawan</h3>
+                <p className="text-sm text-lime-600 text-center dark:text-lime-400 mb-2">UI/UX Designer</p>
+                <p className="text-gray-600 dark:text-gray-300 text-center text-sm">
+                    "Nature Needs Action, Not Just Words."
                 </p>
               </div>
             </div>
             
             {/* Anggota Tim 3 */}
             <div className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-              <div className="h-48 bg-gray-200 dark:bg-gray-600"></div>
+              <div className="h-55 bg-gray-200 dark:bg-gray-600"></div>
               <div className="p-6">
-                <h3 className="text-lg font-semibold text-teal-700 dark:text-white">Budi Santoso</h3>
-                <p className="text-sm text-lime-600 dark:text-lime-400 mb-2">COO</p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Ahli logistik dengan pengalaman dalam mengoptimalkan rute pengumpulan dan distribusi di kota-kota besar.
+                <h3 className="text-lg font-semibold text-center text-teal-700 dark:text-white">Alfi Akmal Fariz</h3>
+                <p className="text-sm text-lime-600 text-center dark:text-lime-400 mb-2">Backend Developer</p>
+                <p className="text-gray-600 dark:text-gray-300 text-center text-sm">
+                    “Transformasi Sampah, Ciptakan Masa Depan. Bersama, Kita Bangun Bumi yang Lebih Bersih.”
                 </p>
               </div>
             </div>
             
             {/* Anggota Tim 4 */}
             <div className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-              <div className="h-48 bg-gray-200 dark:bg-gray-600"></div>
+              <div className="h-55 bg-gray-200 dark:bg-gray-600"></div>
               <div className="p-6">
-                <h3 className="text-lg font-semibold text-teal-700 dark:text-white">Dina Fitria</h3>
-                <p className="text-sm text-lime-600 dark:text-lime-400 mb-2">Head of Community</p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  Aktivis lingkungan yang berperan dalam membangun jaringan pengumpul sampah dan program pendidikan masyarakat.
+                <h3 className="text-lg font-semibold text-center text-teal-700 dark:text-white">Fahmi Andika Setiono</h3>
+                <p className="text-sm text-lime-600 text-center dark:text-lime-400 mb-2">Product Owner</p>
+                <p className="text-gray-600 dark:text-gray-300 text-center text-sm">
+                    “One Small Step, Big Impact. Together with WasteGo, Let’s Build a Cleaner Earth.”
+                </p>
+              </div>
+            </div>
+
+            {/* Anggota Tim 5 */}
+            <div className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+              <div className="h-55 bg-gray-200 dark:bg-gray-600"></div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-center text-teal-700 dark:text-white">David Ersa Pramudita</h3>
+                <p className="text-sm text-lime-600 text-center dark:text-lime-400 mb-2">Frontend Developer</p>
+                <p className="text-gray-600 dark:text-gray-300 text-center text-sm">
+                    "Trash is the trace of civilization. Leave a wise mark, not one that pollutes."
                 </p>
               </div>
             </div>
