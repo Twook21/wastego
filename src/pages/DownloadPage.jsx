@@ -2,10 +2,17 @@ import { useContext } from 'react'
 import ThemeContext from '../context/ThemeContext'
 import { Link } from 'react-router-dom'
 import QRCode from '../assets/qr-placeholder.png' // Placeholder, ganti dengan QR code asli
+import { useEffect } from 'react'
 
 function DownloadPage() {
   const { darkMode } = useContext(ThemeContext)
   
+useEffect(() => {
+    if (window.feather) {
+      window.feather.replace();
+    }
+  }, []);
+
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
       {/* Header */}
@@ -170,9 +177,7 @@ function DownloadPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
               <div className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-teal-700 dark:text-lime-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                </svg>
+              <i data-feather="calendar" className="text-black"></i>
               </div>
               <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">Penjadwalan Mudah</h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -182,9 +187,7 @@ function DownloadPage() {
             
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
               <div className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-teal-700 dark:text-lime-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 3.5a6.5 6.5 0 00-5.056 10.613L10 20l5.056-5.887A6.5 6.5 0 0010 3.5zm0 9.5a3 3 0 110-6 3 3 0 010 6z" />
-                </svg>
+              <i data-feather="compass" className="text-black"></i>
               </div>
               <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">Pelacakan Real-time</h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -194,9 +197,7 @@ function DownloadPage() {
             
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
               <div className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-teal-700 dark:text-lime-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 3a1 1 0 000 2h10a1 1 0 100-2H3zm0 4a1 1 0 000 2h10a1 1 0 100-2H3zm0 4a1 1 0 100 2h10a1 1 0 100-2H3z" clipRule="evenodd" />
-                </svg>
+              <i data-feather="trash-2" className="text-black"></i>
               </div>
               <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">Klasifikasi Sampah</h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -206,9 +207,7 @@ function DownloadPage() {
             
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
               <div className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-teal-700 dark:text-lime-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
-                </svg>
+              <i data-feather="repeat" className="text-black"></i>
               </div>
               <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">Statistik Lingkungan</h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -218,9 +217,7 @@ function DownloadPage() {
             
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
               <div className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-teal-700 dark:text-lime-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-                </svg>
+              <i data-feather="book-open" className="text-black"></i>
               </div>
               <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">Edukasi</h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -230,9 +227,7 @@ function DownloadPage() {
             
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
               <div className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-teal-700 dark:text-lime-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clipRule="evenodd" />
-                </svg>
+              <i data-feather="award" className="text-black"></i>
               </div>
               <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">Sistem Reward</h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -298,17 +293,17 @@ function DownloadPage() {
       </section>
       
       {/* CTA */}
-      <section className="py-16 bg-lime-400 dark:bg-lime-400-dark">
+      <section className="py-16 bg-lime-400 dark:bg-teal-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-teal-700 dark:text-white mb-6">Siap Memulai?</h2>
           <p className="text-xl text-teal-700-dark dark:text-gray-200 mb-8 max-w-3xl mx-auto">
             Download Waste Go sekarang dan jadilah bagian dari solusi pengelolaan sampah yang lebih baik untuk Indonesia.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <a href="#" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-700 dark:bg-teal-700-light hover:bg-opacity-90">
+            <a href="#" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-700 dark:bg-lime-400 dark:text-gray-700 hover:bg-opacity-90">
               Download Sekarang
             </a>
-            <Link to="/about" className="inline-flex items-center justify-center px-6 py-3 border border-teal-700 dark:border-white text-base font-medium rounded-md text-teal-700 dark:text-white hover:bg-white hover:bg-opacity-10">
+            <Link to="/about" className="inline-flex items-center justify-center px-6 py-3 border border-teal-700 dark:border-white text-base font-medium rounded-md text-teal-700 dark:text-white hover:bg-white hover:text-teal-700 hover:bg-opacity-10">
               Pelajari Lebih Lanjut
             </Link>
           </div>

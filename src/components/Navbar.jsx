@@ -20,13 +20,13 @@ function Navbar() {
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <Link to="/" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-lime-400 dark:hover:bg-gray-700">
+                <Link to="/" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-700 hover:text-lime-400 dark:hover:bg-gray-700 dark:text-white">
                   Beranda
                 </Link>
-                <Link to="/about" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-lime-400 dark:hover:bg-gray-700">
+                <Link to="/about" className="px-3 py-2 rounded-md text-sm font-medium  hover:bg-teal-700 hover:text-lime-400 dark:hover:bg-gray-700 dark:text-white">
                   Tentang
                 </Link>
-                <Link to="/download" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-lime-400 dark:hover:bg-gray-700">
+                <Link to="/download" className="px-3 py-2 rounded-md text-sm font-medium  hover:bg-teal-700 hover:text-lime-400 dark:hover:bg-gray-700 dark:text-white">
                   Download
                 </Link>
               </div>
@@ -34,7 +34,7 @@ function Navbar() {
           </div>
           <div className="flex items-center space-x-4">
             <div className="hidden md:block">
-              <Link to="/admin/login" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-teal-700 dark:text-white bg-lime-400 dark:bg-lime-600 hover:bg-opacity-90">
+              <Link to="/admin/login" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-bold rounded-md text-lime-400 dark:text-white bg-teal-700 dark:bg-lime-600 hover:bg-opacity-90">
                 Admin Login
               </Link>
             </div>
