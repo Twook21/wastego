@@ -53,7 +53,7 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
-      <Router>
+      <Router basename={import.meta.env.BASE_URL}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <div className={`flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200`}>
             <Navbar />
