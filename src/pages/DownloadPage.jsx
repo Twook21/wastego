@@ -227,7 +227,7 @@ function DownloadPage() {
               Kebutuhan Sistem
             </h2>
             <motion.div
-              className="h-1 w-20 bg-lime-400 dark:bg-lime-400-light mx-auto"
+              className="h-1 w-20 bg-lime-900 dark:bg-lime-900-light mx-auto"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               transition={{ duration: 0.8 }}
@@ -373,7 +373,7 @@ function DownloadPage() {
               pengelolaan sampah sehari-hari
             </p>
             <motion.div
-              className="h-1 w-20 bg-lime-400 dark:bg-lime-400-light mx-auto mt-4"
+              className="h-1 w-20 bg-lime-900 dark:bg-lime-900-light mx-auto mt-4"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               transition={{ duration: 0.8 }}
@@ -398,7 +398,7 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
@@ -423,7 +423,7 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
@@ -448,7 +448,7 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
@@ -473,7 +473,7 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
@@ -498,7 +498,7 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
@@ -523,7 +523,7 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
@@ -555,7 +555,7 @@ function DownloadPage() {
               Pertanyaan Umum
             </h2>
             <motion.div
-              className="h-1 w-20 bg-lime-400 dark:bg-lime-400-light mx-auto"
+              className="h-1 w-20 bg-lime-900 dark:bg-lime-900-light mx-auto"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               transition={{ duration: 0.8 }}
@@ -679,7 +679,7 @@ function DownloadPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-lime-400 dark:bg-teal-700">
+      <section className="py-16 bg-lime-900 dark:bg-teal-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2
             className="text-3xl font-bold text-teal-700 dark:text-white mb-6"
@@ -709,7 +709,7 @@ function DownloadPage() {
           >
             <motion.a
               href="#"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-700 dark:bg-lime-400 dark:text-gray-700 hover:bg-opacity-90"
+              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-700 dark:bg-lime-900 dark:text-gray-700 hover:bg-opacity-90"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",

@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ThemeContext from '../../context/ThemeContext'
+import { useEffect, useRef } from 'react';
 
 function AdminLoginPage() {
   const [email, setEmail] = useState('')
@@ -8,6 +9,7 @@ function AdminLoginPage() {
   const [error, setError] = useState('')
   const navigate = useNavigate()
   const { darkMode } = useContext(ThemeContext)
+  const audioRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -20,13 +22,25 @@ function AdminLoginPage() {
     }
   }
 
+    useEffect(() => {
+      if (audioRef.current) {
+        audioRef.current.volume = 0.3; // Volume 20%
+      }
+    }, []);
+
   return (
     <div className="relative min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 overflow-hidden">
 
-<audio autoPlay loop muted={false}>
-  <source src="/images/background/musik.mp3" type="audio/mpeg" />
-  Your browser does not support the audio element.
-</audio>
+    <audio ref={audioRef} autoPlay loop>
+      <source src="/images/background/musik.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+<script>
+  const audio = document.getElementById('bgMusic');
+  audio.volume = 0.2; // Ubah nilainya antara 0.0 (diam) sampai 1.0 (volume penuh)
+</script>
+
 
     {/* VIDEO BACKGROUND */}
     <video
@@ -105,5 +119,4 @@ function AdminLoginPage() {
   )
 }
 
-export default AdminLoginPage
-
+export default AdminLoginPage;
