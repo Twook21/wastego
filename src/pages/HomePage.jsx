@@ -5,11 +5,12 @@ import ThemeContext from '../context/ThemeContext'
 import MobileAppScreenshot1 from '../assets/app-screenshot.png'
 import MobileAppScreenshot2 from '../assets/app-screenshot2.svg'
 import MobileAppScreenshot3 from '../assets/app-screenshot3.svg'
+import MobileAppScreenshot4 from '../assets/app-screenshot4.png'
 
 function HomePage() {
   const { darkMode } = useContext(ThemeContext)
   const [currentSlide, setCurrentSlide] = useState(0)
-  const screenshots = [MobileAppScreenshot1, MobileAppScreenshot2, MobileAppScreenshot3]
+  const screenshots = [MobileAppScreenshot1, MobileAppScreenshot2, MobileAppScreenshot3, MobileAppScreenshot4]
 
   useEffect(() => {
     if (window.feather) {
