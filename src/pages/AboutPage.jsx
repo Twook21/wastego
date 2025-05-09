@@ -207,7 +207,8 @@ function AboutPage() {
                   >
                     <img
                       src={member.image}
-                      className="w-full h-24 xs:h-28 sm:h-32 md:h-40 lg:h-48 object-cover object-center"
+                      className="w-full h-40 xs:h-48 sm:h-56 md:h-64 lg:h-72 object-cover"
+                       style={{ objectPosition: '50% 20%' }}
                       alt={member.name}
                     />
                     <div className="p-2 xs:p-3 sm:p-4">

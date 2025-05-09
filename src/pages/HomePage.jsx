@@ -1,17 +1,42 @@
 import { Link } from 'react-router-dom'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import ThemeContext from '../context/ThemeContext'
-import MobileAppScreenshot from '../assets/app-screenshot.png'
+import MobileAppScreenshot1 from '../assets/app-screenshot.png'
+import MobileAppScreenshot2 from '../assets/app-screenshot2.svg'
+import MobileAppScreenshot3 from '../assets/app-screenshot3.svg'
 
 function HomePage() {
   const { darkMode } = useContext(ThemeContext)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const screenshots = [MobileAppScreenshot1, MobileAppScreenshot2, MobileAppScreenshot3]
 
   useEffect(() => {
     if (window.feather) {
       window.feather.replace();
     }
   }, []);
+
+  // Auto rotate carousel with smooth scrolling effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % screenshots.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [screenshots.length])
+
+  // Handle manual navigation
+  const goToSlide = (index) => {
+    setCurrentSlide(index)
+  }
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % screenshots.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + screenshots.length) % screenshots.length)
+  }
 
   // Animations variants
   const fadeIn = {
@@ -42,11 +67,6 @@ function HomePage() {
         staggerChildren: 0.2
       }
     }
-  }
-
-  const pulseAnimation = {
-    scale: [1, 1.05, 1],
-    transition: { duration: 2, repeat: Infinity }
   }
 
   return (
@@ -88,18 +108,77 @@ function HomePage() {
                 </motion.div>
               </motion.div>
             </motion.div>
+            
+            {/* Carousel Section - Clean Modern Style */}
             <motion.div 
               className="flex justify-center"
               initial="hidden"
               animate="visible"
               variants={slideFromRight}
             >
-              <motion.img 
-                src={MobileAppScreenshot} 
-                alt="WasteGo Screenshot" 
-                className="max-w-full h-95 rounded-xl shadow-lg"
-                animate={pulseAnimation}
-              />
+              <div className="relative w-full max-w-md mx-auto">
+                {/* Screenshot Container - Clean Style, No Frame */}
+                <div className="relative mx-auto h-96 w-64 overflow-hidden rounded-2xl shadow-lg">
+                  {/* Screenshot Slider */}
+                  <div 
+                    className="flex transition-transform duration-500 ease-out h-full w-full"
+                    style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                  >
+                    {screenshots.map((screenshot, index) => (
+                      <div key={index} className="w-full h-full flex-shrink-0">
+                        <img 
+                          src={screenshot} 
+                          alt={`WasteGo Screenshot ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Subtle shadow for depth */}
+                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-4 bg-black bg-opacity-10 rounded-full blur-md"></div>
+                
+                {/* Minimal Navigation arrows */}
+                <div className="absolute inset-y-0 -left-10 flex items-center">
+                  <button 
+                    onClick={prevSlide}
+                    className="p-1 focus:outline-none text-teal-900 dark:text-white"
+                    aria-label="Previous slide"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="absolute inset-y-0 -right-10 flex items-center">
+                  <button 
+                    onClick={nextSlide}
+                    className="p-1 focus:outline-none text-teal-900 dark:text-white"
+                    aria-label="Next slide"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+                
+                {/* Minimal Indicators */}
+                <div className="absolute -bottom-12 w-full flex justify-center space-x-2">
+                  {screenshots.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      className={`w-2 h-2 rounded-full focus:outline-none transition-all duration-300 ${
+                        currentSlide === index 
+                          ? 'bg-lime-500 w-6' 
+                          : 'bg-gray-300 dark:bg-gray-600'
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -208,7 +287,7 @@ function HomePage() {
             >
               Download WasteGo sekarang dan mulai berkontribusi untuk lingkungan yang lebih bersih dan lestari.
             </motion.p>
-             <motion.div 
+            <motion.div 
               whileHover={{ scale: 1.05 }} 
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 20 }}
