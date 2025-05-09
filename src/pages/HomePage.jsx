@@ -73,16 +73,16 @@ function HomePage() {
                 Sambungkan dengan pengumpul sampah terdekat dan pantau kontribusi lingkungan Anda secara real-time.
               </motion.p>
               <motion.div 
-                className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+                className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full"
                 variants={staggerItems}
               >
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link to="/download" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white dark:text-teal-900 bg-lime-500 dark:bg-lime-500-dark hover:bg-opacity-90">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full">
+                  <Link to="/download" className="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent text-base font-medium rounded-md text-white dark:text-teal-900 bg-lime-500 dark:bg-lime-500-dark hover:bg-opacity-90">
                     Download Aplikasi
                   </Link>
                 </motion.div>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link to="/about" className="inline-flex items-center justify-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white hover:text-gray-700 hover:bg-opacity-10">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full">
+                  <Link to="/about" className="inline-flex items-center justify-center w-full px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white hover:text-gray-700 hover:bg-opacity-10">
                     Pelajari Lebih Lanjut
                   </Link>
                 </motion.div>
@@ -208,7 +208,7 @@ function HomePage() {
             >
               Download WasteGo sekarang dan mulai berkontribusi untuk lingkungan yang lebih bersih dan lestari.
             </motion.p>
-            <motion.div 
+             <motion.div 
               whileHover={{ scale: 1.05 }} 
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 20 }}
