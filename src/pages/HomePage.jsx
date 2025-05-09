@@ -52,7 +52,7 @@ function HomePage() {
   return (
     <div className="transition-colors duration-200">
       {/* Hero Section */}
-      <section className="bg-teal-700 dark:bg-gray-800 text-white">
+      <section className="bg-teal-900 dark:bg-gray-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -77,7 +77,7 @@ function HomePage() {
                 variants={staggerItems}
               >
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link to="/download" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-teal-700 dark:text-white bg-lime-400 dark:bg-lime-400-dark hover:bg-opacity-90">
+                  <Link to="/download" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white dark:text-teal-900 bg-lime-500 dark:bg-lime-500-dark hover:bg-opacity-90">
                     Download Aplikasi
                   </Link>
                 </motion.div>
@@ -96,7 +96,7 @@ function HomePage() {
             >
               <motion.img 
                 src={MobileAppScreenshot} 
-                alt="Waste Go Screenshot" 
+                alt="WasteGo Screenshot" 
                 className="max-w-full h-95 rounded-xl shadow-lg"
                 animate={pulseAnimation}
               />
@@ -116,7 +116,7 @@ function HomePage() {
             variants={slideFromBottom}
           >
             <motion.h2 
-              className="text-3xl font-bold text-teal-700 dark:text-lime-400 mb-4"
+              className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4"
               variants={fadeIn}
             >
               Fitur Unggulan
@@ -125,7 +125,7 @@ function HomePage() {
               className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
               variants={fadeIn}
             >
-              Waste Go menyediakan berbagai fitur yang memudahkan Anda mengelola sampah dengan cara yang ramah lingkungan.
+              WasteGo menyediakan berbagai fitur yang memudahkan Anda mengelola sampah dengan cara yang ramah lingkungan.
             </motion.p>
           </motion.div>
           <motion.div 
@@ -141,12 +141,12 @@ function HomePage() {
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
             >
               <motion.div 
-                className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-20 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-20 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360, transition: { duration: 1 } }}
               >
                 <i data-feather="map-pin" className="text-black"></i>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">Pengumpulan Terdekat</h3>
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">Pengumpulan Terdekat</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Temukan pengumpul sampah terdekat dan jadwalkan pengambilan dengan mudah.
               </p>
@@ -157,12 +157,12 @@ function HomePage() {
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
             >
               <motion.div 
-                className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-20 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-20 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360, transition: { duration: 1 } }}
               >
                 <i data-feather="compass" className="text-black"></i>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">Pelacakan Real-time</h3>
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">Pelacakan Real-time</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Pantau pengambilan sampah Anda secara real-time dan dapatkan notifikasi otomatis.
               </p>
@@ -173,12 +173,12 @@ function HomePage() {
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
             >
               <motion.div 
-                className="bg-lime-400 dark:bg-lime-400-dark bg-opacity-20 dark:bg-opacity-20 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-20 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360, transition: { duration: 1 } }}
               >
                 <i data-feather="repeat" className="text-black"></i>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">Statistik Daur Ulang</h3>
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">Statistik Daur Ulang</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Lihat dampak positif Anda terhadap lingkungan melalui statistik dan grafik interaktif.
               </p>
@@ -188,7 +188,7 @@ function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-lime-400 dark:bg-teal-700 py-16">
+      <section className="bg-lime-500 dark:bg-lime-500 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial="hidden"
@@ -197,16 +197,16 @@ function HomePage() {
             variants={slideFromBottom}
           >
             <motion.h2 
-              className="text-3xl font-bold text-teal-700 dark:text-white mb-4"
+              className="text-3xl font-bold text-teal-900 dark:text-white mb-4"
               variants={fadeIn}
             >
               Siap Bergabung?
             </motion.h2>
             <motion.p 
-              className="text-lg text-teal-700-dark dark:text-gray-200 max-w-3xl mx-auto mb-8"
+              className="text-lg text-teal-900 dark:text-white max-w-3xl mx-auto mb-8"
               variants={fadeIn}
             >
-              Download Waste Go sekarang dan mulai berkontribusi untuk lingkungan yang lebih bersih dan lestari.
+              Download WasteGo sekarang dan mulai berkontribusi untuk lingkungan yang lebih bersih dan lestari.
             </motion.p>
             <motion.div 
               whileHover={{ scale: 1.05 }} 
@@ -215,7 +215,7 @@ function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <Link to="/download" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white dark:text-gray-700 bg-teal-700 dark:bg-lime-400 hover:bg-opacity-90">
+              <Link to="/download" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white dark:text-lime-500 bg-teal-900 dark:bg-teal-900 hover:bg-opacity-90">
                 Download Sekarang
               </Link>
             </motion.div>

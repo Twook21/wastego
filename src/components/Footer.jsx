@@ -8,7 +8,7 @@ function Footer() {
   const { darkMode } = useContext(ThemeContext)
   
   return (
-    <footer className="bg-gray-900 dark:bg-gray-800 text-white transition-colors duration-200">
+    <footer className="bg-teal-900 dark:bg-gray-800 text-white transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Bagian Logo & Deskripsi */}
@@ -63,8 +63,8 @@ function Footer() {
         </div>
 
         {/* Copyright tetap center aligned */}
-        <div className="mt-8 pt-8 border-t border-gray-700 dark:border-gray-600 text-sm text-center">
-          <p>© {new Date().getFullYear()} Waste Go. Hak Cipta Dilindungi.</p>
+        <div className="mt-8 pt-8 border-t border-lime-500 dark:border-lime-500 text-sm text-center">
+          <p>© {new Date().getFullYear()} WasteGo. Hak Cipta Dilindungi.</p>
         </div>
       </div>
     </footer>

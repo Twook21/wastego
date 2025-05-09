@@ -53,7 +53,7 @@ function DownloadPage() {
     <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
       {/* Header */}
       <motion.section
-        className="bg-teal-700 dark:bg-gray-800 text-white py-16"
+        className="bg-teal-900 dark:bg-gray-800 text-white py-16"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -65,7 +65,7 @@ function DownloadPage() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            Download Waste Go
+            Download WasteGo
           </motion.h1>
           <motion.p
             className="text-xl max-w-3xl mx-auto"
@@ -89,11 +89,11 @@ function DownloadPage() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold text-teal-700 dark:text-white mb-6">
+              <h2 className="text-3xl font-bold text-teal-900 dark:text-white mb-6">
                 Unduh Sekarang
               </h2>
               <p className="text-gray-600 dark:text-gray-300 mb-8">
-                Waste Go tersedia di App Store dan Google Play. Unduh sekarang
+                WasteGo tersedia di App Store dan Google Play. Unduh sekarang
                 dan mulai berkontribusi untuk lingkungan yang lebih bersih.
               </p>
 
@@ -151,7 +151,7 @@ function DownloadPage() {
                 {/* Direct APK Download */}
                 <motion.a
                   href="#"
-                  className="flex items-center justify-center md:justify-start bg-teal-700 text-white rounded-lg px-4 py-2 w-full md:w-64 hover:bg-teal-700-light dark:hover:opacity-90 transition-colors"
+                  className="flex items-center justify-center md:justify-start bg-teal-900 dark:bg-lime-500 dark:text-teal-900 text-white rounded-lg px-4 py-2 w-full md:w-64 hover:bg-teal-900-light dark:hover:opacity-90 transition-colors"
                   variants={fadeInUp}
                   whileHover={buttonHover}
                 >
@@ -190,7 +190,7 @@ function DownloadPage() {
                 whileHover={{ boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)" }}
                 transition={{ duration: 0.3 }}
               >
-                <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-4">
+                <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4">
                   Scan untuk Download
                 </h3>
                 <motion.div
@@ -199,7 +199,7 @@ function DownloadPage() {
                 >
                   <img
                     src={QRCode}
-                    alt="QR Code untuk download Waste Go"
+                    alt="QR Code untuk download WasteGo"
                     className="w-48 h-48 mx-auto"
                   />
                 </motion.div>
@@ -223,11 +223,11 @@ function DownloadPage() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-teal-700 dark:text-lime-400 mb-4">
+            <h2 className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4">
               Kebutuhan Sistem
             </h2>
             <motion.div
-              className="h-1 w-20 bg-lime-900 dark:bg-lime-900-light mx-auto"
+              className="h-1 w-20 bg-lime-500 dark:bg-lime-500-light mx-auto"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               transition={{ duration: 0.8 }}
@@ -244,9 +244,9 @@ function DownloadPage() {
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
             >
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-4 flex items-center">
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4 flex items-center">
                 <svg
-                  className="w-6 h-6 mr-2 text-lime-400 dark:text-lime-400-light"
+                  className="w-6 h-6 mr-2 text-lime-500 dark:text-lime-500-light"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -262,31 +262,31 @@ function DownloadPage() {
                 viewport={{ once: true }}
               >
                 <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-400 dark:text-lime-400-light">
+                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
                     •
                   </span>
                   <span>Android 6.0 (Marshmallow) atau lebih tinggi</span>
                 </motion.li>
                 <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-400 dark:text-lime-400-light">
+                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
                     •
                   </span>
                   <span>RAM minimal 2GB</span>
                 </motion.li>
                 <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-400 dark:text-lime-400-light">
+                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
                     •
                   </span>
                   <span>Penyimpanan minimal 50MB</span>
                 </motion.li>
                 <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-400 dark:text-lime-400-light">
+                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
                     •
                   </span>
                   <span>Koneksi internet</span>
                 </motion.li>
                 <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-400 dark:text-lime-400-light">
+                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
                     •
                   </span>
                   <span>Akses lokasi GPS</span>
@@ -302,9 +302,9 @@ function DownloadPage() {
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
             >
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-4 flex items-center">
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4 flex items-center">
                 <svg
-                  className="w-6 h-6 mr-2 text-lime-400 dark:text-lime-400-light"
+                  className="w-6 h-6 mr-2 text-lime-500 dark:text-lime-500-light"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -320,31 +320,31 @@ function DownloadPage() {
                 viewport={{ once: true }}
               >
                 <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-400 dark:text-lime-400-light">
+                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
                     •
                   </span>
                   <span>iOS 12.0 atau lebih tinggi</span>
                 </motion.li>
                 <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-400 dark:text-lime-400-light">
+                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
                     •
                   </span>
                   <span>Compatible dengan iPhone, iPad, dan iPod touch</span>
                 </motion.li>
                 <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-400 dark:text-lime-400-light">
+                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
                     •
                   </span>
                   <span>Penyimpanan minimal 100MB</span>
                 </motion.li>
                 <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-400 dark:text-lime-400-light">
+                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
                     •
                   </span>
                   <span>Koneksi internet</span>
                 </motion.li>
                 <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-400 dark:text-lime-400-light">
+                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
                     •
                   </span>
                   <span>Akses lokasi GPS</span>
@@ -365,15 +365,15 @@ function DownloadPage() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-teal-700 dark:text-lime-400 mb-4">
+            <h2 className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4">
               Fitur Aplikasi
             </h2>
             <p className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Waste Go menawarkan berbagai fitur untuk memudahkan Anda dalam
+              WasteGo menawarkan berbagai fitur untuk memudahkan Anda dalam
               pengelolaan sampah sehari-hari
             </p>
             <motion.div
-              className="h-1 w-20 bg-lime-900 dark:bg-lime-900-light mx-auto mt-4"
+              className="h-1 w-20 bg-lime-500 dark:bg-lime-500-light mx-auto mt-4"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               transition={{ duration: 0.8 }}
@@ -398,13 +398,13 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
-                <i data-feather="calendar" className="text-black"></i>
+                <i data-feather="calendar" className="text-teal-900"></i>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
                 Penjadwalan Mudah
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -423,13 +423,13 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
-                <i data-feather="compass" className="text-black"></i>
+                <i data-feather="compass" className="text-teal-900"></i>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
                 Pelacakan Real-time
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -448,13 +448,13 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
-                <i data-feather="trash-2" className="text-black"></i>
+                <i data-feather="trash-2" className="text-teal-900"></i>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
                 Klasifikasi Sampah
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -473,13 +473,13 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
-                <i data-feather="repeat" className="text-black"></i>
+                <i data-feather="repeat" className="text-teal-900"></i>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
                 Statistik Lingkungan
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -498,13 +498,13 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
-                <i data-feather="book-open" className="text-black"></i>
+                <i data-feather="book-open" className="text-teal-900"></i>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
                 Edukasi
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -523,13 +523,13 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="bg-lime-900 dark:bg-lime-900-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
+                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8 }}
               >
-                <i data-feather="award" className="text-black"></i>
+                <i data-feather="award" className="text-teal-900"></i>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-2">
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
                 Sistem Reward
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -551,11 +551,11 @@ function DownloadPage() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-teal-700 dark:text-lime-400 mb-4">
+            <h2 className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4">
               Pertanyaan Umum
             </h2>
             <motion.div
-              className="h-1 w-20 bg-lime-900 dark:bg-lime-900-light mx-auto"
+              className="h-1 w-20 bg-lime-500 dark:bg-lime-500-light mx-auto"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               transition={{ duration: 0.8 }}
@@ -580,11 +580,11 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <button className="w-full text-left p-6">
-                <h3 className="text-lg font-semibold text-teal-700 dark:text-white">
+                <h3 className="text-lg font-semibold text-teal-900 dark:text-white">
                   Apakah aplikasi ini gratis?
                 </h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Ya, Waste Go dapat diunduh dan digunakan secara gratis. Kami
+                  Ya, WasteGo dapat diunduh dan digunakan secara gratis. Kami
                   menyediakan layanan dasar pengumpulan sampah tanpa biaya,
                   namun beberapa layanan premium mungkin dikenakan biaya
                   tambahan.
@@ -602,11 +602,11 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <button className="w-full text-left p-6">
-                <h3 className="text-lg font-semibold text-teal-700 dark:text-white">
+                <h3 className="text-lg font-semibold text-teal-900 dark:text-white">
                   Di kota mana saja aplikasi ini tersedia?
                 </h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Saat ini, Waste Go tersedia di Jakarta, Bandung, Surabaya,
+                  Saat ini, WasteGo tersedia di Jakarta, Bandung, Surabaya,
                   Yogyakarta, dan beberapa kota besar lainnya di Indonesia. Kami
                   terus memperluas jangkauan kami ke lebih banyak daerah.
                 </p>
@@ -623,7 +623,7 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <button className="w-full text-left p-6">
-                <h3 className="text-lg font-semibold text-teal-700 dark:text-white">
+                <h3 className="text-lg font-semibold text-teal-900 dark:text-white">
                   Bagaimana cara kerja sistem poin?
                 </h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300">
@@ -646,7 +646,7 @@ function DownloadPage() {
               transition={{ duration: 0.3 }}
             >
               <button className="w-full text-left p-6">
-                <h3 className="text-lg font-semibold text-teal-700 dark:text-white">
+                <h3 className="text-lg font-semibold text-teal-900 dark:text-white">
                   Apakah saya bisa menjadi pengumpul sampah?
                 </h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300">
@@ -668,7 +668,7 @@ function DownloadPage() {
           >
             <motion.a
               href="mailto:support@sampahapp.com"
-              className="text-teal-700 dark:text-lime-400 hover:underline"
+              className="text-teal-900 dark:text-lime-500 hover:underline"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
@@ -679,10 +679,10 @@ function DownloadPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-lime-900 dark:bg-teal-700">
+      <section className="py-16 bg-lime-500 dark:bg-lime-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2
-            className="text-3xl font-bold text-teal-700 dark:text-white mb-6"
+            className="text-3xl font-bold text-teal-900 dark:text-white mb-6"
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -691,13 +691,13 @@ function DownloadPage() {
             Siap Memulai?
           </motion.h2>
           <motion.p
-            className="text-xl text-teal-700-dark dark:text-gray-200 mb-8 max-w-3xl mx-auto"
+            className="text-xl text-teal-900-dark dark:text-gray-200 mb-8 max-w-3xl mx-auto"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Download Waste Go sekarang dan jadilah bagian dari solusi
+            Download WasteGo sekarang dan jadilah bagian dari solusi
             pengelolaan sampah yang lebih baik untuk Indonesia.
           </motion.p>
           <motion.div
@@ -709,7 +709,7 @@ function DownloadPage() {
           >
             <motion.a
               href="#"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-700 dark:bg-lime-900 dark:text-gray-700 hover:bg-opacity-90"
+              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-900 dark:bg-teal-900 dark:text-lime-500 hover:bg-opacity-90"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
@@ -720,16 +720,12 @@ function DownloadPage() {
               Download Sekarang
             </motion.a>
             <motion.div
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
-              }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
             >
               <Link
                 to="/about"
-                className="inline-flex items-center justify-center px-6 py-3 border border-teal-700 dark:border-white text-base font-medium rounded-md text-teal-700 dark:text-white hover:bg-white hover:text-teal-700 hover:bg-opacity-10"
+                className="inline-flex items-center justify-center px-6 py-3 border border-teal-900 dark:border-white text-base font-medium rounded-md text-teal-900 dark:text-white hover:bg-white hover:text-teal-900"
               >
                 Pelajari Lebih Lanjut
               </Link>

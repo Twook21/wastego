@@ -211,10 +211,10 @@ function AboutPage() {
                       alt={member.name}
                     />
                     <div className="p-2 xs:p-3 sm:p-4">
-                      <h3 className="text-xs xs:text-sm sm:text-base font-semibold text-center text-teal-700 dark:text-white">
+                      <h3 className="text-xs xs:text-sm sm:text-base font-semibold text-center text-teal-900 dark:text-white">
                         {visibleItems <= 2 ? member.shortName : member.name}
                       </h3>
-                      <p className="text-xs sm:text-sm text-lime-600 text-center dark:text-lime-400 mb-1 sm:mb-2">
+                      <p className="text-xs sm:text-sm text-lime-500 text-center dark:text-lime-500 mb-1 sm:mb-2">
                         {member.role}
                       </p>
                       <p className="text-gray-600 dark:text-gray-300 text-center text-xs sm:text-sm">
@@ -234,14 +234,14 @@ function AboutPage() {
           className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 sm:translate-x-0 bg-white/70 dark:bg-gray-800/70 rounded-full p-1 sm:p-2 shadow-md hover:bg-white dark:hover:bg-gray-700 z-10"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-teal-700 dark:text-lime-400" />
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-teal-900 dark:text-lime-500" />
         </button>
         <button 
           onClick={nextSlide}
           className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 sm:translate-x-0 bg-white/70 dark:bg-gray-800/70 rounded-full p-1 sm:p-2 shadow-md hover:bg-white dark:hover:bg-gray-700 z-10"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-teal-700 dark:text-lime-400" />
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-teal-900 dark:text-lime-500" />
         </button>
         
         {/* Pagination Indicators */}
@@ -252,7 +252,7 @@ function AboutPage() {
               onClick={() => setCurrentIndex(index)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 index === currentIndex 
-                  ? 'bg-teal-700 dark:bg-lime-400 w-4' 
+                  ? 'bg-teal-900 dark:bg-lime-500 w-4' 
                   : 'bg-gray-300 dark:bg-gray-600'
               }`}
               aria-label={`Go to slide ${index + 1}`}
@@ -267,17 +267,17 @@ function AboutPage() {
     <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
       {/* Header */}
       <motion.section 
-        className="bg-teal-700 dark:bg-gray-800 text-white py-16"
+        className="bg-teal-900 dark:bg-gray-800 text-white py-16"
         initial="hidden"
         animate="visible"
         variants={headerAnimation}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center ">
           <motion.h1 
             className="text-4xl font-bold mb-6"
             variants={fadeIn}
           >
-            Tentang Waste Go
+            Tentang WasteGo
           </motion.h1>
           <motion.p 
             className="text-xl max-w-3xl mx-auto"
@@ -302,9 +302,9 @@ function AboutPage() {
             className="text-center mb-12"
             variants={fadeIn}
           >
-            <h2 className="text-3xl font-bold text-teal-700 dark:text-lime-400 mb-4">Visi & Misi Kami</h2>
+            <h2 className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4">Visi & Misi Kami</h2>
             <motion.div 
-              className="h-1 w-20 bg-lime-400 dark:bg-lime-300 mx-auto"
+              className="h-1 w-20 bg-lime-500 dark:bg-lime-500 mx-auto"
               initial={{ width: 0 }}
               whileInView={{ width: 80 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -318,7 +318,7 @@ function AboutPage() {
               variants={cardAnimation}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
-              <h3 className="text-2xl font-semibold text-teal-700 dark:text-white mb-4">Visi</h3>
+              <h3 className="text-2xl font-semibold text-teal-900 dark:text-white mb-4">Visi</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Menjadi platform pengelolaan sampah terdepan yang menghubungkan masyarakat, pengumpul sampah, dan industri daur ulang untuk menciptakan ekosistem pengelolaan sampah yang efisien dan berkelanjutan.
               </p>
@@ -329,7 +329,7 @@ function AboutPage() {
               variants={cardAnimation}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
-              <h3 className="text-2xl font-semibold text-teal-700 dark:text-white mb-4">Misi</h3>
+              <h3 className="text-2xl font-semibold text-teal-900 dark:text-white mb-4">Misi</h3>
               <motion.ul 
                 className="text-gray-600 dark:text-gray-300 space-y-2"
                 variants={staggerItems}
@@ -339,7 +339,7 @@ function AboutPage() {
                   variants={listItemAnimation}
                 >
                   <motion.span 
-                    className="mr-2 text-lime-500 dark:text-lime-400"
+                    className="mr-2 text-lime-500 dark:text-lime-500"
                     whileHover={{ scale: 1.3, transition: { duration: 0.2 } }}
                   >•</motion.span>
                   <span>Mengedukasi masyarakat tentang pentingnya pemilahan dan pengelolaan sampah</span>
@@ -349,7 +349,7 @@ function AboutPage() {
                   variants={listItemAnimation}
                 >
                   <motion.span 
-                    className="mr-2 text-lime-500 dark:text-lime-400"
+                    className="mr-2 text-lime-500 dark:text-lime-500"
                     whileHover={{ scale: 1.3, transition: { duration: 0.2 } }}
                   >•</motion.span>
                   <span>Memfasilitasi pengumpulan sampah dengan teknologi yang mudah diakses</span>
@@ -359,7 +359,7 @@ function AboutPage() {
                   variants={listItemAnimation}
                 >
                   <motion.span 
-                    className="mr-2 text-lime-500 dark:text-lime-400"
+                    className="mr-2 text-lime-500 dark:text-lime-500"
                     whileHover={{ scale: 1.3, transition: { duration: 0.2 } }}
                   >•</motion.span>
                   <span>Meningkatkan kesejahteraan pengumpul sampah melalui sistem yang adil</span>
@@ -369,7 +369,7 @@ function AboutPage() {
                   variants={listItemAnimation}
                 >
                   <motion.span 
-                    className="mr-2 text-lime-500 dark:text-lime-400"
+                    className="mr-2 text-lime-500 dark:text-lime-500"
                     whileHover={{ scale: 1.3, transition: { duration: 0.2 } }}
                   >•</motion.span>
                   <span>Mendorong ekonomi sirkular melalui daur ulang dan pengolahan sampah</span>
@@ -393,9 +393,9 @@ function AboutPage() {
             className="text-center mb-12"
             variants={fadeIn}
           >
-            <h2 className="text-3xl font-bold text-teal-700 dark:text-lime-400 mb-4">Cerita Kami</h2>
+            <h2 className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4">Cerita Kami</h2>
             <motion.div 
-              className="h-1 w-20 bg-lime-400 dark:bg-lime-300 mx-auto"
+              className="h-1 w-20 bg-lime-500 dark:bg-lime-500 mx-auto"
               initial={{ width: 0 }}
               whileInView={{ width: 80 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -442,9 +442,9 @@ function AboutPage() {
             className="text-center mb-12"
             variants={fadeIn}
           >
-            <h2 className="text-3xl font-bold text-teal-700 dark:text-lime-400 mb-4">Cara Kerja</h2>
+            <h2 className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4">Cara Kerja</h2>
             <motion.div 
-              className="h-1 w-20 bg-lime-400 dark:bg-lime-300 mx-auto"
+              className="h-1 w-20 bg-lime-500 dark:bg-lime-500 mx-auto"
               initial={{ width: 0 }}
               whileInView={{ width: 80 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -462,12 +462,12 @@ function AboutPage() {
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
               <motion.div 
-                className="bg-lime-400 dark:bg-lime-900 bg-opacity-20 dark:bg-opacity-30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                className="bg-lime-500 dark:bg-lime-500 bg-opacity-20 dark:bg-opacity-30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                 whileHover={{ scale: 1.1, rotate: 5, transition: { duration: 0.3 } }}
               >
-                <span className="text-2xl font-bold text-teal-700 dark:text-white">1</span>
+                <span className="text-2xl font-bold text-teal-900 dark:text-teal-900">1</span>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-3">Jadwalkan</h3>
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-3">Jadwalkan</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Jadwalkan pengambilan sampah melalui aplikasi. Pilih waktu yang nyaman dan kategori sampah yang akan diambil.
               </p>
@@ -479,12 +479,12 @@ function AboutPage() {
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
               <motion.div 
-                className="bg-lime-400 dark:bg-lime-900 bg-opacity-20 dark:bg-opacity-30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                className="bg-lime-500 dark:bg-lime-500 bg-opacity-20 dark:bg-opacity-30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                 whileHover={{ scale: 1.1, rotate: 5, transition: { duration: 0.3 } }}
               >
-                <span className="text-2xl font-bold text-teal-700 dark:text-white">2</span>
+                <span className="text-2xl font-bold text-teal-900 dark:text-teal-900">2</span>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-3">Serahkan</h3>
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-3">Serahkan</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Pengumpul sampah terdekat akan datang pada waktu yang ditentukan. Anda dapat melacak kedatangan mereka secara real-time.
               </p>
@@ -496,12 +496,12 @@ function AboutPage() {
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
               <motion.div 
-                className="bg-lime-400 dark:bg-lime-900 bg-opacity-20 dark:bg-opacity-30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                className="bg-lime-500 dark:bg-lime-500 bg-opacity-20 dark:bg-opacity-30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                 whileHover={{ scale: 1.1, rotate: 5, transition: { duration: 0.3 } }}
               >
-                <span className="text-2xl font-bold text-teal-700 dark:text-white">3</span>
+                <span className="text-2xl font-bold text-teal-900 dark:text-teal-900">3</span>
               </motion.div>
-              <h3 className="text-xl font-semibold text-teal-700 dark:text-white mb-3">Lihat Dampak</h3>
+              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-3">Lihat Dampak</h3>
               <p className="text-gray-600 dark:text-gray-300">
                 Pantau kontribusi Anda terhadap lingkungan melalui statistik pengurangan emisi karbon dan sampah yang terdaur ulang.
               </p>
@@ -532,9 +532,9 @@ function AboutPage() {
               visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
             }}
           >
-            <h2 className="text-2xl sm:text-3xl font-bold text-teal-700 dark:text-lime-400 mb-3">Tim Kami</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-teal-900 dark:text-lime-500 mb-3">Tim Kami</h2>
             <motion.div 
-              className="h-1 w-16 sm:w-20 bg-lime-400 dark:bg-lime-300 mx-auto"
+              className="h-1 w-16 sm:w-20 bg-lime-500 dark:bg-lime-500 mx-auto"
               initial={{ width: 0 }}
               whileInView={{ width: 64 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -548,7 +548,7 @@ function AboutPage() {
       
       {/* CTA */}
       <motion.section 
-        className="py-16 bg-teal-700 dark:bg-gray-900"
+        className="py-16 bg-teal-900 dark:bg-gray-900"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -576,7 +576,7 @@ function AboutPage() {
               whileTap={{ scale: 0.95 }}
               variants={fadeIn}
             >
-              <Link to="/download" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-teal-700 dark:text-white bg-lime-400 dark:bg-lime-900 hover:bg-opacity-90">
+              <Link to="/download" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-teal-900 bg-lime-500 dark:bg-lime-500 dark:text-teal-900 hover:bg-opacity-90">
                 Download Aplikasi
               </Link>
             </motion.div>
