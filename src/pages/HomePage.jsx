@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import ThemeContext from '../context/ThemeContext'
-import MobileAppScreenshot1 from '../assets/app-screenshot.png'
-import MobileAppScreenshot2 from '../assets/app-screenshot2.svg'
-import MobileAppScreenshot3 from '../assets/app-screenshot3.svg'
-import MobileAppScreenshot4 from '../assets/app-screenshot4.png'
+import MobileAppScreenshot1 from '../assets/mockup/app-screenshot.png'
+import MobileAppScreenshot2 from '../assets/mockup/app-screenshot2.svg'
+import MobileAppScreenshot3 from '../assets/mockup/app-screenshot3.svg'
+import MobileAppScreenshot4 from '../assets/mockup/app-screenshot4.png'
 
 function HomePage() {
   const { darkMode } = useContext(ThemeContext)
@@ -117,7 +117,7 @@ function HomePage() {
               animate="visible"
               variants={slideFromRight}
             >
-              <div className="relative w-full max-w-md mx-auto">
+              <div className="relative w-full max-w-md mx-auto overflow-hidden">
                 {/* Screenshot Container - Clean Style, No Frame */}
                 <div className="relative mx-auto h-96 w-64 overflow-hidden rounded-2xl shadow-lg">
                   {/* Screenshot Slider */}

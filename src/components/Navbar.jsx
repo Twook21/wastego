@@ -60,7 +60,7 @@ function Navbar() {
           <div className="flex items-center space-x-4">
             <div className="hidden md:block">
               <Link to="/admin/login" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-bold rounded-md bg-lime-400 text-teal-900 dark:text-teal-900 dark:bg-lime-400 hover:bg-opacity-90">
-                Admin Login
+                Login For More
               </Link>
             </div>
             <div className="-mr-2 flex md:hidden">
@@ -131,7 +131,7 @@ function Navbar() {
               className="block px-4 py-3 rounded-md text-base font-medium text-teal-900 bg-lime-500 dark:text-teal-900 dark:bg-lime-500 hover:bg-opacity-90 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Admin Login
+              Login For More
             </Link>
           </div>
           

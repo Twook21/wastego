@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import DownloadPage from "./pages/DownloadPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
+import RegisterPage from "./pages/admin/RegisterPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -79,6 +80,14 @@ function App() {
                 element={
                   <AdminLayout>
                     <AdminLoginPage />
+                  </AdminLayout>
+                }
+              />
+              <Route
+                path="register"
+                element={
+                  <AdminLayout>
+                    <RegisterPage />
                   </AdminLayout>
                 }
               />

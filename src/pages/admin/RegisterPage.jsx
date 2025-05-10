@@ -1,13 +1,14 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import ThemeContext from "../../context/ThemeContext";
-import { useEffect, useRef } from "react";
 // Corrected import path - adjust based on your actual file structure
 import Logo from '../../assets/logo.png';
 
-function AdminLoginPage() {
+function RegisterPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { darkMode } = useContext(ThemeContext);
@@ -16,12 +17,23 @@ function AdminLoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Demo login logic (replace with actual authentication)
-    if (email === "admin@wastego.com" && password === "admin123") {
-      navigate("/admin/dashboard");
-    } else {
-      setError("Email atau password salah");
+    // Validation
+    if (password !== confirmPassword) {
+      setError("Password tidak cocok");
+      return;
     }
+
+    if (password.length < 6) {
+      setError("Password minimal 6 karakter");
+      return;
+    }
+
+    // Demo registration logic (replace with actual authentication)
+    // Here you would typically call an API to register the user
+    console.log("Registering user:", { name, email, password });
+    
+    // Simulate successful registration
+    navigate("/admin/login");
   };
 
   useEffect(() => {
@@ -49,10 +61,10 @@ function AdminLoginPage() {
         Your browser does not support the video tag.
       </video>
 
-      {/* KONTEN LOGIN */}
+      {/* KONTEN REGISTER */}
       <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="text-center text-3xl font-extrabold text-white">
-          Log In Now
+          Daftar Akun
         </h2>
       </div>
 
@@ -66,14 +78,39 @@ function AdminLoginPage() {
           )}
 
           <div className="flex justify-center">
-          <img 
-            src={Logo} 
-            alt="Logo WasteGO" 
-            className="h-8 w-auto mb-8"
-          />
-        </div>
+            <img 
+              src={Logo} 
+              alt="Logo WasteGO" 
+              className="h-8 w-auto mb-8"
+            />
+          </div>
           
           <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-white"
+              >
+                Nama Lengkap
+              </label>
+              <div className="mt-1">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300/50 dark:border-gray-600/50 rounded-md 
+                  bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
+                  text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                  focus:outline-none focus:ring-teal-500 focus:border-teal-500 dark:focus:ring-lime-400 dark:focus:border-lime-400"
+                  placeholder="Masukkan nama lengkap"
+                />
+              </div>
+            </div>
+
             <div>
               <label
                 htmlFor="email"
@@ -94,7 +131,7 @@ function AdminLoginPage() {
                   bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
                   text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
                   focus:outline-none focus:ring-teal-500 focus:border-teal-500 dark:focus:ring-lime-400 dark:focus:border-lime-400"
-                  placeholder="admin@wastego.com"
+                  placeholder="email@example.com"
                 />
               </div>
             </div>
@@ -111,10 +148,35 @@ function AdminLoginPage() {
                   id="password"
                   name="password"
                   type="password"
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300/50 dark:border-gray-600/50 rounded-md
+                  bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
+                  text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
+                  focus:outline-none focus:ring-teal-500 focus:border-teal-500 dark:focus:ring-lime-400 dark:focus:border-lime-400"
+                  placeholder="••••••••"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-white"
+              >
+                Konfirmasi Password
+              </label>
+              <div className="mt-1">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300/50 dark:border-gray-600/50 rounded-md
                   bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm
                   text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400
@@ -129,9 +191,9 @@ function AdminLoginPage() {
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-lime-500 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-600 transition-colors duration-200"
               >
-                Login
+                Daftar
               </button>
-              <h1 className="mt-3 text-white text-sm text-shadow-lg text-right">Belum punya akun? <span><Link to="/register" className="text-lime-300 hover:text-lime-400">Daftar Disini!</Link></span></h1>
+              <h1 className="mt-3 text-white text-sm text-shadow-lg text-right">Sudah punya akun? <span><Link to="/admin/login" className="text-lime-300 hover:text-lime-400">Login Disini!</Link></span></h1>
             </div>
           </form>
           
@@ -155,4 +217,4 @@ function AdminLoginPage() {
   );
 }
 
-export default AdminLoginPage;
+export default RegisterPage;
