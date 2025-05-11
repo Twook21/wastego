@@ -10,6 +10,7 @@ import {
   AlertTriangle,
   Settings,
   X,
+  ChevronLeft
 } from "lucide-react";
 
 const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
@@ -75,6 +76,25 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
     exit: { opacity: 0, y: -20, scale: 0.95, transition: { duration: 0.2 } }
   };
 
+  // For mobile full-screen notification panel
+  const mobileSlideIn = {
+    hidden: { x: '100%' },
+    visible: { x: 0, transition: { duration: 0.3, ease: "easeOut" } },
+    exit: { x: '100%', transition: { duration: 0.2 } }
+  };
+
+  // Get section title
+  const getSectionTitle = () => {
+    switch(currentSection) {
+      case "dashboard": return "Dashboard";
+      case "setoran": return "Manajemen Setoran";
+      case "ecobuddy": return "Data EcoBuddy";
+      case "laporan": return "Laporan";
+      case "pesan": return "Pesan";
+      default: return "EcoHive";
+    }
+  };
+
   return (
     <motion.header
       initial="hidden"
@@ -84,31 +104,26 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
         darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
       } shadow-md z-20`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center">
+      <div className="mx-auto flex items-center justify-between h-14 px-3 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center space-x-2">
           <motion.button
-            whileHover={{ scale: 1.1, rotate: 10 }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setSidebarOpen(true)}
-            className="md:hidden p-2 rounded-md text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
+            className="p-2 rounded-md text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
             aria-label="Open sidebar"
           >
-            <Menu size={24} />
+            <Menu size={20} />
           </motion.button>
           <motion.h2 
             variants={fadeIn}
-            className="ml-2 md:ml-0 text-xl font-semibold text-teal-900 dark:text-lime-500"
+            className="text-lg font-semibold text-teal-900 dark:text-lime-500 truncate max-w-[160px] sm:max-w-full"
           >
-            {currentSection === "dashboard" && "Dashboard"}
-            {currentSection === "setoran" && "Manajemen Setoran"}
-            {currentSection === "ecobuddy" && "Data EcoBuddy"}
-            {currentSection === "laporan" && "Laporan"}
-            {currentSection === "pesan" && "Pesan"}
-            {!currentSection && "EcoHive Management System"}
+            {getSectionTitle()}
           </motion.h2>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           {/* Notifications */}
           <div className="relative">
             <motion.button
@@ -118,142 +133,249 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
               className="p-1 rounded-full text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500 transition-colors relative"
               aria-label="Notifications"
             >
-              <Bell size={24} />
+              <Bell size={20} />
               {unreadCount > 0 && (
                 <motion.span 
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="absolute top-0 right-0 block h-5 w-5 rounded-full bg-lime-500 text-xs text-white font-medium flex items-center justify-center shadow-md"
+                  className="absolute -top-1 -right-1 block h-4 w-4 rounded-full bg-lime-500 text-xs text-white font-medium flex items-center justify-center shadow-md"
                 >
                   {unreadCount}
                 </motion.span>
               )}
             </motion.button>
 
-            {/* Notification dropdown with animation */}
+            {/* Mobile Notification Panel */}
             <AnimatePresence>
               {notificationOpen && (
-                <motion.div 
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  variants={dropdownVariants}
-                  className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl ring-1 ring-black ring-opacity-5 z-50 overflow-hidden"
-                >
-                  <div className="p-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20">
-                    <h3 className="text-lg font-medium text-teal-900 dark:text-white">
-                      Notifikasi
-                    </h3>
-                    <div className="flex items-center space-x-2">
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                <>
+                  {/* Overlay for mobile */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.5 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 bg-black z-40 md:hidden"
+                    onClick={() => setNotificationOpen(false)}
+                  />
+                  
+                  {/* Mobile full-screen notification panel */}
+                  <motion.div 
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    variants={mobileSlideIn}
+                    className="fixed inset-y-0 right-0 w-full sm:w-80 bg-white dark:bg-gray-800 shadow-xl z-50 md:hidden flex flex-col"
+                  >
+                    <div className="p-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20">
+                      <div className="flex items-center space-x-2">
+                        <button 
+                          onClick={() => setNotificationOpen(false)}
+                          className="p-1 rounded-full text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500"
+                        >
+                          <ChevronLeft size={20} />
+                        </button>
+                        <h3 className="text-lg font-medium text-teal-900 dark:text-white">
+                          Notifikasi
+                        </h3>
+                      </div>
+                      <button
                         onClick={markAllAsRead}
                         className="text-sm text-teal-600 dark:text-lime-500 hover:underline"
                       >
-                        Tandai semua dibaca
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.1, rotate: 90 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => setNotificationOpen(false)}
-                        className="p-1 text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500"
-                      >
-                        <X size={18} />
-                      </motion.button>
+                        Tandai dibaca
+                      </button>
                     </div>
-                  </div>
-                  <div className="max-h-72 overflow-y-auto">
-                    {notifications.length > 0 ? (
-                      <motion.div 
-                        className="divide-y divide-gray-200 dark:divide-gray-700"
-                      >
-                        {notifications.map((notification, index) => (
-                          <motion.div
-                            key={notification.id}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.05 }}
-                            className={`p-3 hover:bg-gray-50 dark:hover:bg-gray-700 ${
-                              notification.read
-                                ? ""
-                                : "bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20"
-                            } transition-colors cursor-pointer`}
-                          >
-                            <div className="flex items-start">
-                              <div
-                                className={`rounded-full p-2 ${
-                                  notification.type === "deposit"
-                                    ? "bg-green-100 dark:bg-green-900 dark:bg-opacity-20 text-green-600 dark:text-green-400"
-                                    : notification.type === "message"
-                                    ? "bg-blue-100 dark:bg-blue-900 dark:bg-opacity-20 text-blue-600 dark:text-blue-400"
-                                    : notification.type === "alert"
-                                    ? "bg-red-100 dark:bg-red-900 dark:bg-opacity-20 text-red-600 dark:text-red-400"
-                                    : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400"
-                                }`}
-                              >
-                                {notification.type === "deposit" && (
-                                  <CheckCircle size={16} />
-                                )}
-                                {notification.type === "message" && (
-                                  <MessageSquare size={16} />
-                                )}
-                                {notification.type === "alert" && (
-                                  <AlertTriangle size={16} />
-                                )}
-                                {notification.type === "system" && (
-                                  <Settings size={16} />
-                                )}
+                    <div className="flex-1 overflow-y-auto">
+                      {notifications.length > 0 ? (
+                        <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                          {notifications.map((notification, index) => (
+                            <motion.div
+                              key={notification.id}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                              className={`p-3 hover:bg-gray-50 dark:hover:bg-gray-700 ${
+                                notification.read
+                                  ? ""
+                                  : "bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20"
+                              } transition-colors`}
+                            >
+                              <div className="flex items-start">
+                                <div
+                                  className={`rounded-full p-2 ${
+                                    notification.type === "deposit"
+                                      ? "bg-green-100 dark:bg-green-900 dark:bg-opacity-20 text-green-600 dark:text-green-400"
+                                      : notification.type === "message"
+                                      ? "bg-blue-100 dark:bg-blue-900 dark:bg-opacity-20 text-blue-600 dark:text-blue-400"
+                                      : notification.type === "alert"
+                                      ? "bg-red-100 dark:bg-red-900 dark:bg-opacity-20 text-red-600 dark:text-red-400"
+                                      : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400"
+                                  }`}
+                                >
+                                  {notification.type === "deposit" && (
+                                    <CheckCircle size={16} />
+                                  )}
+                                  {notification.type === "message" && (
+                                    <MessageSquare size={16} />
+                                  )}
+                                  {notification.type === "alert" && (
+                                    <AlertTriangle size={16} />
+                                  )}
+                                  {notification.type === "system" && (
+                                    <Settings size={16} />
+                                  )}
+                                </div>
+                                <div className="ml-3 flex-1">
+                                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                    {notification.message}
+                                  </p>
+                                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                    {notification.time}
+                                  </p>
+                                </div>
                               </div>
-                              <div className="ml-3 flex-1">
-                                <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                  {notification.message}
-                                </p>
-                                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                  {notification.time}
-                                </p>
-                              </div>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </motion.div>
-                    ) : (
-                      <div className="p-4 text-center text-gray-500 dark:text-gray-400">
-                        Tidak ada notifikasi
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-2 border-t border-gray-200 dark:border-gray-700 bg-teal-50 dark:bg-teal-900 dark:bg-opacity-10">
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
+                            </motion.div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="p-4 text-center text-gray-500 dark:text-gray-400">
+                          Tidak ada notifikasi
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-2 border-t border-gray-200 dark:border-gray-700 bg-teal-50 dark:bg-teal-900 dark:bg-opacity-10">
                       <Link
                         to="/ecohive/notifications"
-                        className="flex items-center justify-center p-2 text-sm font-medium text-teal-600 dark:text-lime-500 hover:text-teal-700 dark:hover:text-lime-400 transition-colors"
+                        className="block w-full py-2 text-center text-sm font-medium text-teal-600 dark:text-lime-500 hover:text-teal-700 dark:hover:text-lime-400 transition-colors"
                       >
                         Lihat semua notifikasi
                       </Link>
-                    </motion.div>
-                  </div>
-                </motion.div>
+                    </div>
+                  </motion.div>
+                  
+                  {/* Desktop dropdown - hidden on mobile */}
+                  <motion.div 
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    variants={dropdownVariants}
+                    className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl ring-1 ring-black ring-opacity-5 z-50 overflow-hidden hidden md:block"
+                  >
+                    <div className="p-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20">
+                      <h3 className="text-lg font-medium text-teal-900 dark:text-white">
+                        Notifikasi
+                      </h3>
+                      <div className="flex items-center space-x-2">
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={markAllAsRead}
+                          className="text-sm text-teal-600 dark:text-lime-500 hover:underline"
+                        >
+                          Tandai semua dibaca
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.1, rotate: 90 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => setNotificationOpen(false)}
+                          className="p-1 text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500"
+                        >
+                          <X size={18} />
+                        </motion.button>
+                      </div>
+                    </div>
+                    <div className="max-h-72 overflow-y-auto">
+                      {notifications.length > 0 ? (
+                        <motion.div 
+                          className="divide-y divide-gray-200 dark:divide-gray-700"
+                        >
+                          {notifications.map((notification, index) => (
+                            <motion.div
+                              key={notification.id}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                              className={`p-3 hover:bg-gray-50 dark:hover:bg-gray-700 ${
+                                notification.read
+                                  ? ""
+                                  : "bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20"
+                              } transition-colors cursor-pointer`}
+                            >
+                              <div className="flex items-start">
+                                <div
+                                  className={`rounded-full p-2 ${
+                                    notification.type === "deposit"
+                                      ? "bg-green-100 dark:bg-green-900 dark:bg-opacity-20 text-green-600 dark:text-green-400"
+                                      : notification.type === "message"
+                                      ? "bg-blue-100 dark:bg-blue-900 dark:bg-opacity-20 text-blue-600 dark:text-blue-400"
+                                      : notification.type === "alert"
+                                      ? "bg-red-100 dark:bg-red-900 dark:bg-opacity-20 text-red-600 dark:text-red-400"
+                                      : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400"
+                                  }`}
+                                >
+                                  {notification.type === "deposit" && (
+                                    <CheckCircle size={16} />
+                                  )}
+                                  {notification.type === "message" && (
+                                    <MessageSquare size={16} />
+                                  )}
+                                  {notification.type === "alert" && (
+                                    <AlertTriangle size={16} />
+                                  )}
+                                  {notification.type === "system" && (
+                                    <Settings size={16} />
+                                  )}
+                                </div>
+                                <div className="ml-3 flex-1">
+                                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                    {notification.message}
+                                  </p>
+                                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                    {notification.time}
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      ) : (
+                        <div className="p-4 text-center text-gray-500 dark:text-gray-400">
+                          Tidak ada notifikasi
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-2 border-t border-gray-200 dark:border-gray-700 bg-teal-50 dark:bg-teal-900 dark:bg-opacity-10">
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Link
+                          to="/ecohive/notifications"
+                          className="flex items-center justify-center p-2 text-sm font-medium text-teal-600 dark:text-lime-500 hover:text-teal-700 dark:hover:text-lime-400 transition-colors"
+                        >
+                          Lihat semua notifikasi
+                        </Link>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </>
               )}
             </AnimatePresence>
           </div>
 
-          {/* Profile */}
+          {/* Profile - Simplified for mobile */}
           <motion.div 
-            className="flex items-center space-x-3 cursor-pointer"
+            className="flex items-center space-x-2"
             whileHover={{ scale: 1.05 }}
           >
             <motion.div 
-              className="w-9 h-9 rounded-full bg-teal-900 dark:bg-teal-700 flex items-center justify-center text-white shadow-md"
+              className="w-8 h-8 rounded-full bg-teal-900 dark:bg-teal-700 flex items-center justify-center text-white shadow-md text-xs"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
               ES
             </motion.div>
-            <span className="hidden md:block text-sm font-medium text-teal-900 dark:text-gray-300">
+            <span className="hidden sm:block text-sm font-medium text-teal-900 dark:text-gray-300 truncate max-w-[120px] md:max-w-none">
               EcoStation Kebon Jeruk
             </span>
           </motion.div>

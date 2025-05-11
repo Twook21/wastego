@@ -163,13 +163,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, currentSection, setMinimized }) 
           initial="hidden"
           animate="visible"
         >
-          <NavLinkItem 
+          {/* <NavLinkItem 
             to="/ecohive/settings"
             icon={<Settings size={20} />}
             label="Pengaturan"
             isActive={false}
             minimized={minimized}
-          />
+          /> */}
           <NavLinkItem 
             to="/"
             icon={<Home size={20} />}
