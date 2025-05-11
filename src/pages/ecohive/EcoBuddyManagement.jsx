@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
-import { useContext, useEffect, useState } from 'react'
-import ThemeContext from "../../context/ThemeContext"
+import { useEffect, useState } from 'react'
 
 const ecobuddies = [
   { 
@@ -60,7 +59,6 @@ const ecobuddies = [
 ]
 
 const EcoBuddyManagement = () => {
-  const { darkMode } = useContext(ThemeContext)
   const [showFilterMenu, setShowFilterMenu] = useState(false)
   const [searchFocused, setSearchFocused] = useState(false)
   const [showMobileSearch, setShowMobileSearch] = useState(false)
@@ -120,26 +118,26 @@ const EcoBuddyManagement = () => {
       onClick={() => setShowFilterMenu(false)}
     >
       <motion.div 
-        className={`w-3/4 max-w-xs ${darkMode ? 'bg-gray-900' : 'bg-white'} h-full p-6 shadow-xl`}
+        className="w-3/4 max-w-xs bg-white dark:bg-gray-900 h-full p-6 shadow-xl"
         initial="hidden"
         animate="visible"
         variants={slideInFromRight}
         onClick={e => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">
-          <h3 className={`font-semibold text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>Filter</h3>
+          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">Filter</h3>
           <button 
             onClick={() => setShowFilterMenu(false)}
-            className={`rounded-full p-1 ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`}
+            className="rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            <i data-feather="x" className={`h-5 w-5 ${darkMode ? 'text-gray-300' : 'text-gray-500'}`}></i>
+            <i data-feather="x" className="h-5 w-5 text-gray-500 dark:text-gray-300"></i>
           </button>
         </div>
         
         <div className="space-y-5">
           {/* Level Filter */}
           <div>
-            <label className={`block text-sm font-medium mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
               Level
             </label>
             <div className="space-y-2">
@@ -152,7 +150,7 @@ const EcoBuddyManagement = () => {
                   />
                   <label 
                     htmlFor={`level-${level}`}
-                    className={`ml-2 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}
+                    className="ml-2 text-sm text-gray-700 dark:text-gray-300"
                   >
                     {level}
                   </label>
@@ -163,7 +161,7 @@ const EcoBuddyManagement = () => {
           
           {/* Activity Filter */}
           <div>
-            <label className={`block text-sm font-medium mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
               Aktivitas Terakhir
             </label>
             <div className="space-y-2">
@@ -177,7 +175,7 @@ const EcoBuddyManagement = () => {
                   />
                   <label 
                     htmlFor={`period-${period}`}
-                    className={`ml-2 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}
+                    className="ml-2 text-sm text-gray-700 dark:text-gray-300"
                   >
                     {period}
                   </label>
@@ -188,7 +186,7 @@ const EcoBuddyManagement = () => {
           
           {/* Total Setoran Filter */}
           <div>
-            <label className={`block text-sm font-medium mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
               Total Setoran
             </label>
             <input
@@ -205,7 +203,7 @@ const EcoBuddyManagement = () => {
           
           <div className="pt-6 flex space-x-2">
             <button 
-              className={`flex-1 py-2 px-4 rounded-lg border ${darkMode ? 'border-gray-700 text-gray-300' : 'border-gray-300 text-gray-700'} text-center`}
+              className="flex-1 py-2 px-4 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-center"
             >
               Reset
             </button>
@@ -229,7 +227,7 @@ const EcoBuddyManagement = () => {
       onClick={() => setShowMobileSearch(false)}
     >
       <motion.div 
-        className={`w-full ${darkMode ? 'bg-gray-900' : 'bg-white'} shadow-xl p-4`}
+        className="w-full bg-white dark:bg-gray-900 shadow-xl p-4"
         initial="hidden"
         animate="visible"
         variants={slideInFromTop}
@@ -243,7 +241,7 @@ const EcoBuddyManagement = () => {
             type="text"
             placeholder="Cari EcoBuddy..."
             autoFocus
-            className={`pl-10 pr-10 py-3 border ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300'} rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-lime-500`}
+            className="pl-10 pr-10 py-3 border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-lime-500"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
             <button onClick={() => setShowMobileSearch(false)}>
@@ -294,7 +292,7 @@ const EcoBuddyManagement = () => {
           <input
             type="text"
             placeholder="Cari EcoBuddy..."
-            className={`pl-10 pr-4 py-2 border ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300'} rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-lime-500`}
+            className="pl-10 pr-4 py-2 border bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-lime-500"
             onFocus={() => setSearchFocused(true)}
             onBlur={() => setSearchFocused(false)}
           />
@@ -305,11 +303,7 @@ const EcoBuddyManagement = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }} 
             whileTap={{ scale: 0.95 }}
-            className={`flex items-center px-4 py-2 border rounded-lg ${
-              darkMode 
-                ? 'border-gray-600 text-white hover:bg-gray-700' 
-                : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-            }`}
+            className="flex items-center px-4 py-2 border rounded-lg border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700"
             onClick={() => setShowFilterMenu(true)}
           >
             <i data-feather="filter" className="h-4 w-4 mr-2"></i>
@@ -336,19 +330,19 @@ const EcoBuddyManagement = () => {
       >
         <motion.button 
           whileTap={{ scale: 0.95 }}
-          className={`p-3 rounded-full ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}
+          className="p-3 rounded-full bg-gray-100 dark:bg-gray-800"
           onClick={() => setShowMobileSearch(true)}
         >
-          <i data-feather="search" className={`h-5 w-5 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}></i>
+          <i data-feather="search" className="h-5 w-5 text-gray-600 dark:text-gray-300"></i>
         </motion.button>
         
         <div className="flex gap-2">
           <motion.button 
             whileTap={{ scale: 0.95 }}
-            className={`p-3 rounded-full ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}
+            className="p-3 rounded-full bg-gray-100 dark:bg-gray-800"
             onClick={() => setShowFilterMenu(true)}
           >
-            <i data-feather="filter" className={`h-5 w-5 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}></i>
+            <i data-feather="filter" className="h-5 w-5 text-gray-600 dark:text-gray-300"></i>
           </motion.button>
           
           <motion.button 
@@ -373,7 +367,7 @@ const EcoBuddyManagement = () => {
             variants={fadeIn}
             whileHover={{ y: -5, transition: { duration: 0.3 } }}
             whileTap={{ scale: 0.98 }}
-            className={`rounded-xl shadow-md overflow-hidden ${darkMode ? 'bg-gray-800' : 'bg-white'} touch-manipulation`}
+            className="rounded-xl shadow-md overflow-hidden bg-white dark:bg-gray-800 touch-manipulation"
           >
             {/* Card Header with Gradient Badge */}
             <div className="relative h-16 sm:h-20 bg-gradient-to-r from-teal-500 to-lime-500">
@@ -461,38 +455,26 @@ const EcoBuddyManagement = () => {
         variants={fadeIn}
         transition={{ delay: 0.2 }}
       >
-        <p className={`text-xs sm:text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
           Menampilkan 1-6 dari 6 data
         </p>
         <div className="flex space-x-1">
           <motion.button 
             whileTap={{ scale: 0.95 }}
-            className={`px-2 sm:px-3 py-1 rounded-md ${
-              darkMode 
-                ? 'bg-gray-700 text-white hover:bg-gray-600' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
+            className="px-2 sm:px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600"
             disabled
           >
             <i data-feather="chevron-left" className="h-4 w-4 sm:h-5 sm:w-5"></i>
           </motion.button>
           <motion.button 
             whileTap={{ scale: 0.95 }}
-            className={`px-3 py-1 rounded-md ${
-              darkMode 
-                ? 'bg-teal-900 text-white' 
-                : 'bg-teal-900 text-white'
-            }`}
+            className="px-3 py-1 rounded-md bg-teal-900 text-white"
           >
             1
           </motion.button>
           <motion.button 
             whileTap={{ scale: 0.95 }}
-            className={`px-2 sm:px-3 py-1 rounded-md ${
-              darkMode 
-                ? 'bg-gray-700 text-white hover:bg-gray-600' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
+            className="px-2 sm:px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600"
             disabled
           >
             <i data-feather="chevron-right" className="h-4 w-4 sm:h-5 sm:w-5"></i>

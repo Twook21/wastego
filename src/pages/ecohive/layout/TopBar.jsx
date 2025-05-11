@@ -1,7 +1,6 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import ThemeContext from "../../../context/ThemeContext";
 import {
   Bell,
   Menu,
@@ -14,7 +13,6 @@ import {
 } from "lucide-react";
 
 const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
-  const { darkMode } = useContext(ThemeContext);
   const [notificationOpen, setNotificationOpen] = useState(false);
 
   // Sample notifications data
@@ -100,9 +98,7 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
       initial="hidden"
       animate="visible"
       variants={slideFromTop}
-      className={`sticky top-0 ${
-        darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
-      } shadow-md z-20`}
+      className="sticky top-0 bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow-md z-20"
     >
       <div className="mx-auto flex items-center justify-between h-14 px-3 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center space-x-2">
@@ -110,7 +106,7 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setSidebarOpen(true)}
-            className="p-2 rounded-md text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
+            className="p-2 lg:hidden rounded-md text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
             aria-label="Open sidebar"
           >
             <Menu size={20} />
@@ -363,22 +359,27 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
             </AnimatePresence>
           </div>
 
-          {/* Profile - Simplified for mobile */}
-          <motion.div 
-            className="flex items-center space-x-2"
-            whileHover={{ scale: 1.05 }}
+          {/* Profile - Modified to be clickable and lead to profile page */}
+          <Link 
+            to="/ecohive/profile" 
+            className="group"
           >
             <motion.div 
-              className="w-8 h-8 rounded-full bg-teal-900 dark:bg-teal-700 flex items-center justify-center text-white shadow-md text-xs"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              className="flex items-center space-x-2 cursor-pointer group-hover:opacity-80 transition-opacity"
+              whileHover={{ scale: 1.05 }}
             >
-              ES
+              <motion.div 
+                className="w-8 h-8 rounded-full bg-teal-900 dark:bg-teal-700 flex items-center justify-center text-white shadow-md text-xs group-hover:bg-teal-700 dark:group-hover:bg-teal-600 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                ES
+              </motion.div>
+              <span className="hidden sm:block text-sm font-medium text-teal-900 dark:text-gray-300 truncate max-w-[120px] md:max-w-none group-hover:text-teal-700 dark:group-hover:text-white transition-colors">
+                EcoStation Kebon Jeruk
+              </span>
             </motion.div>
-            <span className="hidden sm:block text-sm font-medium text-teal-900 dark:text-gray-300 truncate max-w-[120px] md:max-w-none">
-              EcoStation Kebon Jeruk
-            </span>
-          </motion.div>
+          </Link>
         </div>
       </div>
     </motion.header>

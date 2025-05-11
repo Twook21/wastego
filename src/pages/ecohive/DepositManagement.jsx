@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
-import { useContext, useEffect, useState } from 'react'
-import ThemeContext from "../../context/ThemeContext"
+import { useEffect, useState } from 'react'
 import { Check, ChevronLeft, ChevronRight, Eye, Filter, Plus, Search, Trash2, ChevronDown } from 'lucide-react'
 
 const deposits = [
@@ -11,7 +10,6 @@ const deposits = [
 ]
 
 const DepositManagement = () => {
-  const { darkMode } = useContext(ThemeContext)
   const [expandedRow, setExpandedRow] = useState(null)
 
   // Toggle expanded row for mobile view
@@ -62,7 +60,7 @@ const DepositManagement = () => {
   }
 
   return (
-    <div className="mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 transition-colors duration-200">
+    <div className="mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 transition-colors duration-200 dark:bg-gray-900">
       {/* Header Section */}
       <motion.div 
         className="mb-6"
@@ -99,7 +97,7 @@ const DepositManagement = () => {
           <input
             type="text"
             placeholder="Cari setoran..."
-            className={`pl-10 pr-4 py-2 border ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300'} rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-lime-500 text-sm`}
+            className="pl-10 pr-4 py-2 border bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-lime-500 text-sm"
           />
         </div>
 
@@ -108,11 +106,7 @@ const DepositManagement = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }} 
             whileTap={{ scale: 0.95 }}
-            className={`flex items-center px-3 py-2 sm:px-4 border rounded-lg text-sm ${
-              darkMode 
-                ? 'border-gray-600 text-white hover:bg-gray-700' 
-                : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-            }`}
+            className="flex items-center px-3 py-2 sm:px-4 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-sm"
           >
             <Filter className="h-4 w-4 mr-1 sm:mr-2" />
             <span className="hidden xs:inline">Filter</span>
@@ -138,8 +132,8 @@ const DepositManagement = () => {
         variants={fadeIn}
       >
         <div className="overflow-x-auto">
-          <table className={`w-full ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-700'}`}>
-            <thead className={`${darkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-50 text-gray-600'}`}>
+          <table className="w-full bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200">
+            <thead className="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-200">
               <tr>
                 {['ID', 'EcoBuddy', 'Jenis', 'Berat', 'Tanggal', 'Status', 'Aksi'].map((header) => (
                   <th key={header} className="px-4 py-3 text-left text-xs font-medium">
@@ -149,14 +143,14 @@ const DepositManagement = () => {
               </tr>
             </thead>
             <motion.tbody 
-              className={`divide-y ${darkMode ? 'divide-gray-700' : 'divide-gray-200'}`}
+              className="divide-y divide-gray-200 dark:divide-gray-700"
               variants={staggerItems}
             >
               {deposits.map((deposit) => (
                 <motion.tr
                   key={deposit.id}
                   variants={fadeIn}
-                  whileHover={{ backgroundColor: darkMode ? 'rgba(55, 65, 81, 0.5)' : 'rgba(243, 244, 246, 0.5)' }}
+                  whileHover={{ backgroundColor: 'rgba(243, 244, 246, 0.5)', dark: 'rgba(55, 65, 81, 0.5)' }}
                   className="transition-colors duration-150"
                 >
                   <td className="px-4 py-3 whitespace-nowrap text-sm">#{deposit.id}</td>
@@ -219,11 +213,11 @@ const DepositManagement = () => {
           <motion.div
             key={deposit.id}
             variants={fadeIn}
-            className={`rounded-lg shadow-sm ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-700'} overflow-hidden`}
+            className="rounded-lg shadow-sm bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 overflow-hidden"
           >
             {/* Card Header */}
             <div 
-              className={`p-3 flex justify-between items-center ${darkMode ? 'bg-gray-700' : 'bg-gray-50'} cursor-pointer`}
+              className="p-3 flex justify-between items-center bg-gray-50 dark:bg-gray-700 cursor-pointer"
               onClick={() => toggleRow(deposit.id)}
             >
               <div className="flex items-center space-x-3">
@@ -303,18 +297,14 @@ const DepositManagement = () => {
         variants={fadeIn}
         transition={{ delay: 0.2 }}
       >
-        <p className={`text-xs sm:text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
           1-4 dari 4 data
         </p>
         <div className="flex space-x-1">
           <motion.button 
             whileHover={{ scale: 1.05 }} 
             whileTap={{ scale: 0.95 }}
-            className={`px-2 sm:px-3 py-1 rounded-md ${
-              darkMode 
-                ? 'bg-gray-700 text-white hover:bg-gray-600' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
+            className="px-2 sm:px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600"
             disabled
           >
             <ChevronLeft className="h-4 w-4" />
@@ -322,22 +312,14 @@ const DepositManagement = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }} 
             whileTap={{ scale: 0.95 }}
-            className={`px-2 sm:px-3 py-1 rounded-md ${
-              darkMode 
-                ? 'bg-teal-900 text-white' 
-                : 'bg-teal-900 text-white'
-            }`}
+            className="px-2 sm:px-3 py-1 rounded-md bg-teal-900 text-white"
           >
             1
           </motion.button>
           <motion.button 
             whileHover={{ scale: 1.05 }} 
             whileTap={{ scale: 0.95 }}
-            className={`px-2 sm:px-3 py-1 rounded-md ${
-              darkMode 
-                ? 'bg-gray-700 text-white hover:bg-gray-600' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
+            className="px-2 sm:px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600"
             disabled
           >
             <ChevronRight className="h-4 w-4" />

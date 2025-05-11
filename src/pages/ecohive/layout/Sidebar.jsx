@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useContext, useState } from "react";
-import ThemeContext from "../../../context/ThemeContext";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Logo from "../../../assets/logo.png";
 import {
@@ -23,7 +22,6 @@ const Sidebar = ({
   currentSection,
   setMinimized,
 }) => {
-  const { darkMode } = useContext(ThemeContext);
   const [minimized, setMinimizedLocal] = useState(false);
 
   const toggleMinimize = () => {
@@ -66,19 +64,21 @@ const Sidebar = ({
       animate="visible"
       variants={slideFromLeft}
       className={`fixed inset-y-0 left-0 z-30 ${minimized ? "w-20" : "w-64"} 
-      ${darkMode ? "bg-gray-800" : "bg-teal-900"} text-white transform 
+      bg-teal-900 dark:bg-gray-800 text-white transform 
       ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 
       transition-all duration-300 ease-in-out shadow-lg flex flex-col`}
     >
       <div className="flex items-center justify-between h-16 px-4 border-b border-teal-800 dark:border-gray-700">
         <div className="flex items-center space-x-2 overflow-hidden">
-          <motion.div className="flex flex-col items-center">
-            <img
-              src={Logo}
-              alt="EcoHive Logo"
-              className="w-full h-6 object-contain"
-            />
-          </motion.div>
+          {!minimized && (
+            <motion.div className="flex flex-col items-center">
+              <img
+                src={Logo}
+                alt="EcoHive Logo"
+                className="w-full h-6 object-contain"
+              />
+            </motion.div>
+          )}
         </div>
         <div className="flex items-center">
           <motion.button
@@ -190,24 +190,22 @@ const Sidebar = ({
         </motion.nav>
       </div>
 
-      {/* Footer Section */}
-      <motion.div
-        variants={fadeIn}
-        className="mt-auto border-t border-teal-800 dark:border-gray-700 p-4 flex justify-center"
-      >
-        <div className="flex flex-col items-center">
-          <p
-            className={`${
-              minimized ? "text-xs" : "text-sm"
-            } font-semibold text-gray-200 mb-2`}
-          >
-            {minimized ? "Panel" : "EcoHive Panel"}
-          </p>
-          <div className="pt-2 border-t border-lime-500 dark:border-lime-500 text-xs text-center text-gray-400">
-            <p>© {new Date().getFullYear()} WasteGo. Hak Cipta Dilindungi.</p>
+      {/* Footer Section - Hidden when minimized */}
+      {!minimized && (
+        <motion.div
+          variants={fadeIn}
+          className="mt-auto border-t border-teal-800 dark:border-gray-700 p-4 flex justify-center"
+        >
+          <div className="flex flex-col items-center">
+            <p className="text-sm font-semibold text-gray-200 mb-2">
+              EcoHive Panel
+            </p>
+            <div className="pt-2 border-t border-lime-500 text-xs text-center text-gray-400">
+              <p>© {new Date().getFullYear()} WasteGo. Hak Cipta Dilindungi.</p>
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
     </motion.aside>
   );
 };
@@ -261,7 +259,7 @@ const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
           initial="hidden"
           animate="visible"
           variants={tooltipVariants}
-          className={`absolute ${minimized ? "left-20" : "left-full"} top-0 ml-2 bg-white text-gray-900 dark:bg-gray-800 dark:text-white p-2 rounded-md shadow-lg z-50 w-48`}
+          className={`absolute ${minimized ? "left-20" : "left-full"} top-0 ml-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded-md shadow-lg z-50 w-48`}
         >
           <div className="relative">
             <div className="absolute -left-2 top-3 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white dark:bg-gray-800"></div>

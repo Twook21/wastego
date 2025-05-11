@@ -368,7 +368,7 @@ function DownloadPage() {
             <h2 className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4">
               Fitur Aplikasi
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
               WasteGo menawarkan berbagai fitur untuk memudahkan Anda dalam
               pengelolaan sampah sehari-hari
             </p>

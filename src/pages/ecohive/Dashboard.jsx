@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
-import { useContext, useEffect } from 'react'
-import ThemeContext from "../../context/ThemeContext";
+import { useEffect } from 'react'
 
 const stats = [
   { title: 'Setoran Hari Ini', value: '245 kg', change: '+12%', icon: 'trending-up' },
@@ -9,8 +8,6 @@ const stats = [
 ]
 
 const Dashboard = () => {
-  const { darkMode } = useContext(ThemeContext)
-
   useEffect(() => {
     if (window.feather) {
       window.feather.replace();
@@ -39,7 +36,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 transition-colors duration-200">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 transition-colors duration-200 dark:bg-gray-900">
       {/* Dashboard Header */}
       <motion.div 
         className="mb-8"
@@ -73,7 +70,7 @@ const Dashboard = () => {
             key={stat.title}
             variants={fadeIn}
             whileHover={{ y: -10, transition: { duration: 0.3 } }}
-            className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
+            className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800"
           >
             <div className="flex justify-between items-start">
               <div>
@@ -88,10 +85,10 @@ const Dashboard = () => {
                 </div>
               </div>
               <motion.div 
-                className="bg-lime-500 dark:bg-lime-500 bg-opacity-20 dark:bg-opacity-20 p-3 rounded-full w-12 h-12 flex items-center justify-center"
+                className="bg-lime-500 bg-opacity-20 dark:bg-opacity-20 p-3 rounded-full w-12 h-12 flex items-center justify-center"
                 whileHover={{ rotate: 360, transition: { duration: 1 } }}
               >
-                <i data-feather={stat.icon} className="text-teal-900 dark:text-lime-500"></i>
+                <i data-feather={stat.icon} className="text-teal-900 dark:text-teal-900"></i>
               </motion.div>
             </div>
           </motion.div>
@@ -106,7 +103,7 @@ const Dashboard = () => {
         variants={staggerItems}
       >
         <motion.div 
-          className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
+          className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800"
           variants={fadeIn}
         >
           <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4">Statistik Setoran</h3>
@@ -116,7 +113,7 @@ const Dashboard = () => {
         </motion.div>
 
         <motion.div 
-          className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
+          className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800"
           variants={fadeIn}
         >
           <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4">Jenis Sampah</h3>
@@ -135,7 +132,7 @@ const Dashboard = () => {
         variants={slideFromBottom}
       >
         <motion.div 
-          className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
+          className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800"
           variants={fadeIn}
         >
           <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4">Aktivitas Terbaru</h3>
@@ -146,8 +143,8 @@ const Dashboard = () => {
                 whileHover={{ x: 10 }}
                 className="flex items-center p-3 border-b border-gray-200 dark:border-gray-700"
               >
-                <div className="bg-lime-500 dark:bg-lime-500 bg-opacity-20 dark:bg-opacity-20 p-2 rounded-full mr-4">
-                  <i data-feather="package" className="text-teal-900 dark:text-lime-500 h-5 w-5"></i>
+                <div className="bg-lime-500 bg-opacity-20 dark:bg-opacity-20 p-2 rounded-full mr-4">
+                  <i data-feather="package" className="text-teal-900 dark:text-teal-900 h-5 w-5"></i>
                 </div>
                 <div>
                   <p className="text-teal-900 dark:text-white font-medium">Setoran diterima</p>
@@ -169,7 +166,7 @@ const Dashboard = () => {
 
       {/* CTA Section */}
       <motion.div 
-        className="mt-8 bg-lime-500 dark:bg-lime-500 rounded-lg p-6 text-center"
+        className="mt-8 bg-lime-500 rounded-lg p-6 text-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}

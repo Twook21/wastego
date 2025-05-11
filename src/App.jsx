@@ -16,6 +16,7 @@ import EcoHiveDepositManagement from "./pages/ecohive/DepositManagement";
 import EcoHiveBuddyManagement from "./pages/ecohive/EcoBuddyManagement";
 import EcoHiveReportsManagement from "./pages/ecohive/Reports";
 import EcoHiveNotification from "./pages/ecohive/Notification";
+import EcoHiveProfile from "./pages/ecohive/ProfilePage";
 // Import the updated EcoHiveLayout component directly
 import EcoHiveLayout from "./pages/ecohive/layout/EcoHiveLayout";
 // route navbar dan footer landing page
@@ -88,6 +89,7 @@ function App() {
               {/* EcoHive Routes - Use Outlet pattern */}
               <Route path="/ecohive" element={<EcoHiveLayout />}>
                 <Route path="dashboard" element={<EcoHiveDashboard />} />
+                <Route path="profile" element={<EcoHiveProfile />} />
                 <Route path="deposit-management" element={<EcoHiveDepositManagement />} />
                 <Route path="ecobuddy" element={<EcoHiveBuddyManagement />} />
                 <Route path="report" element={<EcoHiveReportsManagement />} />

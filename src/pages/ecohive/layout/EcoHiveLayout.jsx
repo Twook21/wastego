@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import ThemeContext from "../../../context/ThemeContext";
-import { useContext } from "react";
 import Sidebar from "./Sidebar";
 import TopBar from "./TopBar";
 
 const EcoHiveLayout = () => {
-  const { darkMode } = useContext(ThemeContext);
   const [sidebarOpen, setSidebarOpen] = useState(true); // Default to open on desktop
   const [minimized, setMinimized] = useState(false);
   const [currentSection, setCurrentSection] = useState("");
@@ -43,7 +40,7 @@ const EcoHiveLayout = () => {
   };
 
   return (
-    <div className={`${darkMode ? "bg-gray-900" : "bg-gray-50"} min-h-screen flex flex-col`}>
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col">
       <div className="flex flex-1 h-full overflow-hidden">
         {/* Sidebar */}
         <Sidebar 
@@ -75,11 +72,11 @@ const EcoHiveLayout = () => {
 
           {/* Main Content */}
           <main
-            className={`
+            className="
               flex-1 overflow-y-auto overscroll-contain p-4 md:p-6
-              ${darkMode ? "bg-gray-900" : "bg-gray-50"}
+              bg-gray-50 dark:bg-gray-900
               transition-colors duration-200
-            `}
+            "
           >
             <div className="mx-auto max-w-7xl h-full">
               <motion.div
