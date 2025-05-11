@@ -131,7 +131,7 @@ function AdminLoginPage() {
               >
                 Login
               </button>
-              <h1 className="mt-3 text-white text-sm text-shadow-lg text-right">Belum punya akun? <span><Link to="/register" className="text-lime-300 hover:text-lime-400">Daftar Disini!</Link></span></h1>
+              <h1 className="mt-3 text-white text-sm text-shadow-lg text-center">Belum punya akun? <span><Link to="/register" className="text-lime-300 hover:text-lime-400">Daftar Disini!</Link></span></h1>
             </div>
           </form>
           
