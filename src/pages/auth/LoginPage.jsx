@@ -18,7 +18,7 @@ function AdminLoginPage() {
 
     // Demo login logic (replace with actual authentication)
     if (email === "admin@wastego.com" && password === "admin123") {
-      navigate("/admin/dashboard");
+      navigate("/ecohive/dashboard");
     } else {
       setError("Email atau password salah");
     }

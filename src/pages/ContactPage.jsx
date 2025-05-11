@@ -221,7 +221,7 @@ function ContactPage() {
                   <div>
                     <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">Email</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300">
-                      info@wastego.id
+                      wastego.idn@gmail.com
                     </p>
                   </div>
                 </div>

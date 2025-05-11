@@ -1,13 +1,24 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
+
+// route landing page
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import DownloadPage from "./pages/DownloadPage";
 import ContactPage from "./pages/ContactPage";
-import AdminLoginPage from "./pages/admin/AdminLoginPage";
-import RegisterPage from "./pages/admin/RegisterPage";
-import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
+// route auth
+import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+// route EcoHive
+import EcoHiveDashboard from "./pages/ecohive/Dashboard";
+import EcoHiveDepositManagement from "./pages/ecohive/DepositManagement";
+import EcoHiveBuddyManagement from "./pages/ecohive/EcoBuddyManagement";
+import EcoHiveReportsManagement from "./pages/ecohive/Reports";
+import EcoHiveNotification from "./pages/ecohive/Notification";
+// Import the updated EcoHiveLayout component directly
+import EcoHiveLayout from "./pages/ecohive/layout/EcoHiveLayout";
+// route navbar dan footer landing page
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ThemeContext from "./context/ThemeContext";
@@ -45,8 +56,7 @@ function RegularLayout({ children }) {
   );
 }
 
-// Layout component for admin pages (content only, no navbar)
-function AdminLayout({ children }) {
+function AuthLayout({ children }) {
   return <main className="flex-grow">{children}</main>;
 }
 
@@ -75,29 +85,31 @@ function App() {
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
             <Routes>
-              {/* Admin routes without Navbar */}
+              {/* EcoHive Routes - Use Outlet pattern */}
+              <Route path="/ecohive" element={<EcoHiveLayout />}>
+                <Route path="dashboard" element={<EcoHiveDashboard />} />
+                <Route path="deposit-management" element={<EcoHiveDepositManagement />} />
+                <Route path="ecobuddy" element={<EcoHiveBuddyManagement />} />
+                <Route path="report" element={<EcoHiveReportsManagement />} />
+                <Route path="notification" element={<EcoHiveNotification />} />
+                {/* Add other EcoHive routes here */}
+              </Route>
+
+              {/* Auth routes without Navbar */}
               <Route
-                path="/admin/login"
+                path="/login"
                 element={
-                  <AdminLayout>
-                    <AdminLoginPage />
-                  </AdminLayout>
+                  <AuthLayout>
+                    <LoginPage />
+                  </AuthLayout>
                 }
               />
               <Route
-                path="register"
+                path="/register"
                 element={
-                  <AdminLayout>
+                  <AuthLayout>
                     <RegisterPage />
-                  </AdminLayout>
-                }
-              />
-              <Route
-                path="/admin/dashboard"
-                element={
-                  <AdminLayout>
-                    <AdminDashboardPage />
-                  </AdminLayout>
+                  </AuthLayout>
                 }
               />
 

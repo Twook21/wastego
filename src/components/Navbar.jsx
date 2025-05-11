@@ -70,7 +70,7 @@ function Navbar() {
           <div className="flex items-center space-x-4">
             <div className="hidden md:flex items-center gap-4">
               <Link
-                to="/admin/login"
+                to="/login"
                 className="px-4 py-2 bg-lime-400 text-teal-900 text-sm rounded-md font-bold hover:bg-opacity-90 transition-opacity"
               >
                 Masuk
@@ -157,11 +157,11 @@ function Navbar() {
               Download
             </Link>
             <Link
-              to="/admin/login"
+              to="/login"
               className="block px-4 py-3 rounded-md text-base font-medium text-teal-900 bg-lime-500 dark:text-teal-900 dark:bg-lime-500 hover:bg-opacity-90 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Login
+              Masuk
             </Link>
             <Link
               to="/contact" // Ganti path ke '/contact'
