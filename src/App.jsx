@@ -4,6 +4,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import DownloadPage from "./pages/DownloadPage";
+import ContactPage from "./pages/ContactPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import RegisterPage from "./pages/admin/RegisterPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
@@ -122,6 +123,14 @@ function App() {
                 element={
                   <RegularLayout>
                     <DownloadPage />
+                  </RegularLayout>
+                }
+              />
+              <Route
+                path="/contact"
+                element={
+                  <RegularLayout>
+                    <ContactPage />
                   </RegularLayout>
                 }
               />
