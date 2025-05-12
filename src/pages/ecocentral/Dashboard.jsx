@@ -123,7 +123,7 @@ const Dashboard = () => {
               <div>
                 <h3 className="text-lg font-medium text-gray-500 dark:text-gray-400">{stat.title}</h3>
                 <div className="mt-2 flex items-baseline">
-                  <p className="text-3xl font-bold text-teal-900 dark:text-white">{stat.value}</p>
+                  <p className="text-2xl font-bold text-teal-900 dark:text-white">{stat.value}</p>
                   <span className={`ml-2 text-sm font-medium ${
                     stat.change.startsWith('+') ? 'text-lime-500' : 'text-red-500'
                   }`}>
@@ -269,6 +269,11 @@ const Dashboard = () => {
                     borderColor: '#374151',
                     color: '#F9FAFB'
                   }}
+                  itemStyle={{
+                    color: "#F9FAFB", 
+                    fontSize: "14px",
+                    fontWeight: "bold", 
+                  }} 
                 />
               </PieChart>
             </ResponsiveContainer>
@@ -397,7 +402,7 @@ const Dashboard = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }} 
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center justify-center px-5 py-2 border border-white text-base font-medium rounded-md text-white hover:bg-white hover:bg-opacity-10"
+            className="inline-flex items-center justify-center px-5 py-2 border border-white text-base font-medium rounded-md text-white hover:bg-teal-900 hover:bg-opacity-10"
           >
             <i data-feather="users" className="h-5 w-5 mr-2"></i>
             Undang EcoBuddy

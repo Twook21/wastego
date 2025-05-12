@@ -447,6 +447,11 @@ const ReportsAnalysis = () => {
                             borderColor: '#374151',
                             color: '#F9FAFB'
                           }}
+                          itemStyle={{
+                            color: "#FFFFFF", 
+                            fontSize: "14px", 
+                            fontWeight: "bold", 
+                          }}
                         />
                       </PieChart>
                     </ResponsiveContainer>
@@ -1050,7 +1055,7 @@ const ReportsAnalysis = () => {
             <div className="bg-gradient-to-r from-teal-700 to-lime-600 rounded-lg p-6 text-white">
               <h3 className="text-xl font-semibold mb-4">Dampak Lingkungan</h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-teal-900">
   <div className="bg-white bg-opacity-20 p-4 rounded-lg">
     <h4 className="text-2xl font-bold mb-2">1,250 ton</h4>
     <p className="text-sm">Total Sampah Plastik Terdaur Ulang</p>
