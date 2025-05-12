@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   User,
   Mail,
@@ -20,13 +21,13 @@ import {
   Bell,
   CheckCircle,
   MessageSquare,
-  AlertTriangle
+  AlertTriangle,
 } from "lucide-react";
 
 const ProfilePage = () => {
   // State untuk mode edit
   const [isEditing, setIsEditing] = useState(false);
-  
+
   // State untuk data profil
   const [profileData, setProfileData] = useState({
     name: "EcoStation Kebon Jeruk",
@@ -36,7 +37,7 @@ const ProfilePage = () => {
     joinDate: "15 Januari 2023",
     role: "EcoStation Administrator",
     operationalHours: "Senin-Sabtu, 08.00-17.00",
-    avatar: null // URL avatar jika ada
+    avatar: null, // URL avatar jika ada
   });
 
   // State untuk pengaturan notifikasi
@@ -44,7 +45,7 @@ const ProfilePage = () => {
     newDeposit: true,
     messages: true,
     pickupAlerts: true,
-    systemUpdates: false
+    systemUpdates: false,
   });
 
   // Handle perubahan data profil
@@ -52,7 +53,7 @@ const ProfilePage = () => {
     const { name, value } = e.target;
     setProfileData({
       ...profileData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -60,7 +61,7 @@ const ProfilePage = () => {
   const toggleNotification = (setting) => {
     setNotificationSettings({
       ...notificationSettings,
-      [setting]: !notificationSettings[setting]
+      [setting]: !notificationSettings[setting],
     });
   };
 
@@ -81,7 +82,7 @@ const ProfilePage = () => {
       reader.onloadend = () => {
         setProfileData({
           ...profileData,
-          avatar: reader.result
+          avatar: reader.result,
         });
       };
       reader.readAsDataURL(file);
@@ -91,33 +92,33 @@ const ProfilePage = () => {
   // Variants animasi
   const pageVariants = {
     initial: { opacity: 0, y: 20 },
-    animate: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
         duration: 0.5,
         when: "beforeChildren",
-        staggerChildren: 0.1
-      } 
+        staggerChildren: 0.1,
+      },
     },
-    exit: { opacity: 0, y: 20 }
+    exit: { opacity: 0, y: 20 },
   };
 
   const itemVariants = {
     initial: { opacity: 0, y: 10 },
     animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: 10 }
+    exit: { opacity: 0, y: 10 },
   };
 
   const cardVariants = {
     initial: { opacity: 0, scale: 0.95 },
-    animate: { 
-      opacity: 1, 
+    animate: {
+      opacity: 1,
       scale: 1,
-      transition: { duration: 0.3 }
+      transition: { duration: 0.3 },
     },
     exit: { opacity: 0, scale: 0.95 },
-    hover: { scale: 1.02, transition: { duration: 0.2 } }
+    hover: { scale: 1.02, transition: { duration: 0.2 } },
   };
 
   return (
@@ -139,7 +140,7 @@ const ProfilePage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Kolom kiri - Info profil */}
-        <motion.div 
+        <motion.div
           variants={cardVariants}
           whileHover="hover"
           className="md:col-span-2"
@@ -155,7 +156,7 @@ const ProfilePage = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsEditing(!isEditing)}
                 className={`p-2 rounded-full ${
-                  isEditing 
+                  isEditing
                     ? "bg-red-100 text-red-600 dark:bg-red-900 dark:bg-opacity-20 dark:text-red-400"
                     : "bg-teal-100 text-teal-600 dark:bg-teal-900 dark:bg-opacity-20 dark:text-teal-400"
                 }`}
@@ -169,9 +170,9 @@ const ProfilePage = () => {
                 <div className="relative mb-4 sm:mb-0 sm:mr-6">
                   <div className="w-24 h-24 rounded-full overflow-hidden bg-teal-200 dark:bg-teal-700 flex items-center justify-center text-2xl font-bold text-white shadow-md">
                     {profileData.avatar ? (
-                      <img 
-                        src={profileData.avatar} 
-                        alt="Profile" 
+                      <img
+                        src={profileData.avatar}
+                        alt="Profile"
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -179,7 +180,7 @@ const ProfilePage = () => {
                     )}
                   </div>
                   {isEditing && (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       className="absolute bottom-0 right-0"
@@ -193,11 +194,11 @@ const ProfilePage = () => {
                           <Camera size={16} />
                         </motion.div>
                       </label>
-                      <input 
-                        id="avatar-upload" 
-                        type="file" 
-                        accept="image/*" 
-                        className="hidden" 
+                      <input
+                        id="avatar-upload"
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
                         onChange={handleAvatarChange}
                       />
                     </motion.div>
@@ -228,7 +229,7 @@ const ProfilePage = () => {
               </div>
 
               <div className="space-y-4">
-                <motion.div 
+                <motion.div
                   variants={itemVariants}
                   className="flex flex-col sm:flex-row sm:items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700"
                 >
@@ -253,7 +254,7 @@ const ProfilePage = () => {
                   </div>
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   variants={itemVariants}
                   className="flex flex-col sm:flex-row sm:items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700"
                 >
@@ -278,7 +279,7 @@ const ProfilePage = () => {
                   </div>
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   variants={itemVariants}
                   className="flex flex-col sm:flex-row sm:items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700"
                 >
@@ -303,7 +304,7 @@ const ProfilePage = () => {
                   </div>
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   variants={itemVariants}
                   className="flex flex-col sm:flex-row sm:items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700"
                 >
@@ -330,7 +331,7 @@ const ProfilePage = () => {
               </div>
 
               {isEditing && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="mt-6 flex justify-end space-x-3"
@@ -362,7 +363,7 @@ const ProfilePage = () => {
         {/* Kolom kanan - Menu utama dan pengaturan */}
         <motion.div variants={itemVariants} className="space-y-6">
           {/* Pengaturan notifikasi */}
-          <motion.div 
+          <motion.div
             variants={cardVariants}
             whileHover="hover"
             className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden"
@@ -380,14 +381,16 @@ const ProfilePage = () => {
                   <div className="bg-green-100 dark:bg-green-900 dark:bg-opacity-20 text-green-600 dark:text-green-400 p-2 rounded-full mr-3">
                     <CheckCircle size={16} />
                   </div>
-                  <span className="text-sm text-gray-800 dark:text-gray-200">Setoran Baru</span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">
+                    Setoran Baru
+                  </span>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     checked={notificationSettings.newDeposit}
-                    onChange={() => toggleNotification('newDeposit')}
-                    className="sr-only peer" 
+                    onChange={() => toggleNotification("newDeposit")}
+                    className="sr-only peer"
                   />
                   <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-500 dark:peer-focus:ring-lime-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-teal-600 dark:peer-checked:bg-lime-600"></div>
                 </label>
@@ -399,14 +402,16 @@ const ProfilePage = () => {
                   <div className="bg-blue-100 dark:bg-blue-900 dark:bg-opacity-20 text-blue-600 dark:text-blue-400 p-2 rounded-full mr-3">
                     <MessageSquare size={16} />
                   </div>
-                  <span className="text-sm text-gray-800 dark:text-gray-200">Pesan Baru</span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">
+                    Pesan Baru
+                  </span>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     checked={notificationSettings.messages}
-                    onChange={() => toggleNotification('messages')}
-                    className="sr-only peer" 
+                    onChange={() => toggleNotification("messages")}
+                    className="sr-only peer"
                   />
                   <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-500 dark:peer-focus:ring-lime-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-teal-600 dark:peer-checked:bg-lime-600"></div>
                 </label>
@@ -418,14 +423,16 @@ const ProfilePage = () => {
                   <div className="bg-red-100 dark:bg-red-900 dark:bg-opacity-20 text-red-600 dark:text-red-400 p-2 rounded-full mr-3">
                     <AlertTriangle size={16} />
                   </div>
-                  <span className="text-sm text-gray-800 dark:text-gray-200">Peringatan Penjemputan</span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">
+                    Peringatan Penjemputan
+                  </span>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     checked={notificationSettings.pickupAlerts}
-                    onChange={() => toggleNotification('pickupAlerts')}
-                    className="sr-only peer" 
+                    onChange={() => toggleNotification("pickupAlerts")}
+                    className="sr-only peer"
                   />
                   <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-500 dark:peer-focus:ring-lime-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-teal-600 dark:peer-checked:bg-lime-600"></div>
                 </label>
@@ -437,14 +444,16 @@ const ProfilePage = () => {
                   <div className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 p-2 rounded-full mr-3">
                     <Settings size={16} />
                   </div>
-                  <span className="text-sm text-gray-800 dark:text-gray-200">Pembaruan Sistem</span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">
+                    Pembaruan Sistem
+                  </span>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     checked={notificationSettings.systemUpdates}
-                    onChange={() => toggleNotification('systemUpdates')}
-                    className="sr-only peer" 
+                    onChange={() => toggleNotification("systemUpdates")}
+                    className="sr-only peer"
                   />
                   <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-500 dark:peer-focus:ring-lime-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-teal-600 dark:peer-checked:bg-lime-600"></div>
                 </label>
@@ -453,7 +462,7 @@ const ProfilePage = () => {
           </motion.div>
 
           {/* Menu pengaturan lainnya */}
-          <motion.div 
+          <motion.div
             variants={cardVariants}
             whileHover="hover"
             className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden"
@@ -465,7 +474,7 @@ const ProfilePage = () => {
               </h2>
             </div>
             <div className="p-2">
-              <motion.div 
+              <motion.div
                 whileHover={{ backgroundColor: "rgba(0,0,0,0.05)" }}
                 className="flex items-center justify-between p-3 rounded-md cursor-pointer dark:hover:bg-gray-700"
               >
@@ -473,12 +482,14 @@ const ProfilePage = () => {
                   <div className="bg-purple-100 dark:bg-purple-900 dark:bg-opacity-20 text-purple-600 dark:text-purple-400 p-2 rounded-full mr-3">
                     <Shield size={16} />
                   </div>
-                  <span className="text-sm text-gray-800 dark:text-gray-200">Keamanan & Privasi</span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">
+                    Keamanan & Privasi
+                  </span>
                 </div>
                 <ChevronRight size={16} className="text-gray-400" />
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 whileHover={{ backgroundColor: "rgba(0,0,0,0.05)" }}
                 className="flex items-center justify-between p-3 rounded-md cursor-pointer dark:hover:bg-gray-700"
               >
@@ -486,12 +497,14 @@ const ProfilePage = () => {
                   <div className="bg-yellow-100 dark:bg-yellow-900 dark:bg-opacity-20 text-yellow-600 dark:text-yellow-400 p-2 rounded-full mr-3">
                     <Upload size={16} />
                   </div>
-                  <span className="text-sm text-gray-800 dark:text-gray-200">Upgrade Akun</span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">
+                    Upgrade Akun
+                  </span>
                 </div>
                 <ChevronRight size={16} className="text-gray-400" />
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 whileHover={{ backgroundColor: "rgba(0,0,0,0.05)" }}
                 className="flex items-center justify-between p-3 rounded-md cursor-pointer dark:hover:bg-gray-700"
               >
@@ -499,7 +512,9 @@ const ProfilePage = () => {
                   <div className="bg-red-100 dark:bg-red-900 dark:bg-opacity-20 text-red-600 dark:text-red-400 p-2 rounded-full mr-3">
                     <Trash2 size={16} />
                   </div>
-                  <span className="text-sm text-gray-800 dark:text-gray-200">Hapus Akun</span>
+                  <span className="text-sm text-gray-800 dark:text-gray-200">
+                    Hapus Akun
+                  </span>
                 </div>
                 <ChevronRight size={16} className="text-gray-400" />
               </motion.div>
@@ -507,14 +522,18 @@ const ProfilePage = () => {
           </motion.div>
 
           {/* Tombol Logout */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full py-3 px-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-red-600 dark:text-red-400 font-medium shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-center space-x-2"
-          >
-            <LogOut size={18} />
-            <span>Keluar</span>
-          </motion.button>
+          <motion.div>
+            <Link to="/" className="w-full">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full py-3 px-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-red-600 dark:text-red-400 font-medium shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-transform transition-colors duration-200 ease-in-out flex items-center justify-center space-x-2"
+              >
+                <LogOut size={18} />
+                <span>Keluar</span>
+              </motion.button>
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </motion.div>

@@ -1,8 +1,6 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import ThemeContext from "../../context/ThemeContext";
-import { useEffect, useRef } from "react";
-// Corrected import path - adjust based on your actual file structure
 import Logo from "../../assets/logo.png";
 
 function AdminLoginPage() {
@@ -16,11 +14,27 @@ function AdminLoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check for different user roles and redirect accordingly
-    if (email === "admin@wastego.com" && password === "admin123") {
-      navigate("/ecohive/dashboard");
-    } else if (email === "ecocentral@wastego.com" && password === "eco123") {
-      navigate("/ecocentral/dashboard");
+    // User accounts and corresponding redirect paths
+    const userAccounts = [
+      {
+        email: "admin@wastego.com",
+        password: "admin123",
+        path: "/ecohive/dashboard",
+      },
+      {
+        email: "admin@ecocentral.com",
+        password: "admineco123",
+        path: "/ecocentral/dashboard",
+      },
+    ];
+
+    // Check if credentials match any account
+    const user = userAccounts.find(
+      (account) => account.email === email && account.password === password
+    );
+
+    if (user) {
+      navigate(user.path);
     } else {
       setError("Email atau password salah");
     }
@@ -34,12 +48,13 @@ function AdminLoginPage() {
 
   return (
     <div className="relative min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Background Music */}
       <audio ref={audioRef} autoPlay loop>
         <source src="/images/background/musik.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
 
-      {/* VIDEO BACKGROUND */}
+      {/* Video Background */}
       <video
         autoPlay
         loop
@@ -51,7 +66,7 @@ function AdminLoginPage() {
         Your browser does not support the video tag.
       </video>
 
-      {/* KONTEN LOGIN */}
+      {/* Login Content */}
       <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="text-center text-3xl font-extrabold text-white">
           Log In Now
@@ -59,7 +74,6 @@ function AdminLoginPage() {
       </div>
 
       <div className="relative z-10 mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        {/* Blurred minimalist form */}
         <div className="backdrop-blur-md bg-white/30 dark:bg-gray-900/30 py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 border border-white/20">
           {error && (
             <div className="mb-4 p-2 bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-200 rounded-md text-sm text-center">

@@ -14,7 +14,7 @@ import {
   Recycle,
   ChevronLeft,
   ChevronRight,
-  Hexagon
+  Hexagon,
 } from "lucide-react";
 
 const Sidebar = ({
@@ -188,33 +188,8 @@ const Sidebar = ({
             isActive={currentSection === "settings"}
             minimized={minimized}
           />
-          <NavLinkItem
-            to="/"
-            icon={<Home size={20} />}
-            label="Halaman Utama"
-            description="Kembali ke halaman utama WasteGo"
-            isActive={false}
-            minimized={minimized}
-          />
         </motion.nav>
       </div>
-
-      {/* Footer Section - Hidden when minimized */}
-      {!minimized && (
-        <motion.div
-          variants={fadeIn}
-          className="mt-auto border-t border-teal-800 dark:border-gray-700 p-4 flex justify-center"
-        >
-          <div className="flex flex-col items-center">
-            <p className="text-sm font-semibold text-gray-200 mb-2">
-              ecocentral Panel
-            </p>
-            <div className="pt-2 border-t border-lime-500 text-xs text-center text-gray-400">
-              <p>© {new Date().getFullYear()} WasteGo. Hak Cipta Dilindungi.</p>
-            </div>
-          </div>
-        </motion.div>
-      )}
     </motion.aside>
   );
 };
@@ -222,7 +197,7 @@ const Sidebar = ({
 // Extracted NavLink component with tooltip
 const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
   const [showTooltip, setShowTooltip] = useState(false);
-  
+
   const fadeIn = {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
@@ -230,11 +205,11 @@ const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
 
   const tooltipVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.2 } }
+    visible: { opacity: 1, x: 0, transition: { duration: 0.2 } },
   };
 
   return (
-    <motion.div 
+    <motion.div
       variants={fadeIn}
       className="relative"
       onMouseEnter={() => setShowTooltip(true)}
@@ -261,19 +236,23 @@ const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
         </motion.div>
         {!minimized && <span>{label}</span>}
       </NavLink>
-      
+
       {/* Tooltip */}
       {showTooltip && (minimized || true) && (
         <motion.div
           initial="hidden"
           animate="visible"
           variants={tooltipVariants}
-          className={`absolute ${minimized ? "left-20" : "left-full"} top-0 ml-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded-md shadow-lg z-50 w-48`}
+          className={`absolute ${
+            minimized ? "left-20" : "left-full"
+          } top-0 ml-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded-md shadow-lg z-50 w-48`}
         >
           <div className="relative">
             <div className="absolute -left-2 top-3 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white dark:bg-gray-800"></div>
             <p className="font-bold text-sm">{label}</p>
-            <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">{description}</p>
+            <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
+              {description}
+            </p>
           </div>
         </motion.div>
       )}

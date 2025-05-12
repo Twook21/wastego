@@ -361,7 +361,7 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
 
           {/* Profile - Modified to be clickable and lead to profile page */}
           <Link 
-            to="/ecohive/profile" 
+            to="/ecocentral/profile" 
             className="group"
           >
             <motion.div 

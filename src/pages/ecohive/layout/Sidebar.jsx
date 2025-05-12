@@ -156,38 +156,6 @@ const Sidebar = ({
             minimized={minimized}
           />
         </motion.nav>
-
-        {!minimized && (
-          <motion.p
-            variants={fadeIn}
-            className="text-xs uppercase text-gray-300 mt-8 mb-4 font-medium pl-3"
-          >
-            Lainnya
-          </motion.p>
-        )}
-        <motion.nav
-          className={`space-y-2 ${minimized ? "mt-8" : ""}`}
-          variants={staggerItems}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* <NavLinkItem 
-            to="/ecohive/settings"
-            icon={<Settings size={20} />}
-            label="Pengaturan"
-            description="Konfigurasi sistem dan preferensi"
-            isActive={false}
-            minimized={minimized}
-          /> */}
-          <NavLinkItem
-            to="/"
-            icon={<Home size={20} />}
-            label="Halaman Utama"
-            description="Kembali ke halaman utama WasteGo"
-            isActive={false}
-            minimized={minimized}
-          />
-        </motion.nav>
       </div>
 
       {/* Footer Section - Hidden when minimized */}

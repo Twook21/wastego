@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   User,
   Mail,
@@ -507,14 +508,18 @@ const ProfilePage = () => {
           </motion.div>
 
           {/* Tombol Logout */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full py-3 px-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-red-600 dark:text-red-400 font-medium shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-center space-x-2"
-          >
-            <LogOut size={18} />
-            <span>Keluar</span>
-          </motion.button>
+          <motion.div>
+            <Link to="/" className="w-full">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full py-3 px-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-red-600 dark:text-red-400 font-medium shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-transform transition-colors duration-200 ease-in-out flex items-center justify-center space-x-2"
+              >
+                <LogOut size={18} />
+                <span>Keluar</span>
+              </motion.button>
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </motion.div>
