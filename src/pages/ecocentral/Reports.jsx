@@ -10,15 +10,17 @@ import {
   CartesianGrid, 
   Tooltip, 
   Legend, 
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  AreaChart,
-  Area,
-  ComposedChart,
-  Scatter
-} from 'recharts'
+  ResponsiveContainer, 
+  PieChart, 
+  Pie, 
+  Cell, 
+  AreaChart, 
+  Area, 
+  ComposedChart, 
+  Scatter, 
+  ScatterChart
+} from 'recharts';
+
 
 // Data dummy untuk rekap data sampah per EcoHive
 const ecoHiveWasteData = [

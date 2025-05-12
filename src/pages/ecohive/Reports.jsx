@@ -278,7 +278,7 @@ function Reports() {
                   <td className="px-4 py-3">{item.collector}</td>
                   <td className="px-4 py-3">
                     <span
-                      className={`px-2 py-1 bg-${item.statusColor}-100 text-${item.statusColor}-800 dark:bg-${item.statusColor}-700 dark:text-${item.statusColor}-200 text-xs rounded-full`}
+                      className={`px-2 py-1 bg-${item.statusColor}-100 text-${item.statusColor}-800 dark:bg-${item.statusColor}-700 dark:text-${item.statusColor}-900 text-xs rounded-full`}
                     >
                       {item.status}
                     </span>
