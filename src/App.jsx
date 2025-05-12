@@ -17,8 +17,19 @@ import EcoHiveBuddyManagement from "./pages/ecohive/EcoBuddyManagement";
 import EcoHiveReportsManagement from "./pages/ecohive/Reports";
 import EcoHiveNotification from "./pages/ecohive/Notification";
 import EcoHiveProfile from "./pages/ecohive/ProfilePage";
+// route EcoCentral
+import EcoCentralDashboard from "./pages/ecocentral/Dashboard";
+import EcoCentralManagement from "./pages/ecocentral/EcoCentralManagement";
+import EcoCentralBuddyManagement from "./pages/ecocentral/EcoBuddyManagement";
+import EcoCentralHiveManagement from "./pages/ecocentral/EcoHiveManagement";
+import EcoCentralReportsManagement from "./pages/ecocentral/Reports";
+import EcoCentralNotification from "./pages/ecocentral/EcoCentralNotification";
+import EcoCentralProfile from "./pages/ecocentral/ProfilePage";
+import EcoCentralSystemSettingsPage from "./pages/ecocentral/SystemSettingsPage";
 // Import the updated EcoHiveLayout component directly
 import EcoHiveLayout from "./pages/ecohive/layout/EcoHiveLayout";
+// Import the updated EcoCEntralLayout component directly
+import EcoCentralLayout from "./pages/ecocentral/layout/EcoCentralLayout";
 // route navbar dan footer landing page
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -90,11 +101,36 @@ function App() {
               <Route path="/ecohive" element={<EcoHiveLayout />}>
                 <Route path="dashboard" element={<EcoHiveDashboard />} />
                 <Route path="profile" element={<EcoHiveProfile />} />
-                <Route path="deposit-management" element={<EcoHiveDepositManagement />} />
+                <Route
+                  path="deposit-management"
+                  element={<EcoHiveDepositManagement />}
+                />
                 <Route path="ecobuddy" element={<EcoHiveBuddyManagement />} />
                 <Route path="report" element={<EcoHiveReportsManagement />} />
                 <Route path="notification" element={<EcoHiveNotification />} />
                 {/* Add other EcoHive routes here */}
+              </Route>
+              <Route path="/ecocentral" element={<EcoCentralLayout />}>
+                <Route path="dashboard" element={<EcoCentralDashboard />} />
+                <Route path="profile" element={<EcoCentralProfile />} />
+                <Route path="management" element={<EcoCentralManagement />} />
+                <Route
+                  path="ecobuddy"
+                  element={<EcoCentralBuddyManagement />}
+                />
+                <Route path="ecohive" element={<EcoCentralHiveManagement />} />
+                <Route
+                  path="report"
+                  element={<EcoCentralReportsManagement />}
+                />
+                <Route
+                  path="notification"
+                  element={<EcoCentralNotification />}
+                />
+                <Route
+                  path="settings"
+                  element={<EcoCentralSystemSettingsPage />}
+                />
               </Route>
 
               {/* Auth routes without Navbar */}

@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import ThemeContext from "../../context/ThemeContext";
 import { useEffect, useRef } from "react";
 // Corrected import path - adjust based on your actual file structure
-import Logo from '../../assets/logo.png';
+import Logo from "../../assets/logo.png";
 
 function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -16,9 +16,11 @@ function AdminLoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Demo login logic (replace with actual authentication)
+    // Check for different user roles and redirect accordingly
     if (email === "admin@wastego.com" && password === "admin123") {
       navigate("/ecohive/dashboard");
+    } else if (email === "ecocentral@wastego.com" && password === "eco123") {
+      navigate("/ecocentral/dashboard");
     } else {
       setError("Email atau password salah");
     }
@@ -66,13 +68,9 @@ function AdminLoginPage() {
           )}
 
           <div className="flex justify-center">
-          <img 
-            src={Logo} 
-            alt="Logo WasteGO" 
-            className="h-8 w-auto mb-8"
-          />
-        </div>
-          
+            <img src={Logo} alt="Logo WasteGO" className="h-8 w-auto mb-8" />
+          </div>
+
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
@@ -131,10 +129,20 @@ function AdminLoginPage() {
               >
                 Login
               </button>
-              <h1 className="mt-3 text-white text-sm text-shadow-lg text-center">Belum punya akun? <span><Link to="/register" className="text-lime-300 hover:text-lime-400">Daftar Disini!</Link></span></h1>
+              <h1 className="mt-3 text-white text-sm text-shadow-lg text-center">
+                Belum punya akun?{" "}
+                <span>
+                  <Link
+                    to="/register"
+                    className="text-lime-300 hover:text-lime-400"
+                  >
+                    Daftar Disini!
+                  </Link>
+                </span>
+              </h1>
             </div>
           </form>
-          
+
           {/* Back to Home Button */}
           <div className="mt-6">
             <Link
@@ -145,7 +153,7 @@ function AdminLoginPage() {
             </Link>
           </div>
         </div>
-        
+
         {/* Copyright Notice */}
         <div className="mt-8 text-center text-xs text-white/70">
           © {new Date().getFullYear()} WasteGo. Hak Cipta Dilindungi.
