@@ -190,6 +190,28 @@ const Sidebar = ({
           />
         </motion.nav>
       </div>
+
+      {/* Footer */}
+      <motion.div 
+        variants={fadeIn}
+        className={`px-4 py-3 border-t border-teal-800 dark:border-gray-700 ${minimized ? "text-center" : ""}`}
+      >
+        {minimized ? (
+          <motion.div 
+            className="text-xs font-medium text-gray-300 flex flex-col items-center"
+            whileHover={{ scale: 1.05 }}
+          >
+            <span className="rotate-90 inline-block">EcoCentral</span>
+          </motion.div>
+        ) : (
+          <motion.div 
+            className="text-sm font-medium text-gray-300 flex items-center justify-center"
+            whileHover={{ scale: 1.05 }}
+          >
+            EcoCentral Panel
+          </motion.div>
+        )}
+      </motion.div>
     </motion.aside>
   );
 };

@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Settings, Trash2, Bell, Palette, Globe, Edit2, Plus, Save, 
-  X, ChevronRight, ToggleLeft, ToggleRight, HelpCircle, AlertTriangle
+  X, ChevronRight, ToggleLeft, ToggleRight, HelpCircle, AlertTriangle,
+  ChevronDown, Menu
 } from 'lucide-react';
 
 const SystemSettingsPage = () => {
   // State for active tab
   const [activeTab, setActiveTab] = useState('waste-categories');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // State for waste categories
   const [wasteCategories, setWasteCategories] = useState([
@@ -56,7 +58,7 @@ const SystemSettingsPage = () => {
   // Animation variants
   const pageVariants = {
     initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { duration: 0.5 } },
+    animate: { opacity: 1, transition: { duration: 0.3 } },
     exit: { opacity: 0 }
   };
   
@@ -65,17 +67,17 @@ const SystemSettingsPage = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.08
       }
     }
   };
   
   const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5 }
+      transition: { duration: 0.3 }
     }
   };
   
@@ -132,22 +134,105 @@ const SystemSettingsPage = () => {
     ));
   };
   
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setMobileMenuOpen(false);
+  };
+  
   return (
     <motion.div 
-      className="container mx-auto px-4 py-8"
+      className="px-4 py-4 md:container md:mx-auto md:py-8"
       initial="initial"
       animate="animate"
       exit="exit"
       variants={pageVariants}
     >
-      <div className="flex items-center mb-8">
-        <Settings className="h-8 w-8 text-teal-600 dark:text-teal-500 mr-3" />
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Pengaturan Sistem</h1>
+      <div className="flex items-center justify-between mb-4 md:mb-8">
+        <div className="flex items-center">
+          <Settings className="h-6 w-6 md:h-8 md:w-8 text-teal-600 dark:text-teal-500 mr-2 md:mr-3" />
+          <h1 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">Pengaturan Sistem</h1>
+        </div>
+        
+        {/* Mobile menu button */}
+        <button 
+          className="p-2 rounded-md text-gray-500 hover:text-teal-600 hover:bg-gray-100 dark:hover:bg-gray-700 md:hidden"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          <Menu className="h-5 w-5" />
+        </button>
       </div>
       
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-        {/* Tabs */}
-        <div className="flex border-b border-gray-200 dark:border-gray-700">
+        {/* Mobile Tabs Dropdown */}
+        <div className="md:hidden border-b border-gray-200 dark:border-gray-700">
+          <button
+            className="w-full px-4 py-3 flex justify-between items-center text-left text-sm font-medium text-teal-600 dark:text-teal-500 focus:outline-none"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {activeTab === 'waste-categories' && (
+              <span className="flex items-center">
+                <Trash2 className="h-4 w-4 mr-2" />
+                Kategori Sampah
+              </span>
+            )}
+            {activeTab === 'notifications' && (
+              <span className="flex items-center">
+                <Bell className="h-4 w-4 mr-2" />
+                Notifikasi Global
+              </span>
+            )}
+            {activeTab === 'app-config' && (
+              <span className="flex items-center">
+                <Palette className="h-4 w-4 mr-2" />
+                Konfigurasi Aplikasi
+              </span>
+            )}
+            <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${mobileMenuOpen ? 'transform rotate-180' : ''}`} />
+          </button>
+          
+          {mobileMenuOpen && (
+            <div className="border-t border-gray-200 dark:border-gray-700">
+              <button
+                className={`w-full px-4 py-3 text-left text-sm flex items-center ${
+                  activeTab === 'waste-categories' 
+                  ? 'text-teal-600 dark:text-teal-500 bg-gray-50 dark:bg-gray-750' 
+                  : 'text-gray-600 dark:text-gray-300'
+                }`}
+                onClick={() => handleTabChange('waste-categories')}
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Kategori Sampah
+              </button>
+              
+              <button
+                className={`w-full px-4 py-3 text-left text-sm flex items-center ${
+                  activeTab === 'notifications' 
+                  ? 'text-teal-600 dark:text-teal-500 bg-gray-50 dark:bg-gray-750' 
+                  : 'text-gray-600 dark:text-gray-300'
+                }`}
+                onClick={() => handleTabChange('notifications')}
+              >
+                <Bell className="h-4 w-4 mr-2" />
+                Notifikasi Global
+              </button>
+              
+              <button
+                className={`w-full px-4 py-3 text-left text-sm flex items-center ${
+                  activeTab === 'app-config' 
+                  ? 'text-teal-600 dark:text-teal-500 bg-gray-50 dark:bg-gray-750' 
+                  : 'text-gray-600 dark:text-gray-300'
+                }`}
+                onClick={() => handleTabChange('app-config')}
+              >
+                <Palette className="h-4 w-4 mr-2" />
+                Konfigurasi Aplikasi
+              </button>
+            </div>
+          )}
+        </div>
+        
+        {/* Desktop Tabs */}
+        <div className="hidden md:flex border-b border-gray-200 dark:border-gray-700">
           <button
             className={`px-6 py-4 text-sm font-medium flex items-center ${
               activeTab === 'waste-categories' 
@@ -186,7 +271,7 @@ const SystemSettingsPage = () => {
         </div>
         
         {/* Content */}
-        <div className="p-6">
+        <div className="p-4 md:p-6">
           {/* Waste Categories Tab */}
           {activeTab === 'waste-categories' && (
             <motion.div 
@@ -194,14 +279,14 @@ const SystemSettingsPage = () => {
               animate="visible"
               variants={staggerItems}
             >
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-medium text-gray-800 dark:text-white">Pengelolaan Kategori Sampah</h2>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 md:mb-6">
+                <h2 className="text-base md:text-lg font-medium text-gray-800 dark:text-white mb-2 sm:mb-0">Pengelolaan Kategori Sampah</h2>
                 <button
                   onClick={() => {
                     setIsAddingCategory(true);
                     setEditingCategory(null);
                   }}
-                  className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                 >
                   <Plus className="h-4 w-4 mr-1" />
                   Tambah Kategori
@@ -209,7 +294,7 @@ const SystemSettingsPage = () => {
               </div>
               
               {/* Category Table */}
-              <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md mb-6">
+              <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md mb-4 md:mb-6">
                 <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                   {wasteCategories.map((category) => (
                     <motion.li 
@@ -217,12 +302,12 @@ const SystemSettingsPage = () => {
                       variants={fadeIn}
                       className={`hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150 ${!category.isActive ? 'opacity-60' : ''}`}
                     >
-                      <div className="px-4 py-4 sm:px-6 flex items-center justify-between">
-                        <div className="flex items-center">
-                          <span className="flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center text-xl" style={{ backgroundColor: category.color }}>
+                      <div className="px-3 py-3 sm:px-4 sm:py-4 flex flex-col sm:flex-row sm:items-center">
+                        <div className="flex items-center mb-2 sm:mb-0 sm:flex-1">
+                          <span className="flex-shrink-0 h-8 w-8 md:h-10 md:w-10 rounded-full flex items-center justify-center text-lg md:text-xl" style={{ backgroundColor: category.color }}>
                             {category.icon}
                           </span>
-                          <div className="ml-4">
+                          <div className="ml-3">
                             <h3 className="text-sm font-medium text-gray-900 dark:text-white">{category.name}</h3>
                             <div className="mt-1 flex items-center">
                               <span 
@@ -235,9 +320,9 @@ const SystemSettingsPage = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto">
                           <div 
-                            className={`mr-4 px-2 py-1 text-xs rounded-full ${
+                            className={`mr-2 sm:mr-4 px-2 py-1 text-xs rounded-full ${
                               category.isActive 
                               ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:bg-opacity-30 dark:text-green-400'
                               : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400'
@@ -245,26 +330,28 @@ const SystemSettingsPage = () => {
                           >
                             {category.isActive ? 'Aktif' : 'Nonaktif'}
                           </div>
-                          <button
-                            onClick={() => toggleCategoryStatus(category.id)}
-                            className={`mr-2 p-1 rounded-full ${
-                              category.isActive
-                              ? 'text-green-600 hover:bg-green-100 dark:text-green-500 dark:hover:bg-green-900 dark:hover:bg-opacity-30'
-                              : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
-                            }`}
-                          >
-                            {category.isActive ? (
-                              <ToggleRight className="h-5 w-5" />
-                            ) : (
-                              <ToggleLeft className="h-5 w-5" />
-                            )}
-                          </button>
-                          <button
-                            onClick={() => handleEditCategory(category)}
-                            className="p-1 rounded-full text-gray-400 hover:text-teal-600 hover:bg-gray-100 dark:hover:bg-gray-700"
-                          >
-                            <Edit2 className="h-5 w-5" />
-                          </button>
+                          <div className="flex items-center">
+                            <button
+                              onClick={() => toggleCategoryStatus(category.id)}
+                              className={`mr-2 p-1 rounded-full ${
+                                category.isActive
+                                ? 'text-green-600 hover:bg-green-100 dark:text-green-500 dark:hover:bg-green-900 dark:hover:bg-opacity-30'
+                                : 'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                              }`}
+                            >
+                              {category.isActive ? (
+                                <ToggleRight className="h-5 w-5" />
+                              ) : (
+                                <ToggleLeft className="h-5 w-5" />
+                              )}
+                            </button>
+                            <button
+                              onClick={() => handleEditCategory(category)}
+                              className="p-1 rounded-full text-gray-400 hover:text-teal-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            >
+                              <Edit2 className="h-5 w-5" />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </motion.li>
@@ -276,10 +363,10 @@ const SystemSettingsPage = () => {
               {editingCategory && (
                 <motion.div 
                   variants={fadeIn}
-                  className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mb-6"
+                  className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 md:p-4 mb-4 md:mb-6"
                 >
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-md font-medium text-gray-800 dark:text-white">Edit Kategori</h3>
+                  <div className="flex justify-between items-center mb-3 md:mb-4">
+                    <h3 className="text-sm md:text-md font-medium text-gray-800 dark:text-white">Edit Kategori</h3>
                     <button
                       onClick={() => setEditingCategory(null)}
                       className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
@@ -288,7 +375,7 @@ const SystemSettingsPage = () => {
                     </button>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-3 md:gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Nama Kategori
@@ -333,7 +420,7 @@ const SystemSettingsPage = () => {
                       </div>
                     </div>
                     
-                    <div className="flex items-center h-full mt-6">
+                    <div className="flex items-center mt-2">
                       <label className="flex items-center cursor-pointer">
                         <div className="relative">
                           <input
@@ -342,8 +429,8 @@ const SystemSettingsPage = () => {
                             checked={editingCategory.isActive}
                             onChange={() => setEditingCategory({...editingCategory, isActive: !editingCategory.isActive})}
                           />
-                          <div className={`block w-14 h-8 rounded-full ${editingCategory.isActive ? 'bg-teal-600' : 'bg-gray-400 dark:bg-gray-600'}`}></div>
-                          <div className={`absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform ${editingCategory.isActive ? 'transform translate-x-6' : ''}`}></div>
+                          <div className={`block w-12 h-6 md:w-14 md:h-8 rounded-full ${editingCategory.isActive ? 'bg-teal-600' : 'bg-gray-400 dark:bg-gray-600'}`}></div>
+                          <div className={`absolute left-1 top-1 bg-white w-4 h-4 md:w-6 md:h-6 rounded-full transition-transform ${editingCategory.isActive ? 'transform translate-x-6 md:translate-x-6' : ''}`}></div>
                         </div>
                         <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">
                           {editingCategory.isActive ? 'Aktif' : 'Nonaktif'}
@@ -355,13 +442,13 @@ const SystemSettingsPage = () => {
                   <div className="mt-4 flex justify-end">
                     <button
                       onClick={() => setEditingCategory(null)}
-                      className="mr-2 inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                      className="mr-2 inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                     >
                       Batal
                     </button>
                     <button
                       onClick={saveCategory}
-                      className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                      className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                     >
                       <Save className="h-4 w-4 mr-1" />
                       Simpan
@@ -374,10 +461,10 @@ const SystemSettingsPage = () => {
               {isAddingCategory && (
                 <motion.div 
                   variants={fadeIn}
-                  className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mb-6"
+                  className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 md:p-4 mb-4 md:mb-6"
                 >
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-md font-medium text-gray-800 dark:text-white">Tambah Kategori Baru</h3>
+                  <div className="flex justify-between items-center mb-3 md:mb-4">
+                    <h3 className="text-sm md:text-md font-medium text-gray-800 dark:text-white">Tambah Kategori Baru</h3>
                     <button
                       onClick={() => setIsAddingCategory(false)}
                       className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
@@ -386,7 +473,7 @@ const SystemSettingsPage = () => {
                     </button>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-3 md:gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Nama Kategori
@@ -434,7 +521,7 @@ const SystemSettingsPage = () => {
                       </div>
                     </div>
                     
-                    <div className="flex items-center h-full mt-6">
+                    <div className="flex items-center mt-2">
                       <label className="flex items-center cursor-pointer">
                         <div className="relative">
                           <input
@@ -443,8 +530,8 @@ const SystemSettingsPage = () => {
                             checked={newCategory.isActive}
                             onChange={() => setNewCategory({...newCategory, isActive: !newCategory.isActive})}
                           />
-                          <div className={`block w-14 h-8 rounded-full ${newCategory.isActive ? 'bg-teal-600' : 'bg-gray-400 dark:bg-gray-600'}`}></div>
-                          <div className={`absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform ${newCategory.isActive ? 'transform translate-x-6' : ''}`}></div>
+                          <div className={`block w-12 h-6 md:w-14 md:h-8 rounded-full ${newCategory.isActive ? 'bg-teal-600' : 'bg-gray-400 dark:bg-gray-600'}`}></div>
+                          <div className={`absolute left-1 top-1 bg-white w-4 h-4 md:w-6 md:h-6 rounded-full transition-transform ${newCategory.isActive ? 'transform translate-x-6 md:translate-x-6' : ''}`}></div>
                         </div>
                         <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">
                           {newCategory.isActive ? 'Aktif' : 'Nonaktif'}
@@ -456,13 +543,13 @@ const SystemSettingsPage = () => {
                   <div className="mt-4 flex justify-end">
                     <button
                       onClick={() => setIsAddingCategory(false)}
-                      className="mr-2 inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                      className="mr-2 inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                     >
                       Batal
                     </button>
                     <button
                       onClick={addNewCategory}
-                      className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                      className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                     >
                       <Plus className="h-4 w-4 mr-1" />
                       Tambah
@@ -471,14 +558,14 @@ const SystemSettingsPage = () => {
                 </motion.div>
               )}
               
-              <div className="mt-6 bg-yellow-50 dark:bg-yellow-900 dark:bg-opacity-20 rounded-md p-4">
+              <div className="mt-4 md:mt-6 bg-yellow-50 dark:bg-yellow-900 dark:bg-opacity-20 rounded-md p-3 md:p-4">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <AlertTriangle className="h-5 w-5 text-yellow-400" />
                   </div>
                   <div className="ml-3">
-                    <h3 className="text-sm font-medium text-yellow-800 dark:text-yellow-400">Informasi Penting</h3>
-                    <div className="mt-2 text-sm text-yellow-700 dark:text-yellow-300">
+                    <h3 className="text-xs md:text-sm font-medium text-yellow-800 dark:text-yellow-400">Informasi Penting</h3>
+                    <div className="mt-1 text-xs md:text-sm text-yellow-700 dark:text-yellow-300">
                       <p>
                         Menonaktifkan kategori akan menyembunyikannya dari tampilan EcoBuddy, namun data historis tetap tersimpan.
                         Pertimbangkan dengan baik sebelum membuat perubahan pada kategori yang sudah aktif.

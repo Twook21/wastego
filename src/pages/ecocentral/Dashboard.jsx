@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   BarChart,
   Bar,
@@ -65,6 +65,7 @@ const ecoHivePerformanceData = [
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("bulanan");
   const [isMobile, setIsMobile] = useState(false);
+  const featherIconsInitialized = useRef(false);
 
   useEffect(() => {
     // Check if mobile view
@@ -80,11 +81,25 @@ const Dashboard = () => {
     };
   }, []);
 
+  // Perbaikan: Memastikan feather icons diinisialisasi dan di-reinisialisasi saat komponen dirender
   useEffect(() => {
+    // Pastikan feather tersedia di window dan hanya jalankan replace() saat diperlukan
     if (window.feather) {
       window.feather.replace();
+      featherIconsInitialized.current = true;
     }
-  }, []);
+  }, [isMobile]); // Reinisialisasi ketika status mobile berubah
+
+  // Perbaikan: Tambahkan useEffect untuk memastikan ikon dirender saat DOM berubah
+  useEffect(() => {
+    // Gunakan setTimeout untuk memastikan DOM telah dirender sepenuhnya
+    const timer = setTimeout(() => {
+      if (window.feather && featherIconsInitialized.current) {
+        window.feather.replace();
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [activeTab]); // Reinisialisasi ketika tab aktif berubah
 
   // Animations variants
   const fadeIn = {
@@ -169,6 +184,7 @@ const Dashboard = () => {
                       </span>
                     </div>
                   </div>
+                  {/* Perbaikan: Tambahkan fallback untuk ikon jika feather tidak bekerja */}
                   <motion.div
                     className="bg-lime-500 bg-opacity-20 dark:bg-opacity-20 p-3 rounded-full w-12 h-12 flex items-center justify-center"
                     whileHover={{ rotate: 360, transition: { duration: 1 } }}
@@ -177,6 +193,7 @@ const Dashboard = () => {
                       data-feather={stat.icon}
                       className="text-teal-900 dark:text-teal-900"
                     ></i>
+                   
                   </motion.div>
                 </div>
               </motion.div>

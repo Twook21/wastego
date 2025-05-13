@@ -22,6 +22,10 @@ function ContactPage() {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // Menggulir ke atas saat komponen dirender
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({
@@ -92,7 +96,7 @@ function ContactPage() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={slideUp}
-              className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm"
+              className="bg-white dark:bg-gray-900 p-6 rounded-lg border shadow-lg border-gray-300"
             >
               {formStatus.submitted && formStatus.success ? (
                 <motion.div 
@@ -185,7 +189,7 @@ function ContactPage() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={slideUp}
-              className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm"
+              className="bg-white dark:bg-gray-900 p-6 rounded-lg border shadow-lg border-gray-300"
             >
               <h2 className="text-xl font-medium text-teal-900 dark:text-white mb-6">Informasi Kontak</h2>
               
@@ -339,7 +343,7 @@ function ContactPage() {
             ].map((faq, index) => (
               <div 
                 key={index}
-                className="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-4"
+                className="bg-white dark:bg-gray-900 rounded-lg border shadow-lg border-gray-300 p-4"
               >
                 <h3 className="text-base font-medium text-teal-900 dark:text-white mb-2">
                   {faq.question}
@@ -370,7 +374,7 @@ function ContactPage() {
               Jadilah bagian dari perubahan positif untuk lingkungan.
             </p>
             <a 
-              href="#" 
+              href="/download" 
               className="inline-block px-5 py-2 bg-teal-900 text-lime-500 font-medium rounded-md hover:bg-gray-100 transition-colors duration-200"
             >
               Download Aplikasi

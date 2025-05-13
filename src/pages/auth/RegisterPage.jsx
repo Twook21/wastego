@@ -33,7 +33,7 @@ function RegisterPage() {
     console.log("Registering user:", { name, email, password });
     
     // Simulate successful registration
-    navigate("/admin/login");
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -193,7 +193,7 @@ function RegisterPage() {
               >
                 Daftar
               </button>
-              <h1 className="mt-3 text-white text-sm text-shadow-lg text-center">Sudah punya akun? <span><Link to="/admin/login" className="text-lime-300 hover:text-lime-400">Login Disini!</Link></span></h1>
+              <h1 className="mt-3 text-white text-sm text-shadow-lg text-center">Sudah punya akun? <span><Link to="/login" className="text-lime-300 hover:text-lime-400">Login Disini!</Link></span></h1>
             </div>
           </form>
           

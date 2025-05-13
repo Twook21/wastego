@@ -13,6 +13,10 @@ function DownloadPage() {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // Menggulir ke atas saat komponen dirender
+  }, []);
+
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -151,7 +155,7 @@ function DownloadPage() {
                 {/* Direct APK Download */}
                 <motion.a
                   href="#"
-                  className="flex items-center justify-center md:justify-start bg-teal-900 dark:bg-lime-500 dark:text-teal-900 text-white rounded-lg px-4 py-2 w-full md:w-64 hover:bg-teal-900-light dark:hover:opacity-90 transition-colors"
+                  className="flex items-center  justify-center md:justify-start bg-teal-900 dark:bg-lime-500 dark:text-teal-900 text-white rounded-lg px-4 py-2 w-full md:w-64 hover:bg-teal-900-light dark:hover:opacity-90 transition-colors"
                   variants={fadeInUp}
                   whileHover={buttonHover}
                 >
@@ -186,7 +190,7 @@ function DownloadPage() {
               viewport={{ once: true }}
             >
               <motion.div
-                className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center"
+                className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300 text-center"
                 whileHover={{ boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)" }}
                 transition={{ duration: 0.3 }}
               >
@@ -217,7 +221,7 @@ function DownloadPage() {
       <section className="py-16 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-12 "
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -237,7 +241,7 @@ function DownloadPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <motion.div
-              className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md"
+              className="bg-white dark:bg-gray-700 p-6 rounded-lg border shadow-lg border-gray-300"
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
@@ -295,7 +299,7 @@ function DownloadPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md"
+              className="bg-white dark:bg-gray-700 p-6 rounded-lg border shadow-lg border-gray-300"
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -389,7 +393,7 @@ function DownloadPage() {
             viewport={{ once: true }}
           >
             <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
               variants={fadeInUp}
               whileHover={{
                 y: -10,
@@ -414,7 +418,7 @@ function DownloadPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
               variants={fadeInUp}
               whileHover={{
                 y: -10,
@@ -439,7 +443,7 @@ function DownloadPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
               variants={fadeInUp}
               whileHover={{
                 y: -10,
@@ -464,7 +468,7 @@ function DownloadPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
               variants={fadeInUp}
               whileHover={{
                 y: -10,
@@ -489,7 +493,7 @@ function DownloadPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
               variants={fadeInUp}
               whileHover={{
                 y: -10,
@@ -514,7 +518,7 @@ function DownloadPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
               variants={fadeInUp}
               whileHover={{
                 y: -10,
@@ -571,7 +575,7 @@ function DownloadPage() {
             viewport={{ once: true }}
           >
             <motion.div
-              className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden"
+              className="bg-white dark:bg-gray-700 rounded-lg border shadow-lg border-gray-300 overflow-hidden"
               variants={fadeInUp}
               whileHover={{
                 y: -5,
@@ -593,7 +597,7 @@ function DownloadPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden"
+              className="bg-white dark:bg-gray-700 rounded-lg border shadow-lg border-gray-300 overflow-hidden"
               variants={fadeInUp}
               whileHover={{
                 y: -5,
@@ -614,7 +618,7 @@ function DownloadPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden"
+              className="bg-white dark:bg-gray-700 rounded-lg border shadow-lg border-gray-300 overflow-hidden"
               variants={fadeInUp}
               whileHover={{
                 y: -5,
@@ -637,7 +641,7 @@ function DownloadPage() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden"
+              className="bg-white dark:bg-gray-700 rounded-lg border shadow-lg border-gray-300 overflow-hidden"
               variants={fadeInUp}
               whileHover={{
                 y: -5,
@@ -697,8 +701,8 @@ function DownloadPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Download WasteGo sekarang dan jadilah bagian dari solusi
-            pengelolaan sampah yang lebih baik untuk Indonesia.
+            Download WasteGo sekarang dan jadilah bagian dari solusi pengelolaan
+            sampah yang lebih baik untuk Indonesia.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4"

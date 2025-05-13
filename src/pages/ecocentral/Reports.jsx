@@ -173,7 +173,7 @@ const ReportsAnalysis = () => {
 
       {/* Tab Navigation */}
       <div className="border-b border-gray-200 dark:border-gray-700 mb-8">
-        <nav className="flex space-x-8" aria-label="Tabs">
+        <nav className="flex space-x-8 overflow-x-auto pb-2" aria-label="Tabs">
           <button
             className={`${
               activeTab === 'sampah'

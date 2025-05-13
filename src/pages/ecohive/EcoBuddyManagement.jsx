@@ -111,7 +111,7 @@ const EcoBuddyManagement = () => {
 
   const FilterMenu = () => (
     <motion.div
-      className="fixed inset-0 z-40 bg-black bg-opacity-50 flex justify-end"
+      className="fixed inset-0 z-40 bg-white/5 backdrop-blur-sm bg-opacity-50 flex justify-end"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
