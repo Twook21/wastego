@@ -7,6 +7,7 @@ import MobileAppScreenshot2 from "../assets/mockup/app-screenshot2.svg";
 import MobileAppScreenshot3 from "../assets/mockup/app-screenshot3.svg";
 import MobileAppScreenshot4 from "../assets/mockup/app-screenshot4.png";
 
+
 function HomePage() {
   const { darkMode } = useContext(ThemeContext);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -24,7 +25,7 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Menggulir ke atas saat komponen dirender
+    window.scrollTo(0, 0); 
   }, []);
 
   // Auto rotate carousel with smooth scrolling effect

@@ -207,7 +207,7 @@ function AboutPage() {
                 {getVisibleMembers().map((member, index) => (
                   <motion.div
                     key={`${currentIndex}-${index}`}
-                    className={`bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden flex-1`}
+                    className={`bg-white dark:bg-gray-700 rounded-lg border shadow-lg border-gray-300 overflow-hidden flex-1`}
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -587,7 +587,7 @@ function AboutPage() {
 
       {/* Tim - Mobile Responsive Version */}
       <motion.section
-        className="py-8 sm:py-12 bg-gray-50 dark:bg-gray-800"
+        className="py-8 sm:py-12 bg-gray-50 dark:bg-gray-800 "
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -599,7 +599,7 @@ function AboutPage() {
           },
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
           <motion.div
             className="text-center mb-8 sm:mb-12"
             variants={{
@@ -611,7 +611,7 @@ function AboutPage() {
               Tim Kami
             </h2>
             <motion.div
-              className="h-1 w-16 sm:w-20 bg-lime-500 dark:bg-lime-500 mx-auto"
+              className="h-1 w-16 sm:w-20 bg-lime-500 dark:bg-lime-500 mx-auto "
               initial={{ width: 0 }}
               whileInView={{ width: 64 }}
               transition={{ duration: 0.8, delay: 0.3 }}
