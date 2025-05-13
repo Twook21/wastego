@@ -225,7 +225,7 @@ const EcoBuddyManagement = () => {
 
   const FilterMenu = () => (
     <motion.div
-      className="fixed inset-0 z-40 bg-black bg-opacity-50 flex justify-end"
+      className="fixed inset-0 z-40 bg-white/5 backdrop-blur-sm bg-opacity-50 flex justify-end"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -756,17 +756,17 @@ const EcoBuddyManagement = () => {
         </div>
 
         {/* Sort Dropdown */}
-        <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
+        <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-white">
           <span>Urutkan:</span>
-          <select 
-            className="border-0 bg-transparent focus:ring-0 text-gray-600 dark:text-gray-300 pr-8"
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
+          <select
+    className="block w-full border border-gray-300 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-500"
+    value={sortOption}
+    onChange={(e) => setSortOption(e.target.value)}
           >
-            <option value="name">Nama (A-Z)</option>
-            <option value="total-desc">Total Setoran (Tinggi-Rendah)</option>
-            <option value="total-asc">Total Setoran (Rendah-Tinggi)</option>
-            <option value="recent">Aktivitas Terbaru</option>
+            <option className="dark:text-white" value="name">Nama (A-Z)</option>
+            <option className="dark:text-white" value="total-desc">Total Setoran (Tinggi-Rendah)</option>
+            <option className="dark:text-white" value="total-asc">Total Setoran (Rendah-Tinggi)</option>
+            <option className="dark:text-white" value="recent">Aktivitas Terbaru</option>
           </select>
         </div>
 

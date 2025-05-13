@@ -153,10 +153,17 @@ const Dashboard = () => {
           >
             <div className="flex justify-between items-start">
               <div>
+<<<<<<< HEAD
                 <h3 className="text-xs sm:text-lg font-medium text-gray-500 dark:text-gray-400">{stat.title}</h3>
                 <div className="mt-1 sm:mt-2 flex items-baseline">
                   <p className="text-lg sm:text-3xl font-bold text-teal-900 dark:text-white">{stat.value}</p>
                   <span className={`ml-1 sm:ml-2 text-xs font-medium ${
+=======
+                <h3 className="text-lg font-medium text-gray-500 dark:text-gray-400">{stat.title}</h3>
+                <div className="mt-2 flex items-baseline">
+                  <p className="text-2xl font-bold text-teal-900 dark:text-white">{stat.value}</p>
+                  <span className={`ml-2 text-sm font-medium ${
+>>>>>>> 43e769c7dcec26304bc27352710686730091eac3
                     stat.change.startsWith('+') ? 'text-lime-500' : 'text-red-500'
                   }`}>
                     {stat.change}
@@ -336,6 +343,11 @@ const Dashboard = () => {
                     fontSize: screenSize.isSmallMobile ? 8 : screenSize.isMobile ? 10 : 12,
                     padding: screenSize.isSmallMobile ? '2px 5px' : '5px 10px'
                   }}
+                  itemStyle={{
+                    color: "#F9FAFB", 
+                    fontSize: "14px",
+                    fontWeight: "bold", 
+                  }} 
                 />
                 <Legend 
                   layout="horizontal" 
@@ -501,7 +513,11 @@ const Dashboard = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }} 
             whileTap={{ scale: 0.95 }}
+<<<<<<< HEAD
             className="inline-flex items-center justify-center px-3 py-1.5 sm:px-5 sm:py-2 border border-white text-xs sm:text-base font-medium rounded-md text-white hover:bg-white hover:bg-opacity-10"
+=======
+            className="inline-flex items-center justify-center px-5 py-2 border border-white text-base font-medium rounded-md text-white hover:bg-teal-900 hover:bg-opacity-10"
+>>>>>>> 43e769c7dcec26304bc27352710686730091eac3
           >
             <i data-feather="users" className="h-3 w-3 sm:h-5 sm:w-5 mr-1 sm:mr-2"></i>
             Undang EcoBuddy
