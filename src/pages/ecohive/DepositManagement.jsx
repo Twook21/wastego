@@ -117,16 +117,15 @@ const DepositManagement = () => {
             whileTap={{ scale: 0.95 }}
             className="flex items-center px-3 py-2 sm:px-4 bg-lime-500 text-white rounded-lg hover:bg-opacity-90 text-sm"
           >
-            <Plus className="h-4 w-4 mr-1 sm:mr-2" />
+            <Plus className="h-4 w-4" />
             <span className="hidden xs:inline">Tambah</span>
-            <span className="inline xs:hidden">+</span>
           </motion.button>
         </div>
       </motion.div>
 
       {/* Table Section - Desktop View */}
       <motion.div 
-        className="hidden md:block overflow-hidden rounded-xl shadow-md"
+        className="hidden md:block overflow-hidden rounded-xl border shadow-lg border-gray-300"
         initial="hidden"
         animate="visible"
         variants={fadeIn}

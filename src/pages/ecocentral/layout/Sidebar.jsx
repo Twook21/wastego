@@ -86,7 +86,7 @@ const Sidebar = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={toggleMinimize}
-            className="hidden md:block p-1 mr-1 hover:bg-lime-500 hover:text-teal-900 rounded-md transition-colors"
+            className="hidden md:block p-1 mr-2 hover:bg-lime-500 hover:text-teal-900 rounded-md transition-colors"
           >
             {minimized ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
           </motion.button>
