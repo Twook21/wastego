@@ -1243,7 +1243,7 @@ const ReportsAnalysis = () => {
                   whileTap={{ scale: 0.95 }}
                   className="inline-flex items-center justify-center px-5 py-2 border border-transparent text-base font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700"
                 >
-                  <i data-feather="user-plus" className="h-5 w-5 mr-2"></i>
+                  <i data-feather="user-plus" className="h-5 w-5 mr-2 text-white"></i>
                   Daftar Sebagai EcoBuddy
                 </motion.button>
                 
