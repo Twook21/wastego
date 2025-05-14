@@ -61,7 +61,7 @@ const ecobuddies = [
 const EcoBuddyManagement = () => {
   const [showFilterMenu, setShowFilterMenu] = useState(false)
   const [searchFocused, setSearchFocused] = useState(false)
-  const [showMobileSearch, setShowMobileSearch] = useState(false)
+  const [ showMobileSearch, setShowMobileSearch ] = useState(false)
   
   useEffect(() => {
     if (window.feather) {
@@ -90,11 +90,6 @@ const EcoBuddyManagement = () => {
     }
   }
 
-  const slideInFromRight = {
-    hidden: { x: '100%' },
-    visible: { x: 0, transition: { type: 'spring', damping: 25, stiffness: 300 } }
-  }
-
   const slideInFromTop = {
     hidden: { y: '-100%' },
     visible: { y: 0, transition: { type: 'spring', damping: 25, stiffness: 300 } }
@@ -109,114 +104,125 @@ const EcoBuddyManagement = () => {
     }
   }
 
-  const FilterMenu = () => (
-    <motion.div
-      className="fixed inset-0 z-40 bg-white/5 backdrop-blur-sm bg-opacity-50 flex justify-end"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={() => setShowFilterMenu(false)}
-    >
-      <motion.div 
-        className="w-3/4 max-w-xs bg-white dark:bg-gray-900 h-full p-6 shadow-xl"
-        initial="hidden"
-        animate="visible"
-        variants={slideInFromRight}
-        onClick={e => e.stopPropagation()}
+  const FilterMenu = ({ setShowFilterMenu }) => {
+    const [ value, setValue ] = useState(0);
+
+    const slideInFromRight = {
+      hidden: { x: '100%' },
+      visible: { x: 0, transition: { type: 'tween', duration: 0.3 } },
+    };
+
+    return (
+      <motion.div
+        className="fixed inset-0 z-40 bg-white/5 backdrop-blur-sm bg-opacity-50 flex justify-end"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={() => setShowFilterMenu(false)}
       >
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">Filter</h3>
-          <button 
-            onClick={() => setShowFilterMenu(false)}
-            className="rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <i data-feather="x" className="h-5 w-5 text-gray-500 dark:text-gray-300"></i>
-          </button>
-        </div>
+        <motion.div
+          className="w-3/4 max-w-xs bg-white dark:bg-gray-900 h-full p-6 shadow-xl"
+          initial="hidden"
+          animate="visible"
+          variants={slideInFromRight}
+          onClick={e => e.stopPropagation()}
+        >
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="font-semibold text-lg text-gray-900 dark:text-white">Filter</h3>
+            <button
+              onClick={() => setShowFilterMenu(false)}
+              className="rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              <i data-feather="x" className="h-5 w-5 text-gray-500 dark:text-gray-300"></i>
+            </button>
+          </div>
         
-        <div className="space-y-5">
-          {/* Level Filter */}
-          <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-              Level
-            </label>
-            <div className="space-y-2">
-              {['Platinum', 'Gold', 'Silver', 'Bronze'].map(level => (
-                <div key={level} className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id={`level-${level}`}
-                    className="h-4 w-4 text-lime-500 rounded focus:ring-lime-500"
-                  />
-                  <label 
-                    htmlFor={`level-${level}`}
-                    className="ml-2 text-sm text-gray-700 dark:text-gray-300"
-                  >
-                    {level}
-                  </label>
-                </div>
-              ))}
+          <div className="space-y-5">
+            {/* Level Filter */}
+            <div>
+              <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                Level
+              </label>
+              <div className="space-y-2">
+                {[ 'Platinum', 'Gold', 'Silver', 'Bronze' ].map(level => (
+                  <div key={level} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id={`level-${level}`}
+                      className="h-4 w-4 text-lime-500 rounded focus:ring-lime-500"
+                    />
+                    <label
+                      htmlFor={`level-${level}`}
+                      className="ml-2 text-sm text-gray-700 dark:text-gray-300"
+                    >
+                      {level}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          
+            {/* Activity Filter */}
+            <div>
+              <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                Aktivitas Terakhir
+              </label>
+              <div className="space-y-2">
+                {[ 'Hari ini', '7 hari terakhir', '30 hari terakhir' ].map(period => (
+                  <div key={period} className="flex items-center">
+                    <input
+                      type="radio"
+                      name="activity-period"
+                      id={`period-${period}`}
+                      className="h-4 w-4 text-lime-500 focus:ring-lime-500"
+                    />
+                    <label
+                      htmlFor={`period-${period}`}
+                      className="ml-2 text-sm text-gray-700 dark:text-gray-300"
+                    >
+                      {period}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          
+            {/* Total Setoran Filter */}
+            <div>
+              <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                Total Setoran
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="500"
+                value={value}
+                onChange={(range) => setValue(Number(range.target.value))}
+                className="w-full h-2 rounded-lg appearance-none bg-lime-200 dark:bg-lime-900 cursor-pointer"
+              />
+              <div className="flex justify-between text-xs mt-1 text-gray-500 dark:text-gray-400">
+                <span>{value} kg</span>
+                <span>500 kg</span>
+              </div>
+            </div>
+          
+            <div className="pt-6 flex space-x-2">
+              <button
+                className="flex-1 py-2 px-4 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-center"
+              >
+                Reset
+              </button>
+              <button
+                className="flex-1 py-2 px-4 bg-lime-500 text-white rounded-lg text-center"
+              >
+                Terapkan
+              </button>
             </div>
           </div>
-          
-          {/* Activity Filter */}
-          <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-              Aktivitas Terakhir
-            </label>
-            <div className="space-y-2">
-              {['Hari ini', '7 hari terakhir', '30 hari terakhir'].map(period => (
-                <div key={period} className="flex items-center">
-                  <input
-                    type="radio"
-                    name="activity-period"
-                    id={`period-${period}`}
-                    className="h-4 w-4 text-lime-500 focus:ring-lime-500"
-                  />
-                  <label 
-                    htmlFor={`period-${period}`}
-                    className="ml-2 text-sm text-gray-700 dark:text-gray-300"
-                  >
-                    {period}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Total Setoran Filter */}
-          <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-              Total Setoran
-            </label>
-            <input
-              type="range"
-              min="0"
-              max="500"
-              className="w-full h-2 rounded-lg appearance-none bg-lime-200 dark:bg-lime-900 cursor-pointer"
-            />
-            <div className="flex justify-between text-xs mt-1 text-gray-500 dark:text-gray-400">
-              <span>0 kg</span>
-              <span>500 kg</span>
-            </div>
-          </div>
-          
-          <div className="pt-6 flex space-x-2">
-            <button 
-              className="flex-1 py-2 px-4 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-center"
-            >
-              Reset
-            </button>
-            <button 
-              className="flex-1 py-2 px-4 bg-lime-500 text-white rounded-lg text-center"
-            >
-              Terapkan
-            </button>
-          </div>
-        </div>
+        </motion.div>
       </motion.div>
-    </motion.div>
-  )
+    )
+  }
 
   const MobileSearchBar = () => (
     <motion.div
