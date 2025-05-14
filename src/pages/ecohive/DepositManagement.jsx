@@ -108,7 +108,7 @@ const DepositManagement = () => {
             whileTap={{ scale: 0.95 }}
             className="flex items-center px-3 py-2 sm:px-4 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-sm"
           >
-            <Filter className="h-4 w-4 mr-1 sm:mr-2" />
+            <Filter className="h-4 w-4" />
             <span className="hidden xs:inline">Filter</span>
           </motion.button>
           
