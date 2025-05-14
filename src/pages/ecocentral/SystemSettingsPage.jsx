@@ -317,7 +317,7 @@ const SystemSettingsPage = () => {
                     setIsAddingCategory(true);
                     setEditingCategory(null);
                   }}
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  className="cursor-pointer w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 text-sm leading-4 font-medium rounded-md text-white bg-teal-600 hover:bg-teal-500 focus:outline-none active:bg-teal-700 transition-colors duration-200 ease-in-out shadow-md hover:shadow-lg active:shadow-sm"
                 >
                   <Plus className="h-4 w-4 mr-1" />
                   Tambah Kategori
@@ -449,13 +449,13 @@ const SystemSettingsPage = () => {
                   <div className="mt-4 flex justify-end">
                     <button
                       onClick={() => setIsAddingCategory(false)}
-                      className="mr-2 inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                      className="mr-2 inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
                     >
                       Batal
                     </button>
                     <button
                       onClick={addNewCategory}
-                      className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                      className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 cursor-pointer"
                     >
                       <Plus className="h-4 w-4 mr-1" />
                       Tambah
@@ -619,55 +619,18 @@ const SystemSettingsPage = () => {
                                 />
                               </div>
                             </div>
-
-                            <div className="flex items-center mt-2">
-                              <label className="flex items-center cursor-pointer">
-                                <div className="relative">
-                                  <input
-                                    type="checkbox"
-                                    className="sr-only"
-                                    checked={editingCategory.isActive}
-                                    onChange={() =>
-                                      setEditingCategory({
-                                        ...editingCategory,
-                                        isActive: !editingCategory.isActive,
-                                      })
-                                    }
-                                  />
-                                  <div
-                                    className={`block w-12 h-6 md:w-14 md:h-8 rounded-full ${
-                                      editingCategory.isActive
-                                        ? "bg-teal-600"
-                                        : "bg-gray-400 dark:bg-gray-600"
-                                    }`}
-                                  ></div>
-                                  <div
-                                    className={`absolute left-1 top-1 bg-white w-4 h-4 md:w-6 md:h-6 rounded-full transition-transform ${
-                                      editingCategory.isActive
-                                        ? "transform translate-x-6 md:translate-x-6"
-                                        : ""
-                                    }`}
-                                  ></div>
-                                </div>
-                                <span className="ml-3 text-sm text-gray-700 dark:text-gray-300">
-                                  {editingCategory.isActive
-                                    ? "Aktif"
-                                    : "Nonaktif"}
-                                </span>
-                              </label>
-                            </div>
                           </div>
 
                           <div className="mt-4 flex justify-end">
                             <button
                               onClick={() => setEditingCategory(null)}
-                              className="mr-2 inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                              className="mr-2 inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
                             >
                               Batal
                             </button>
                             <button
                               onClick={saveCategory}
-                              className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                              className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 cursor-pointer"
                             >
                               <Save className="h-4 w-4 mr-1" />
                               Simpan
@@ -1269,10 +1232,10 @@ const SystemSettingsPage = () => {
               </div>
 
               <div className="mt-6 flex justify-end">
-                <button className="cursor-pointer mr-3 inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
+                <button className="cursor-pointer mr-3 inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                   Batalkan Perubahan
                 </button>
-                <button className=" cursor-pointer inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
+                <button className=" cursor-pointer inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700">
                   <Save className="h-4 w-4 mr-1" />
                   Simpan Pengaturan
                 </button>

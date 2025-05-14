@@ -828,7 +828,7 @@ function EcoCentralNotification() {
               initial="hidden"
               animate="visible"
               variants={slideFromLeft}
-              className={`w-full md:w-1/3 border-r border-gray-200 dark:border-gray-700 ${
+              className={`w-full md:w-1/3 border-r border-gray-200 dark:border-gray-700 flex flex-col ${
                 selectedConversation && isMobile ? "hidden" : "block"
               }`}
             >
@@ -846,7 +846,7 @@ function EcoCentralNotification() {
                 </div>
               </div>
 
-              <div className="overflow-y-auto h-[calc(600px-61px)]">
+              <div className="overflow-y-auto h-[calc(600px-61px)] flex-1">
                 {conversations.map((conversation) => (
                   <motion.div
                     key={conversation.id}
@@ -860,7 +860,7 @@ function EcoCentralNotification() {
                     onClick={() => handleSelectConversation(conversation.id)}
                   >
                     <div className="flex items-center">
-                      <div className="relative">
+                      <div className="relative flex-shrink-0">
                         <img
                           src={conversation.partner.avatar}
                           alt={conversation.partner.name}
@@ -878,35 +878,37 @@ function EcoCentralNotification() {
                           }`}
                         ></span>
                       </div>
-                      <div className="ml-3 flex-1">
-                        <div className="flex justify-between">
-                          <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                      <div className="ml-3 flex-1 min-w-0">
+                        <div className="flex justify-between items-center">
+                          <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate max-w-[120px]">
                             {conversation.partner.name}
                           </h4>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                          <span className="text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
                             {conversation.time}
                           </span>
                         </div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 truncate">
                           {conversation.partner.role}
                         </p>
-                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 truncate">
-                          {conversation.lastMessage}
-                        </p>
-                      </div>
-                      {conversation.unread > 0 && (
-                        <div className="ml-2 flex-shrink-0">
-                          <span
-                            className={`inline-flex items-center justify-center h-5 w-5 rounded-full text-xs font-medium ${
-                              conversation.urgent
-                                ? "bg-red-500 text-white"
-                                : "bg-lime-500 text-white"
-                            }`}
-                          >
-                            {conversation.unread}
-                          </span>
+                        <div className="flex justify-between items-center mt-1">
+                          <p className="text-sm text-gray-600 dark:text-gray-300 truncate max-w-[85%]">
+                            {conversation.lastMessage}
+                          </p>
+                          {conversation.unread > 0 && (
+                            <div className="flex-shrink-0">
+                              <span
+                                className={`inline-flex items-center justify-center h-5 w-5 rounded-full text-xs font-medium ${
+                                  conversation.urgent
+                                    ? "bg-red-500 text-white"
+                                    : "bg-lime-500 text-white"
+                                }`}
+                              >
+                                {conversation.unread}
+                              </span>
+                            </div>
+                          )}
                         </div>
-                      )}
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -926,14 +928,13 @@ function EcoCentralNotification() {
                 <>
                   {/* Chat Header */}
                   <div className="p-3 md:p-4 border-b border-gray-200 dark:border-gray-700 flex items-center">
-                    {isMobile && (
-                      <button
-                        onClick={() => setSelectedConversation(null)}
-                        className="mr-2 text-gray-500 dark:text-gray-400"
-                      >
-                        <i data-feather="arrow-left" className="h-5 w-5"></i>
-                      </button>
-                    )}
+                    <button
+                      onClick={() => setSelectedConversation(null)}
+                      className="mr-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 p-1 rounded-full flex items-center justify-center"
+                      title="Kembali"
+                    >
+                      <i data-feather="arrow-left" className="h-5 w-5"></i>
+                    </button>
                     <div className="flex items-center flex-1">
                       <img
                         src={
