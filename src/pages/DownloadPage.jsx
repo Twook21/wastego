@@ -54,7 +54,7 @@ function DownloadPage() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
+    <div className="bg-white dark:bg-gray-900 transition-colors duration-200 overflow-hidden">
       {/* Header */}
       <motion.section
         className="bg-teal-900 dark:bg-gray-800 text-white py-16"
