@@ -249,25 +249,25 @@ function ContactPage() {
                 <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Ikuti Kami</h3>
                 <div className="flex space-x-3">
                   <a 
-                    href="#" 
+                    href="https://www.instagram.com/" 
                     className="text-gray-500 hover:text-lime-500 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
                   >
                     <i data-feather="instagram" className="h-5 w-5"></i>
                   </a>
                   <a 
-                    href="#" 
+                    href="https://www.facebook.com/" 
                     className="text-gray-500 hover:text-lime-500 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
                   >
                     <i data-feather="facebook" className="h-5 w-5"></i>
                   </a>
                   <a 
-                    href="#" 
+                    href="https://x.com/" 
                     className="text-gray-500 hover:text-lime-500 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
                   >
                     <i data-feather="twitter" className="h-5 w-5"></i>
                   </a>
                   <a 
-                    href="#" 
+                    href="https://www.linkedin.com/company/wastego" 
                     className="text-gray-500 hover:text-lime-500 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
                   >
                     <i data-feather="linkedin" className="h-5 w-5"></i>

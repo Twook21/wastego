@@ -141,7 +141,7 @@ function AdminLoginPage() {
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-white hover:text-gray-300 focus:outline-none"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 focus:outline-none"
                 >
                   {showPassword ? (
                     <svg
