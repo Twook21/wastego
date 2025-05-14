@@ -221,7 +221,7 @@ const EcoHiveManagement = () => {
           variants={fadeIn}
         >
           <motion.div 
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden"
+            className="bg-white dark:bg-gray-800 rounded-lg border shadow-lg border-gray-300 overflow-hidden"
             variants={staggerItems}
           >
             <div className="overflow-x-auto">
@@ -445,11 +445,11 @@ const EcoHiveManagement = () => {
 
       {/* Add EcoHive Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 overflow-y-auto  bg-white/5 backdrop-blur-sm bg-opacity-50 bg-opacity-50 flex items-center justify-center z-50">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4"
+            className="bg-white dark:bg-gray-800 rounded-lg border shadow-lg border-gray-300 max-w-md w-full mx-4"
           >
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
@@ -529,11 +529,11 @@ const EcoHiveManagement = () => {
 
       {/* Edit EcoHive Modal */}
       {isEditModalOpen && selectedEcoHive && (
-        <div className="fixed inset-0 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 overflow-y-auto  bg-white/5 backdrop-blur-sm bg-opacity-50 bg-opacity-50 flex items-center justify-center z-50">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4"
+            className="bg-white dark:bg-gray-800 rounded-lg border shadow-lg border-gray-300 max-w-md w-full mx-4"
           >
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
@@ -632,7 +632,7 @@ const EcoHiveManagement = () => {
       >
         {/* Chart 1 */}
         <motion.div 
-          className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+          className="bg-white dark:bg-gray-800 rounded-lg border shadow-lg border-gray-300 p-6"
           variants={fadeIn}
         >
           <h3 className="text-lg font-semibold text-teal-900 dark:text-white mb-4">Distribusi Status</h3>
@@ -643,7 +643,7 @@ const EcoHiveManagement = () => {
         
         {/* Chart 2 */}
         <motion.div 
-          className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+          className="bg-white dark:bg-gray-800 rounded-lg border shadow-lg border-gray-300 p-6"
           variants={fadeIn}
         >
           <h3 className="text-lg font-semibold text-teal-900 dark:text-white mb-4">Volume Sampah Mingguan</h3>
@@ -654,7 +654,7 @@ const EcoHiveManagement = () => {
         
         {/* Chart 3 */}
         <motion.div 
-          className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+          className="bg-white dark:bg-gray-800 rounded-lg border shadow-lg border-gray-300 p-6"
           variants={fadeIn}
         >
           <h3 className="text-lg font-semibold text-teal-900 dark:text-white mb-4">Performa EcoHive</h3>
@@ -673,7 +673,7 @@ const EcoHiveManagement = () => {
         variants={slideFromBottom}
       >
         <motion.div 
-          className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+          className="bg-white dark:bg-gray-800 rounded-lg border shadow-lg border-gray-300 p-6"
           variants={fadeIn}
         >
           <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4">Aktivitas Terbaru EcoHive</h3>

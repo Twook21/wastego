@@ -713,7 +713,7 @@ function DownloadPage() {
           >
             <motion.a
               href="#"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-900 dark:bg-teal-900 dark:text-lime-500 hover:bg-opacity-90"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-900 dark:bg-teal-900 dark:text-lime-500 hover:bg-opacity-90"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
@@ -724,12 +724,13 @@ function DownloadPage() {
               Download Sekarang
             </motion.a>
             <motion.div
+              className="w-full sm:w-auto"
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
             >
               <Link
                 to="/about"
-                className="inline-flex items-center justify-center px-6 py-3 border border-teal-900 dark:border-white text-base font-medium rounded-md text-teal-900 dark:text-white hover:bg-white hover:text-teal-900"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-teal-900 dark:border-white text-base font-medium rounded-md text-teal-900 dark:text-white hover:bg-white hover:text-teal-900"
               >
                 Pelajari Lebih Lanjut
               </Link>

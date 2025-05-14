@@ -52,7 +52,7 @@ function AdminLoginPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="relative min-h-screen flex flex-col justify-center py-6 px-4 sm:py-12 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background Music */}
       <audio ref={audioRef} autoPlay loop>
         <source src="/images/background/musik.mp3" type="audio/mpeg" />
@@ -72,14 +72,14 @@ function AdminLoginPage() {
       </video>
 
       {/* Login Content */}
-      <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="text-center text-3xl font-extrabold text-white">
+      <div className="relative z-10 mx-auto w-full max-w-xs sm:max-w-md">
+        <h2 className="text-center text-2xl sm:text-3xl font-extrabold text-white">
           Log In Now
         </h2>
       </div>
 
-      <div className="relative z-10 mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="backdrop-blur-md bg-white/30 dark:bg-gray-900/30 py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 border border-white/20">
+      <div className="relative z-10 mt-4 sm:mt-8 mx-auto w-full max-w-xs sm:max-w-md">
+        <div className="backdrop-blur-md bg-white/30 dark:bg-gray-900/30 py-6 sm:py-8 px-4 shadow-lg rounded-lg sm:rounded-lg sm:px-10 border border-white/20">
           {error && (
             <div className="mb-4 p-2 bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-200 rounded-md text-sm text-center">
               {error}
@@ -87,10 +87,10 @@ function AdminLoginPage() {
           )}
 
           <div className="flex justify-center">
-            <img src={Logo} alt="Logo WasteGO" className="h-8 w-auto mb-8" />
+            <img src={Logo} alt="Logo WasteGO" className="h-8 w-auto mb-6" />
           </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"
@@ -141,7 +141,7 @@ function AdminLoginPage() {
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-black hover:text-gray-500 focus:outline-none"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-white hover:text-gray-300 focus:outline-none"
                 >
                   {showPassword ? (
                     <svg
@@ -191,7 +191,7 @@ function AdminLoginPage() {
               >
                 Login
               </button>
-              <h1 className="mt-3 text-white text-sm text-shadow-lg text-center">
+              <h1 className="mt-3 text-white text-xs sm:text-sm text-shadow-lg text-center">
                 Belum punya akun?{" "}
                 <span>
                   <Link
@@ -206,7 +206,7 @@ function AdminLoginPage() {
           </form>
 
           {/* Back to Home Button */}
-          <div className="mt-6">
+          <div className="mt-4 sm:mt-6">
             <Link
               to="/"
               className="w-full flex justify-center py-2 px-4 border border-white/30 rounded-md shadow-sm text-sm font-medium text-white bg-transparent hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/30 transition-colors duration-200"
@@ -217,7 +217,7 @@ function AdminLoginPage() {
         </div>
 
         {/* Copyright Notice */}
-        <div className="mt-8 text-center text-xs text-white/70">
+        <div className="mt-4 sm:mt-8 text-center text-xs text-white/70">
           © {new Date().getFullYear()} WasteGo. Hak Cipta Dilindungi.
         </div>
       </div>

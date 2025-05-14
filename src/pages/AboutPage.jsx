@@ -668,7 +668,7 @@ function AboutPage() {
             >
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white hover:text-gray-900 hover:bg-opacity-10"
+                className="inline-flex items-center justify-center px-10 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white hover:text-gray-900 hover:bg-opacity-10"
               >
                 Hubungi Kami
               </Link>

@@ -855,7 +855,7 @@ function EcoCentralNotification() {
                     className={`p-3 md:p-4 border-b border-gray-200 dark:border-gray-700 cursor-pointer ${
                       selectedConversation === conversation.id
                         ? "bg-gray-100 dark:bg-gray-700"
-                        : "hover:bg-gray-50 dark:hover:bg-gray-750"
+                        : "hover:bg-gray-50 dark:hover:bg-gray-700"
                     }`}
                     onClick={() => handleSelectConversation(conversation.id)}
                   >

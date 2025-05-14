@@ -53,7 +53,7 @@ function RegisterPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="relative min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <audio ref={audioRef} autoPlay loop>
         <source src="/images/background/musik.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
@@ -72,15 +72,15 @@ function RegisterPage() {
       </video>
 
       {/* KONTEN REGISTER */}
-      <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="text-center text-3xl font-extrabold text-white">
+      <div className="relative z-10 mx-auto w-full max-w-md">
+        <h2 className="text-center text-3xl font-extrabold text-white mb-2">
           Daftar Akun
         </h2>
       </div>
 
-      <div className="relative z-10 mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="relative z-10 mt-4 mx-auto w-full max-w-md">
         {/* Blurred minimalist form */}
-        <div className="backdrop-blur-md bg-white/30 dark:bg-gray-900/30 py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 border border-white/20">
+        <div className="backdrop-blur-md bg-white/30 dark:bg-gray-900/30 py-6 px-5 sm:px-8 shadow-lg rounded-lg border border-white/20">
           {error && (
             <div className="mb-4 p-2 bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-200 rounded-md text-sm text-center">
               {error}
@@ -91,11 +91,11 @@ function RegisterPage() {
             <img 
               src={Logo} 
               alt="Logo WasteGO" 
-              className="h-8 w-auto mb-8"
+              className="h-8 w-auto mb-6"
             />
           </div>
           
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="name"
@@ -171,7 +171,7 @@ function RegisterPage() {
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center  text-black hover:text-gray-500 focus:outline-none"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-white hover:text-gray-300 focus:outline-none"
                 >
                   {showPassword ? (
                     <svg
@@ -239,7 +239,7 @@ function RegisterPage() {
                 <button
                   type="button"
                   onClick={toggleConfirmPasswordVisibility}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-black hover:text-gray-500 focus:outline-none"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-white hover:text-gray-300 focus:outline-none"
                 >
                   {showConfirmPassword ? (
                     <svg
@@ -282,19 +282,21 @@ function RegisterPage() {
               </div>
             </div>
 
-            <div>
+            <div className="pt-2">
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-lime-500 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-600 transition-colors duration-200"
+                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-lime-500 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-600 transition-colors duration-200"
               >
                 Daftar
               </button>
-              <h1 className="mt-3 text-white text-sm text-shadow-lg text-center">Sudah punya akun? <span><Link to="/login" className="text-lime-300 hover:text-lime-400">Login Disini!</Link></span></h1>
+              <p className="mt-3 text-white text-sm text-shadow-lg text-center">
+                Sudah punya akun? <span><Link to="/login" className="text-lime-300 hover:text-lime-400">Login Disini!</Link></span>
+              </p>
             </div>
           </form>
           
           {/* Back to Home Button */}
-          <div className="mt-6">
+          <div className="mt-5">
             <Link
               to="/"
               className="w-full flex justify-center py-2 px-4 border border-white/30 rounded-md shadow-sm text-sm font-medium text-white bg-transparent hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/30 transition-colors duration-200"
@@ -305,7 +307,7 @@ function RegisterPage() {
         </div>
         
         {/* Copyright Notice */}
-        <div className="mt-8 text-center text-xs text-white/70">
+        <div className="mt-6 text-center text-xs text-white/70">
           © {new Date().getFullYear()} WasteGo. Hak Cipta Dilindungi.
         </div>
       </div>
