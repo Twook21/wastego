@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 const ecobuddies = [
@@ -61,7 +61,13 @@ const ecobuddies = [
 const EcoBuddyManagement = () => {
   const [showFilterMenu, setShowFilterMenu] = useState(false)
   const [searchFocused, setSearchFocused] = useState(false)
-  const [ showMobileSearch, setShowMobileSearch ] = useState(false)
+  const [showMobileSearch, setShowMobileSearch] = useState(false)
+  
+  const [activeFilters, setActiveFilters] = useState({
+    levels: [],
+    activityPeriod: null,
+    totalDepositMin: 0
+  })
   
   useEffect(() => {
     if (window.feather) {
@@ -104,12 +110,63 @@ const EcoBuddyManagement = () => {
     }
   }
 
-  const FilterMenu = ({ setShowFilterMenu }) => {
-    const [ value, setValue ] = useState(0);
+  const FilterMenu = () => {
+    const [tempFilters, setTempFilters] = useState({
+      levels: [...activeFilters.levels],
+      activityPeriod: activeFilters.activityPeriod,
+      totalDepositMin: activeFilters.totalDepositMin
+    })
+
+    const handleLevelChange = (level) => {
+      setTempFilters(prev => {
+        const levelExists = prev.levels.includes(level)
+        if (levelExists) {
+          return {
+            ...prev,
+            levels: prev.levels.filter(l => l !== level)
+          }
+        } else {
+          return {
+            ...prev,
+            levels: [...prev.levels, level]
+          }
+        }
+      })
+    }
+
+    const handleActivityPeriodChange = (period) => {
+      setTempFilters(prev => ({
+        ...prev,
+        activityPeriod: period
+      }))
+    }
+
+    const handleTotalDepositChange = (value) => {
+      setTempFilters(prev => ({
+        ...prev,
+        totalDepositMin: value
+      }))
+    }
+
+    const applyFilters = () => {
+      setActiveFilters(tempFilters)
+      setShowFilterMenu(false)
+    }
+
+    const resetFilters = () => {
+      const emptyFilters = {
+        levels: [],
+        activityPeriod: null,
+        totalDepositMin: 0
+      }
+      // Hanya reset nilai filter tanpa menutup menu
+      setTempFilters(emptyFilters)
+    }
 
     const slideInFromRight = {
       hidden: { x: '100%' },
       visible: { x: 0, transition: { type: 'tween', duration: 0.3 } },
+      exit: { x: '100%', transition: { type: 'tween', duration: 0.2 } }
     };
 
     return (
@@ -124,6 +181,7 @@ const EcoBuddyManagement = () => {
           className="w-3/4 max-w-xs bg-white dark:bg-gray-900 h-full p-6 shadow-xl"
           initial="hidden"
           animate="visible"
+          exit="exit"
           variants={slideInFromRight}
           onClick={e => e.stopPropagation()}
         >
@@ -150,6 +208,8 @@ const EcoBuddyManagement = () => {
                       type="checkbox"
                       id={`level-${level}`}
                       className="h-4 w-4 text-lime-500 rounded focus:ring-lime-500"
+                      checked={tempFilters.levels.includes(level)}
+                      onChange={() => handleLevelChange(level)}
                     />
                     <label
                       htmlFor={`level-${level}`}
@@ -175,6 +235,8 @@ const EcoBuddyManagement = () => {
                       name="activity-period"
                       id={`period-${period}`}
                       className="h-4 w-4 text-lime-500 focus:ring-lime-500"
+                      checked={tempFilters.activityPeriod === period}
+                      onChange={() => handleActivityPeriodChange(period)}
                     />
                     <label
                       htmlFor={`period-${period}`}
@@ -196,24 +258,26 @@ const EcoBuddyManagement = () => {
                 type="range"
                 min="0"
                 max="500"
-                value={value}
-                onChange={(range) => setValue(Number(range.target.value))}
+                value={tempFilters.totalDepositMin}
+                onChange={(e) => handleTotalDepositChange(Number(e.target.value))}
                 className="w-full h-2 rounded-lg appearance-none bg-lime-200 dark:bg-lime-900 cursor-pointer"
               />
               <div className="flex justify-between text-xs mt-1 text-gray-500 dark:text-gray-400">
-                <span>{value} kg</span>
+                <span>{tempFilters.totalDepositMin} kg</span>
                 <span>500 kg</span>
               </div>
             </div>
           
             <div className="pt-6 flex space-x-2">
               <button
-                className="flex-1 py-2 px-4 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-center"
+                className="flex-1 py-2 px-4 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 text-center cursor-pointer"
+                onClick={resetFilters}
               >
                 Reset
               </button>
               <button
-                className="flex-1 py-2 px-4 bg-lime-500 text-white rounded-lg text-center"
+                className="flex-1 py-2 px-4 bg-lime-500 text-white rounded-lg text-center cursor-pointer"
+                onClick={applyFilters}
               >
                 Terapkan
               </button>
@@ -498,11 +562,14 @@ const EcoBuddyManagement = () => {
         </motion.button>
       </div>
 
-      {/* Mobile Filter Menu */}
-      {showFilterMenu && <FilterMenu />}
+     <AnimatePresence>
+        {showFilterMenu && <FilterMenu />}
+      </AnimatePresence>
       
       {/* Mobile Search Bar Overlay */}
-      {showMobileSearch && <MobileSearchBar />}
+      <AnimatePresence>
+        {showMobileSearch && <MobileSearchBar />}
+      </AnimatePresence>
     </div>
   )
 }
