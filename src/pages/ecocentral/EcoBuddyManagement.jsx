@@ -461,14 +461,14 @@ const EcoBuddyManagement = () => {
 
     return (
       <motion.div
-        className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 bg-white1/3 bg-opacity-50 shadow-lg backdrop-blur-sm flex items-center justify-center p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={() => setShowDetailModal(false)}
       >
         <motion.div
-          className="w-full max-w-2xl bg-white dark:bg-gray-900 rounded-xl shadow-xl overflow-hidden"
+          className="w-full max-w-2xl max-h-[90vh] bg-white dark:bg-gray-900 rounded-xl shadow-xl overflow-y-auto"
           initial="hidden"
           animate="visible"
           variants={scaleUp}
@@ -663,24 +663,24 @@ const EcoBuddyManagement = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="mt-6 flex justify-between">
+            <div className="mt-6 flex flex-wrap justify-between gap-4 sm:gap-6">
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center py-2 px-4 text-sm text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 rounded-lg"
+                className="w-full sm:w-auto flex items-center py-2 px-4 text-sm text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 rounded-lg"
               >
                 <i data-feather="message-circle" className="h-4 w-4 mr-2"></i>
                 <span>Hubungi</span>
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center py-2 px-4 text-sm text-white bg-teal-600 hover:bg-teal-700 rounded-lg"
+                className="w-full sm:w-auto flex items-center py-2 px-4 text-sm text-white bg-teal-600 hover:bg-teal-700 rounded-lg"
               >
                 <i data-feather="file-text" className="h-4 w-4 mr-2"></i>
                 <span>Lihat Histori Lengkap</span>
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                className={`flex items-center py-2 px-4 text-sm text-white ${
+                className={`w-full sm:w-auto flex items-center py-2 px-4 text-sm text-white ${
                   selectedEcoBuddy.status === "active"
                     ? "bg-red-600 hover:bg-red-700"
                     : "bg-green-600 hover:bg-green-700"

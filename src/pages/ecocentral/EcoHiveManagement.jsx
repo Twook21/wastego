@@ -234,7 +234,7 @@ const EcoHiveManagement = () => {
       </motion.div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-6 relative">
+      <div className="flex flex-col h-[500px] lg:flex-row gap-6 relative">
         {/* EcoHive List */}
         <motion.div
           className={`transition-all duration-300 ${

@@ -59,6 +59,13 @@ const Sidebar = ({
     visible: { opacity: 1, transition: { duration: 0.3 } },
   };
 
+  // Handler for menu item clicks on mobile
+  const handleMenuItemClick = () => {
+    if (window.innerWidth <= 768) {
+      setSidebarOpen(false);
+    }
+  };
+
   return (
     <motion.aside
       initial="hidden"
@@ -86,7 +93,7 @@ const Sidebar = ({
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={toggleMinimize}
-            className="hidden md:block p-1 mr-2 hover:bg-lime-500 hover:text-teal-900 rounded-md transition-colors"
+            className="hidden md:block p-1 mr-2 hover:bg-lime-500 hover:text-teal-900 rounded-md transition-colors justify-center"
           >
             {minimized ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
           </motion.button>
@@ -123,6 +130,7 @@ const Sidebar = ({
             description="Lihat ringkasan data dan statistik"
             isActive={currentSection === "dashboard"}
             minimized={minimized}
+            onClick={handleMenuItemClick}
           />
           <NavLinkItem
             to="/ecocentral/management"
@@ -131,6 +139,7 @@ const Sidebar = ({
             description="Kelola setoran sampah dari pengguna"
             isActive={currentSection === "management"}
             minimized={minimized}
+            onClick={handleMenuItemClick}
           />
           <NavLinkItem
             to="/ecocentral/ecobuddy"
@@ -139,6 +148,7 @@ const Sidebar = ({
             description="Informasi pengguna dan mitra daur ulang"
             isActive={currentSection === "ecobuddy"}
             minimized={minimized}
+            onClick={handleMenuItemClick}
           />
           <NavLinkItem
             to="/ecocentral/ecohive"
@@ -147,6 +157,7 @@ const Sidebar = ({
             description="Kelola pusat daur ulang EcoHive"
             isActive={currentSection === "ecohive"}
             minimized={minimized}
+            onClick={handleMenuItemClick}
           />
           <NavLinkItem
             to="/ecocentral/report"
@@ -155,6 +166,7 @@ const Sidebar = ({
             description="Lihat dan unduh laporan kinerja"
             isActive={currentSection === "report"}
             minimized={minimized}
+            onClick={handleMenuItemClick}
           />
           <NavLinkItem
             to="/ecocentral/notification"
@@ -163,13 +175,14 @@ const Sidebar = ({
             description="Notifikasi dan komunikasi"
             isActive={currentSection === "notification"}
             minimized={minimized}
+            onClick={handleMenuItemClick}
           />
         </motion.nav>
 
         {!minimized && (
           <motion.p
             variants={fadeIn}
-            className="text-xs uppercase text-gray-300 mt-8 mb-4 font-medium pl-3"
+            className="text-xs uppercase text-gray-300 mt-4 mb-4 font-medium pl-3"
           >
             Lainnya
           </motion.p>
@@ -187,58 +200,61 @@ const Sidebar = ({
             description="Konfigurasi sistem dan preferensi"
             isActive={currentSection === "settings"}
             minimized={minimized}
+            onClick={handleMenuItemClick}
           />
         </motion.nav>
       </div>
 
       {/* Footer */}
-      <motion.div
-        variants={fadeIn}
-        className={`px-4 py-3 border-t border-teal-800 dark:border-gray-700 ${
-          minimized ? "text-center" : ""
-        }`}
-      >
-        {minimized ? (
+      {!minimized ? (
+        <motion.div
+          variants={fadeIn}
+          className="border-t border-teal-800 dark:border-gray-700 p-4 flex justify-center"
+        >
+          <div className="flex flex-col items-center">
+            <p className="text-sm font-semibold text-gray-200">
+              EcoCentral Panel
+            </p>
+          </div>
+        </motion.div>
+      ) : (
+        <motion.div
+          variants={fadeIn}
+          className="mt-auto border-t border-teal-800 dark:border-gray-700 p-2 flex justify-center"
+        >
           <motion.div
             className="text-xs font-medium text-gray-300 flex flex-col items-center"
             whileHover={{ scale: 1.05 }}
           >
             <span className="rotate-90 inline-block">EcoCentral</span>
           </motion.div>
-        ) : (
-          <motion.div
-            className="text-sm font-medium text-gray-300 flex items-center justify-center"
-            whileHover={{ scale: 1.05 }}
-          >
-            EcoCentral Panel
-          </motion.div>
-        )}
-      </motion.div>
+        </motion.div>
+      )}
     </motion.aside>
   );
 };
 
-// Enhanced NavLink component with responsive tooltip - but hidden on mobile
-const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
+// Enhanced NavLink component with desktop-only tooltip
+const NavLinkItem = ({ to, icon, label, description, isActive, minimized, onClick }) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-
+  
   // Check if device is mobile
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-
+    
     // Initial check
     checkIsMobile();
-
+    
     // Add event listener for window resize
-    window.addEventListener("resize", checkIsMobile);
-
+    window.addEventListener('resize', checkIsMobile);
+    
     // Cleanup
-    return () => window.removeEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
-
+  
   const fadeIn = {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
@@ -246,11 +262,20 @@ const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
 
   const tooltipVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.2 } },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.2 } }
+  };
+
+  // Combined handler for NavLink click
+  const handleNavLinkClick = (e) => {
+    if (onClick) {
+      onClick();
+    }
+    // Hide tooltip after click
+    setShowTooltip(false);
   };
 
   return (
-    <motion.div
+    <motion.div 
       variants={fadeIn}
       className="relative"
       onMouseEnter={() => !isMobile && setShowTooltip(true)}
@@ -258,15 +283,16 @@ const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
     >
       <NavLink
         to={to}
+        onClick={handleNavLinkClick}
         className={({ isActive: routerActive }) =>
           `flex items-center ${
             minimized ? "justify-center" : "px-3"
           } py-3 text-base font-medium rounded-md transition-all duration-200
-            ${
-              routerActive || isActive
-                ? "bg-lime-500 text-teal-900 shadow-md"
-                : "hover:bg-teal-800 dark:hover:bg-gray-700 hover:scale-105"
-            }`
+          ${
+            routerActive || isActive
+              ? "bg-lime-500 text-teal-900 shadow-md"
+              : "hover:bg-teal-800 dark:hover:bg-gray-700 hover:scale-105"
+          }`
         }
       >
         <motion.div
@@ -277,27 +303,35 @@ const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
         </motion.div>
         {!minimized && <span>{label}</span>}
       </NavLink>
-
-      {/* Tooltip - Only shown on desktop devices */}
-      {!isMobile && showTooltip && (
+      
+      {/* Desktop-Only Tooltip */}
+      {showTooltip && minimized && !isMobile && (
         <motion.div
           initial="hidden"
           animate="visible"
           variants={tooltipVariants}
           className="absolute left-20 top-0 ml-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded-md shadow-lg z-50 w-48"
-          style={{
-            maxWidth: "12rem",
-            wordWrap: "break-word",
-            whiteSpace: "normal",
-            overflow: "hidden",
-          }}
         >
           <div className="relative">
             <div className="absolute -left-2 top-3 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white dark:bg-gray-800"></div>
             <p className="font-bold text-sm">{label}</p>
-            <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
-              {description}
-            </p>
+            <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">{description}</p>
+          </div>
+        </motion.div>
+      )}
+      
+      {/* Regular Tooltip when not minimized (desktop only) */}
+      {showTooltip && !minimized && !isMobile && (
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={tooltipVariants}
+          className="absolute left-full top-0 ml-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded-md shadow-lg z-50 w-48"
+        >
+          <div className="relative">
+            <div className="absolute -left-2 top-3 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white dark:bg-gray-800"></div>
+            <p className="font-bold text-sm">{label}</p>
+            <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">{description}</p>
           </div>
         </motion.div>
       )}

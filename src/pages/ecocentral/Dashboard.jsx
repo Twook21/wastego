@@ -65,6 +65,7 @@ const ecoHivePerformanceData = [
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("bulanan");
   const [isMobile, setIsMobile] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(null);
   const featherIconsInitialized = useRef(false);
 
   useEffect(() => {
@@ -120,6 +121,18 @@ const Dashboard = () => {
         staggerChildren: 0.2,
       },
     },
+  };
+
+  const noOutlineStyle = {
+    outline: "none",
+    WebkitTapHighlightColor: "rgba(0, 0, 0, 0)",
+  };
+
+  // Remove focus from any element when the chart is touched
+  const handleTouchStart = () => {
+    if (document.activeElement) {
+      document.activeElement.blur();
+    }
   };
 
   return (
@@ -193,7 +206,6 @@ const Dashboard = () => {
                       data-feather={stat.icon}
                       className="text-teal-900 dark:text-teal-900"
                     ></i>
-                   
                   </motion.div>
                 </div>
               </motion.div>
@@ -308,7 +320,7 @@ const Dashboard = () => {
       >
         {/* Performa Bulanan Chart */}
         <motion.div
-          className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800"
+          className="p-4 rounded-lg shadow-md bg-white dark:bg-gray-800"
           variants={fadeIn}
         >
           <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4">
@@ -334,7 +346,6 @@ const Dashboard = () => {
                     borderColor: "#374151",
                     color: "#F9FAFB",
                   }}
-                 
                 />
                 <Legend />
                 <Line
@@ -363,11 +374,14 @@ const Dashboard = () => {
         <motion.div
           className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800"
           variants={fadeIn}
+          style={noOutlineStyle}
+          tabIndex="-1"
+          onTouchStart={handleTouchStart}
         >
           <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4">
             Distribusi Jenis Sampah
           </h3>
-          <div className={`${isMobile ? "h-60" : "h-80"}`}>
+          <div className={`${isMobile ? "h-70" : "h-80"}`}>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -383,9 +397,20 @@ const Dashboard = () => {
                       ? `${(percent * 100).toFixed(0)}%`
                       : `${name} ${(percent * 100).toFixed(0)}%`
                   }
+                  activeIndex={activeIndex}
+                  activeShape={
+                    activeIndex === null ? undefined : { stroke: "none" }
+                  }
+                  onClick={() => {}} // Empty handler to prevent default behavior
+                  isAnimationActive={false} // Disable animation which might cause focus issues
+                  style={{ outline: "none", stroke: "none" }}
                 >
                   {wasteTypeData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={entry.color}
+                      style={{ outline: "none", stroke: "none" }}
+                    />
                   ))}
                 </Pie>
                 <Tooltip
@@ -395,10 +420,10 @@ const Dashboard = () => {
                     borderColor: "#374151",
                     color: "#F9FAFB",
                   }}
-                   itemStyle={{
-                    color: "#F9FAFB", 
-                    fontSize: "14px", 
-                    fontWeight: "bold", 
+                  itemStyle={{
+                    color: "#F9FAFB",
+                    fontSize: "14px",
+                    fontWeight: "bold",
                   }}
                 />
                 <Legend layout={isMobile ? "horizontal" : undefined} />
@@ -416,102 +441,82 @@ const Dashboard = () => {
         variants={slideFromBottom}
       >
         <motion.div
-          className="p-6 rounded-lg shadow-md bg-white dark:bg-gray-800"
+          className="p-4 md:p-6 rounded-lg shadow-md bg-white dark:bg-gray-800"
           variants={fadeIn}
         >
-          <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4">
+          <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4 text-center">
             Analisis Performa EcoHive
           </h3>
-          {isMobile ? (
-            <div className="overflow-x-auto pb-2">
-              <div className="h-80" style={{ minWidth: "500px" }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    data={ecoHivePerformanceData}
-                    margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                    <XAxis
-                      dataKey="name"
-                      stroke="#9CA3AF"
-                      angle={-45}
-                      textAnchor="end"
-                      height={50}
-                    />
-                    <YAxis stroke="#9CA3AF" />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "#1F2937",
-                        borderColor: "#374151",
-                        color: "#F9FAFB",
-                      }}
-                    />
-                    <Legend />
-                    <Bar
-                      dataKey="sampah"
-                      name="Sampah Terkumpul (kg)"
-                      fill="#10B981"
-                      radius={[4, 4, 0, 0]}
-                      maxBarSize={30}
-                    />
-                    <Bar
-                      dataKey="ecoBuddy"
-                      name="EcoBuddy Aktif"
-                      fill="#3B82F6"
-                      radius={[4, 4, 0, 0]}
-                      maxBarSize={30}
-                    />
-                    <Bar
-                      dataKey="efisiensi"
-                      name="Efisiensi (%)"
-                      fill="#8B5CF6"
-                      radius={[4, 4, 0, 0]}
-                      maxBarSize={30}
-                    />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          ) : (
-            <div className="h-96">
+          <div className={`w-full ${isMobile ? "overflow-x-auto" : ""}`}>
+            <div
+              style={{
+                height: isMobile ? "280px" : "350px",
+                minWidth: isMobile ? "100%" : "auto",
+              }}
+            >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={ecoHivePerformanceData}
-                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                  margin={
+                    isMobile
+                      ? { top: 10, right: 10, left: 0, bottom: 60 }
+                      : { top: 20, right: 30, left: 20, bottom: 5 }
+                  }
+                  barGap={isMobile ? 2 : 4}
                 >
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                  <XAxis dataKey="name" stroke="#9CA3AF" />
-                  <YAxis stroke="#9CA3AF" />
+                  <XAxis
+                    dataKey="name"
+                    stroke="#9CA3AF"
+                    angle={isMobile ? -45 : 0}
+                    textAnchor={isMobile ? "end" : "middle"}
+                    height={isMobile ? 60 : 30}
+                    tick={{ fill: "#9CA3AF", fontSize: isMobile ? 12 : 14 }}
+                  />
+                  <YAxis
+                    stroke="#9CA3AF"
+                    width={isMobile ? 30 : 40}
+                    tick={{ fill: "#9CA3AF", fontSize: isMobile ? 12 : 14 }}
+                  />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: "#1F2937",
                       borderColor: "#374151",
                       color: "#F9FAFB",
+                      fontSize: isMobile ? "12px" : "14px",
+                      padding: isMobile ? "6px" : "10px",
                     }}
                   />
-                  <Legend />
+                  <Legend
+                    verticalAlign={isMobile ? "bottom" : "top"}
+                    height={36}
+                    wrapperStyle={{ fontSize: isMobile ? "10px" : "12px" }}
+                  />
                   <Bar
                     dataKey="sampah"
                     name="Sampah Terkumpul (kg)"
                     fill="#10B981"
                     radius={[4, 4, 0, 0]}
+                    maxBarSize={isMobile ? 20 : 30}
                   />
                   <Bar
                     dataKey="ecoBuddy"
                     name="EcoBuddy Aktif"
                     fill="#3B82F6"
                     radius={[4, 4, 0, 0]}
+                    maxBarSize={isMobile ? 20 : 30}
                   />
                   <Bar
                     dataKey="efisiensi"
                     name="Efisiensi (%)"
                     fill="#8B5CF6"
                     radius={[4, 4, 0, 0]}
+                    maxBarSize={isMobile ? 20 : 30}
                   />
                 </BarChart>
               </ResponsiveContainer>
             </div>
-          )}
+          </div>
         </motion.div>
       </motion.div>
 
