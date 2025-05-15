@@ -902,30 +902,7 @@ const ReportsAnalysis = () => {
               <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-6">
                 Korelasi EcoBuddy & Partisipasi
               </h3>
-              <div className="flex justify-end mb-4">
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => setTimeFrame("bulanan")}
-                    className={`px-3 py-1 rounded-md ${
-                      timeFrame === "bulanan"
-                        ? "bg-teal-500 text-white"
-                        : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                    }`}
-                  >
-                    Bulanan
-                  </button>
-                  <button
-                    onClick={() => setTimeFrame("tahunan")}
-                    className={`px-3 py-1 rounded-md ${
-                      timeFrame === "tahunan"
-                        ? "bg-teal-500 text-white"
-                        : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                    }`}
-                  >
-                    Tahunan
-                  </button>
-                </div>
-              </div>
+              
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <ScatterChart
