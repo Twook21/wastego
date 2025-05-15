@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -14,6 +14,8 @@ import {
 
 const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const notificationRef = useRef(null);
+  const notificationButtonRef = useRef(null);
 
   // Sample notifications data
   const [notifications, setNotifications] = useState([
@@ -46,6 +48,32 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
       read: true,
     },
   ]);
+
+  // Event listener untuk menutup notifikasi ketika klik di luar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Tutup notifikasi jika klik di luar panel notifikasi dan di luar tombol notifikasi
+      if (
+        notificationOpen && 
+        notificationRef.current && 
+        !notificationRef.current.contains(event.target) &&
+        notificationButtonRef.current && 
+        !notificationButtonRef.current.contains(event.target)
+      ) {
+        setNotificationOpen(false);
+      }
+    };
+
+    // Tambahkan event listener ketika notifikasi terbuka
+    if (notificationOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    // Cleanup event listener ketika component unmount atau notifikasi tertutup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [notificationOpen]);
 
   const unreadCount = notifications.filter((notif) => !notif.read).length;
 
@@ -123,6 +151,7 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
           {/* Notifications */}
           <div className="relative">
             <motion.button
+              ref={notificationButtonRef}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setNotificationOpen(!notificationOpen)}
@@ -156,6 +185,7 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                   
                   {/* Mobile full-screen notification panel */}
                   <motion.div 
+                    ref={notificationRef}
                     initial="hidden"
                     animate="visible"
                     exit="exit"
@@ -251,6 +281,7 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                   
                   {/* Desktop dropdown - hidden on mobile */}
                   <motion.div 
+                    ref={notificationRef}
                     initial="hidden"
                     animate="visible"
                     exit="exit"
