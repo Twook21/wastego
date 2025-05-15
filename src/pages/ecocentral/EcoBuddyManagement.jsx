@@ -118,6 +118,7 @@ const EcoBuddyManagement = () => {
   const [filterStatus, setFilterStatus] = useState("all");
   const [filteredEcoBuddies, setFilteredEcoBuddies] = useState(ecobuddies);
   const [sortOption, setSortOption] = useState("name");
+  const [filterDeposit, setFilterDeposit] = useState(0);
 
   useEffect(() => {
     if (window.feather) {
@@ -245,7 +246,9 @@ const EcoBuddyManagement = () => {
       : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200";
   };
 
-  const [filterDeposit, setFilterDeposit] = useState(0);
+  const handleSliderChange = (e) => {
+    setTempDeposit(parseInt(e.target.value));
+  };
 
   const FilterMenu = () => (
     <motion.div
@@ -388,7 +391,7 @@ const EcoBuddyManagement = () => {
                 {filterDeposit} kg
               </div>
             </div>
-            <div className="flex justify-between text-xs mt-4 text-gray-500 dark:text-gray-400">
+            <div className="flex justify-between text-xs mt-8 text-gray-500 dark:text-gray-400">
               <span>0 kg</span>
               <span>500 kg</span>
             </div>
@@ -401,7 +404,7 @@ const EcoBuddyManagement = () => {
                 setFilterEcohive("all");
                 setFilterStatus("all");
                 setSortOption("name");
-                setFilterDeposit(0); 
+                setFilterDeposit(0); // Reset nilai deposit
               }}
             >
               Reset
