@@ -104,7 +104,7 @@ function AboutPage() {
         image: Akmal,
         name: "Akmal Bintang Budiawan",
         shortName: "Akmal Bintang",
-        role: "UI/UX Designer & Frontend Developer",
+        role: "Frontend Developer & UI/UX Designer",
         quote: "Nature Needs Action, Not Just Words.",
       },
       {
@@ -118,14 +118,14 @@ function AboutPage() {
         image: Fahmi,
         name: "Fahmi Andika Setiono",
         shortName: "Fahmi Andika",
-        role: "Product Owner & Backend Developer",
+        role: "Product Owner / Backend Developer",
         quote: "One Small Step, Big Impact.",
       },
       {
         image: David,
         name: "David Ersa Pramudita",
         shortName: "David Ersa",
-        role: "Frontend Developer & Quality Asurance",
+        role: "Quality Asurance / Mobile Developer",
         quote: "Trash is the trace of civilization.",
       },
     ];
