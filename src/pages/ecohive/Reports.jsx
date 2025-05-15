@@ -125,14 +125,14 @@ function Reports() {
     <div
       className={`p-4 ${
         !isLast && "border-b dark:border-gray-700"
-      } hover:bg-gray-50 dark:hover:bg-gray-750`}
+      } hover:bg-gray-50 dark:hover:bg-gray-700`}
     >
       <div className="flex justify-between items-center mb-2">
         <span className="font-medium text-sm text-teal-900 dark:text-white">
           {data.type}
         </span>
         <span
-          className={`px-2 py-1 bg-${data.statusColor}-100 text-${data.statusColor}-800 dark:bg-${data.statusColor}-800 dark:text-${data.statusColor}-100 text-xs rounded-full`}
+          className={`px-2 py-1 bg-${data.statusColor}-100 text-black dark:bg-${data.statusColor}-800 dark:text-${data.statusColor}-100 text-xs rounded-full`}
         >
           {data.status}
         </span>

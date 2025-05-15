@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Logo from "../../../assets/logo.png";
 import {
@@ -216,9 +216,26 @@ const Sidebar = ({
   );
 };
 
-// Extracted NavLink component with tooltip
+// Enhanced NavLink component with responsive tooltip
 const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Check if device is mobile
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Initial check
+    checkIsMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIsMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
 
   const fadeIn = {
     hidden: { opacity: 0, y: 10 },
@@ -230,12 +247,22 @@ const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
     visible: { opacity: 1, x: 0, transition: { duration: 0.2 } },
   };
 
+  // Calculate tooltip position based on screen size
+  const getTooltipPosition = () => {
+    if (isMobile) {
+      return minimized ? "left-14" : "left-full -ml-2";
+    }
+    return minimized ? "left-20" : "left-full";
+  };
+
   return (
     <motion.div
       variants={fadeIn}
       className="relative"
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
+      onTouchStart={() => setShowTooltip(true)}
+      onTouchEnd={() => setTimeout(() => setShowTooltip(false), 1000)}
     >
       <NavLink
         to={to}
@@ -259,20 +286,24 @@ const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
         {!minimized && <span>{label}</span>}
       </NavLink>
 
-      {/* Tooltip */}
+      {/* Responsive Tooltip */}
       {showTooltip && (minimized || true) && (
         <motion.div
           initial="hidden"
           animate="visible"
           variants={tooltipVariants}
-          className={`absolute ${
-            minimized ? "left-20" : "left-full"
-          } top-0 ml-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded-md shadow-lg z-50 w-48`}
+          className={`absolute ${getTooltipPosition()} top-0 ml-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded-md shadow-lg z-50 ${isMobile ? 'max-w-[160px]' : 'w-48'}`}
+          style={{
+            maxWidth: isMobile ? '160px' : '12rem',
+            wordWrap: 'break-word',
+            whiteSpace: 'normal',
+            overflow: 'hidden'
+          }}
         >
           <div className="relative">
             <div className="absolute -left-2 top-3 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white dark:bg-gray-800"></div>
-            <p className="font-bold text-sm">{label}</p>
-            <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
+            <p className={`font-bold ${isMobile ? 'text-xs' : 'text-sm'}`}>{label}</p>
+            <p className={`${isMobile ? 'text-xs' : 'text-xs'} text-gray-600 dark:text-gray-300 mt-1`}>
               {description}
             </p>
           </div>

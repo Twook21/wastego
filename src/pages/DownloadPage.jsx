@@ -14,7 +14,7 @@ function DownloadPage() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Menggulir ke atas saat komponen dirender
+    window.scrollTo(0, 0); 
   }, []);
 
   // Animation variants

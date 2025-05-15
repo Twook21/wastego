@@ -262,18 +262,35 @@ const ProfilePage = () => {
                     <Phone size={16} className="mr-2" />
                     <span className="text-sm">Telepon</span>
                   </div>
-                  <div className="sm:w-2/3">
+                  <div className="sm:w-2/3 flex items-center space-x-2">
                     {isEditing ? (
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={profileData.phone}
-                        onChange={handleInputChange}
-                        className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
-                      />
+                      <>
+                        <select
+                          name="countryCode"
+                          value={profileData.countryCode}
+                          onChange={handleInputChange}
+                          className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        >
+                          <option value="+1">+1 (US)</option>
+                          <option value="+44">+44 (UK)</option>
+                          <option value="+62">+62 (ID)</option>
+                          <option value="+91">+91 (IN)</option>
+                          <option value="+81">+81 (JP)</option>
+                          {/* Tambahkan lebih banyak opsi sesuai kebutuhan */}
+                        </select>
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={profileData.phone}
+                          onChange={handleInputChange}
+                          pattern="[0-9]+" // Hanya angka
+                          maxLength={15} // Batas maksimal panjang karakter
+                          className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                        />
+                      </>
                     ) : (
                       <span className="text-sm font-medium text-gray-900 dark:text-white">
-                        {profileData.phone}
+                        {profileData.countryCode} {profileData.phone}
                       </span>
                     )}
                   </div>
@@ -314,16 +331,85 @@ const ProfilePage = () => {
                   </div>
                   <div className="sm:w-2/3">
                     {isEditing ? (
-                      <input
-                        type="text"
-                        name="operationalHours"
-                        value={profileData.operationalHours}
-                        onChange={handleInputChange}
-                        className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
-                      />
+                      <>
+                        <div className="flex flex-col space-y-4">
+                          {/* Pilihan Hari Mulai */}
+                          <div className="flex items-center space-x-2">
+                            <label className="text-sm font-medium text-gray-900 dark:text-white">
+                              Dari:
+                            </label>
+                            <select
+                              name="startDay"
+                              value={profileData.startDay || ""}
+                              onChange={handleInputChange}
+                              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                            >
+                              <option value="" disabled>
+                                Pilih Hari
+                              </option>
+                              <option value="Senin">Senin</option>
+                              <option value="Selasa">Selasa</option>
+                              <option value="Rabu">Rabu</option>
+                              <option value="Kamis">Kamis</option>
+                              <option value="Jumat">Jumat</option>
+                              <option value="Sabtu">Sabtu</option>
+                              <option value="Minggu">Minggu</option>
+                            </select>
+                          </div>
+                          {/* Pilihan Hari Akhir */}
+                          <div className="flex items-center space-x-2">
+                            <label className="text-sm font-medium text-gray-900 dark:text-white">
+                              Sampai:
+                            </label>
+                            <select
+                              name="endDay"
+                              value={profileData.endDay || ""}
+                              onChange={handleInputChange}
+                              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                            >
+                              <option value="" disabled>
+                                Pilih Hari
+                              </option>
+                              <option value="Senin">Senin</option>
+                              <option value="Selasa">Selasa</option>
+                              <option value="Rabu">Rabu</option>
+                              <option value="Kamis">Kamis</option>
+                              <option value="Jumat">Jumat</option>
+                              <option value="Sabtu">Sabtu</option>
+                              <option value="Minggu">Minggu</option>
+                            </select>
+                          </div>
+                          {/* Input Waktu */}
+                          <div className="flex items-center space-x-2">
+                            <label className="text-sm font-medium text-gray-900 dark:text-white">
+                              Jam:
+                            </label>
+                            <input
+                              type="time"
+                              name="startTime"
+                              value={profileData.startTime || ""}
+                              onChange={handleInputChange}
+                              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                            />
+                            <span className="text-gray-900 dark:text-white">
+                              -
+                            </span>
+                            <input
+                              type="time"
+                              name="endTime"
+                              value={profileData.endTime || ""}
+                              onChange={handleInputChange}
+                              className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                            />
+                          </div>
+                        </div>
+                      </>
                     ) : (
                       <span className="text-sm font-medium text-gray-900 dark:text-white">
-                        {profileData.operationalHours}
+                        {profileData.startDay || "N/A"} -{" "}
+                        {profileData.endDay || "N/A"},{" "}
+                        {profileData.startTime || "N/A"} -{" "}
+                        {profileData.endTime || "N/A"}
                       </span>
                     )}
                   </div>
