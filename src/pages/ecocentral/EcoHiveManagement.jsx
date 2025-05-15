@@ -636,6 +636,7 @@ const EcoHiveManagement = () => {
                     </label>
                     <input
                       type="number"
+                      min={0}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-teal-900 focus:border-teal-900 bg-white dark:bg-gray-800 text-gray-700 dark:text-white"
                       placeholder="500"
                     />
@@ -731,6 +732,7 @@ const EcoHiveManagement = () => {
                     </label>
                     <input
                       type="text"
+                      min={0}
                       className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-teal-900 focus:border-teal-900 bg-white dark:bg-gray-800 text-gray-700 dark:text-white"
                       defaultValue={selectedEcoHive.kapasitas.split(" ")[0]}
                     />

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import GraphemeSplitter from "grapheme-splitter";
 import {
   Settings,
   Trash2,
@@ -21,6 +22,7 @@ import {
 
 const SystemSettingsPage = () => {
   // State for active tab
+  const splitter = new GraphemeSplitter();
   const [activeTab, setActiveTab] = useState("waste-categories");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -563,6 +565,7 @@ const SystemSettingsPage = () => {
                               <input
                                 type="text"
                                 value={editingCategory.name}
+                                maxLength={50}
                                 onChange={(e) =>
                                   setEditingCategory({
                                     ...editingCategory,
@@ -570,6 +573,7 @@ const SystemSettingsPage = () => {
                                   })
                                 }
                                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                                placeholder="Masukkan nama kategori"
                               />
                             </div>
 
@@ -580,12 +584,17 @@ const SystemSettingsPage = () => {
                               <input
                                 type="text"
                                 value={editingCategory.icon}
-                                onChange={(e) =>
-                                  setEditingCategory({
-                                    ...editingCategory,
-                                    icon: e.target.value,
-                                  })
-                                }
+                                onChange={(e) => {
+                                  const input = e.target.value;
+                                  const graphemes =
+                                    splitter.splitGraphemes(input);
+                                  if (graphemes.length <= 1) {
+                                    setEditingCategory({
+                                      ...editingCategory,
+                                      icon: input,
+                                    });
+                                  }
+                                }}
                                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                               />
                             </div>

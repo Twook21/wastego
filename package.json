@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.0.14",
     "feather-icons": "^4.29.2",
     "framer-motion": "^12.10.1",
+    "grapheme-splitter": "^1.0.4",
     "lucide-react": "^0.508.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
