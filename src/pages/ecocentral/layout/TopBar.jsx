@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -9,7 +9,9 @@ import {
   AlertTriangle,
   Settings,
   X,
-  ChevronLeft
+  ChevronLeft,
+  Check,
+  Circle
 } from "lucide-react";
 
 const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
@@ -49,12 +51,12 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
     },
   ]);
 
-  // Add click outside handler
+  // Event listener untuk menutup notifikasi ketika klik di luar
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Close only if click is outside both the dropdown and the notification button
+      // Tutup notifikasi jika klik di luar panel notifikasi dan di luar tombol notifikasi
       if (
-        notificationOpen &&
+        notificationOpen && 
         notificationRef.current && 
         !notificationRef.current.contains(event.target) &&
         notificationButtonRef.current && 
@@ -64,10 +66,12 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
       }
     };
 
-    // Add event listener
-    document.addEventListener("mousedown", handleClickOutside);
-    
-    // Cleanup
+    // Tambahkan event listener ketika notifikasi terbuka
+    if (notificationOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    // Cleanup event listener ketika component unmount atau notifikasi tertutup
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -80,6 +84,14 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
       ...notif,
       read: true,
     }));
+    setNotifications(updatedNotifications);
+  };
+
+  // Function to toggle read status of individual notification
+  const toggleNotificationRead = (id) => {
+    const updatedNotifications = notifications.map((notif) => 
+      notif.id === id ? { ...notif, read: !notif.read } : notif
+    );
     setNotifications(updatedNotifications);
   };
 
@@ -257,6 +269,23 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                                     {notification.time}
                                   </p>
                                 </div>
+                                {/* Read/Unread toggle button */}
+                                <motion.button
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleNotificationRead(notification.id);
+                                  }}
+                                  className={`ml-2 p-1 rounded-full ${
+                                    notification.read
+                                      ? "text-gray-400 hover:text-teal-600"
+                                      : "text-lime-500 hover:text-lime-600"
+                                  }`}
+                                  title={notification.read ? "Tandai belum dibaca" : "Tandai sudah dibaca"}
+                                >
+                                  {notification.read ? <Circle size={16} /> : <Check size={16} />}
+                                </motion.button>
                               </div>
                             </motion.div>
                           ))}
@@ -324,7 +353,7 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                                 notification.read
                                   ? ""
                                   : "bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20"
-                              } transition-colors cursor-pointer`}
+                              } transition-colors cursor-pointer relative`}
                             >
                               <div className="flex items-start">
                                 <div
@@ -359,6 +388,23 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                                     {notification.time}
                                   </p>
                                 </div>
+                                {/* Read/Unread toggle button */}
+                                <motion.button
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleNotificationRead(notification.id);
+                                  }}
+                                  className={`ml-2 p-1 rounded-full ${
+                                    notification.read
+                                      ? "text-gray-400 hover:text-teal-600"
+                                      : "text-lime-500 hover:text-lime-600"
+                                  }`}
+                                  title={notification.read ? "Tandai belum dibaca" : "Tandai sudah dibaca"}
+                                >
+                                  {notification.read ? <Circle size={16} /> : <Check size={16} />}
+                                </motion.button>
                               </div>
                             </motion.div>
                           ))}
