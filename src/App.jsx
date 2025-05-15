@@ -34,6 +34,7 @@ import EcoCentralLayout from "./pages/ecocentral/layout/EcoCentralLayout";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ThemeContext from "./context/ThemeContext";
+import ThemeToggle from './components/ThemeToggle';
 import NotFoundPage from "./pages/NotFoundPage";
 
 function ErrorFallback({ error }) {
