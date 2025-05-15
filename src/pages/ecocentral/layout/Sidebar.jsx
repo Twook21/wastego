@@ -65,9 +65,9 @@ const Sidebar = ({
       animate="visible"
       variants={slideFromLeft}
       className={`fixed inset-y-0 left-0 z-30 ${minimized ? "w-20" : "w-64"} 
-      bg-teal-900 dark:bg-gray-800 text-white transform 
-      ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 
-      transition-all duration-300 ease-in-out shadow-lg flex flex-col`}
+        bg-teal-900 dark:bg-gray-800 text-white transform 
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 
+        transition-all duration-300 ease-in-out shadow-lg flex flex-col`}
     >
       <div className="flex items-center justify-between h-16 px-4 border-b border-teal-800 dark:border-gray-700">
         <div className="flex items-center space-x-2 overflow-hidden">
@@ -192,19 +192,21 @@ const Sidebar = ({
       </div>
 
       {/* Footer */}
-      <motion.div 
+      <motion.div
         variants={fadeIn}
-        className={`px-4 py-3 border-t border-teal-800 dark:border-gray-700 ${minimized ? "text-center" : ""}`}
+        className={`px-4 py-3 border-t border-teal-800 dark:border-gray-700 ${
+          minimized ? "text-center" : ""
+        }`}
       >
         {minimized ? (
-          <motion.div 
+          <motion.div
             className="text-xs font-medium text-gray-300 flex flex-col items-center"
             whileHover={{ scale: 1.05 }}
           >
             <span className="rotate-90 inline-block">EcoCentral</span>
           </motion.div>
         ) : (
-          <motion.div 
+          <motion.div
             className="text-sm font-medium text-gray-300 flex items-center justify-center"
             whileHover={{ scale: 1.05 }}
           >
@@ -220,21 +222,21 @@ const Sidebar = ({
 const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   // Check if device is mobile
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     // Initial check
     checkIsMobile();
-    
+
     // Add event listener for window resize
-    window.addEventListener('resize', checkIsMobile);
-    
+    window.addEventListener("resize", checkIsMobile);
+
     // Cleanup
-    return () => window.removeEventListener('resize', checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 
   const fadeIn = {
@@ -270,11 +272,11 @@ const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
           `flex items-center ${
             minimized ? "justify-center" : "px-3"
           } py-3 text-base font-medium rounded-md transition-all duration-200
-          ${
-            routerActive || isActive
-              ? "bg-lime-500 text-teal-900 shadow-md"
-              : "hover:bg-teal-800 dark:hover:bg-gray-700 hover:scale-105"
-          }`
+            ${
+              routerActive || isActive
+                ? "bg-lime-500 text-teal-900 shadow-md"
+                : "hover:bg-teal-800 dark:hover:bg-gray-700 hover:scale-105"
+            }`
         }
       >
         <motion.div
@@ -292,18 +294,26 @@ const NavLinkItem = ({ to, icon, label, description, isActive, minimized }) => {
           initial="hidden"
           animate="visible"
           variants={tooltipVariants}
-          className={`absolute ${getTooltipPosition()} top-0 ml-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded-md shadow-lg z-50 ${isMobile ? 'max-w-[160px]' : 'w-48'}`}
+          className={`absolute ${getTooltipPosition()} top-0 ml-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded-md shadow-lg z-50 ${
+            isMobile ? "max-w-[160px]" : "w-48"
+          }`}
           style={{
-            maxWidth: isMobile ? '160px' : '12rem',
-            wordWrap: 'break-word',
-            whiteSpace: 'normal',
-            overflow: 'hidden'
+            maxWidth: isMobile ? "160px" : "12rem",
+            wordWrap: "break-word",
+            whiteSpace: "normal",
+            overflow: "hidden",
           }}
         >
           <div className="relative">
             <div className="absolute -left-2 top-3 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white dark:bg-gray-800"></div>
-            <p className={`font-bold ${isMobile ? 'text-xs' : 'text-sm'}`}>{label}</p>
-            <p className={`${isMobile ? 'text-xs' : 'text-xs'} text-gray-600 dark:text-gray-300 mt-1`}>
+            <p className={`font-bold ${isMobile ? "text-xs" : "text-sm"}`}>
+              {label}
+            </p>
+            <p
+              className={`${
+                isMobile ? "text-xs" : "text-xs"
+              } text-gray-600 dark:text-gray-300 mt-1`}
+            >
               {description}
             </p>
           </div>
