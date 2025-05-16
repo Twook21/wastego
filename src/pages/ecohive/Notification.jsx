@@ -108,6 +108,7 @@ function Notification() {
         "Halo! Saya Ahmad dari EcoBuddy yang akan mengambil sampah di lokasi Anda hari ini.",
       time: "09:30",
       date: "11 Mei 2025",
+      repliedTo: null,
     },
     {
       id: 2,
@@ -116,6 +117,7 @@ function Notification() {
         "Halo Ahmad, baik saya akan siapkan sampahnya. Kira-kira jam berapa sampai?",
       time: "09:35",
       date: "11 Mei 2025",
+      repliedTo: null,
     },
     {
       id: 3,
@@ -124,6 +126,7 @@ function Notification() {
         "Saya sedang dalam perjalanan. Estimasi tiba sekitar 15 menit lagi.",
       time: "09:40",
       date: "11 Mei 2025",
+      repliedTo: null,
     },
     {
       id: 4,
@@ -131,8 +134,18 @@ function Notification() {
       message: "Saya akan tiba sekitar 15 menit lagi",
       time: "09:45",
       date: "11 Mei 2025",
+      repliedTo: null,
     },
   ]);
+
+  // State untuk emoji picker
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  // State untuk attachment menu
+  const [showAttachmentMenu, setShowAttachmentMenu] = useState(false);
+
+  // State untuk replied message
+  const [replyingTo, setReplyingTo] = useState(null);
 
   // Ref for the message input
   const messageInputRef = useRef(null);
@@ -140,11 +153,17 @@ function Notification() {
   // Ref for chat container
   const chatContainerRef = useRef(null);
 
+  // Ref for emoji picker
+  const emojiPickerRef = useRef(null);
+
+  // Ref for attachment menu
+  const attachmentMenuRef = useRef(null);
+
   useEffect(() => {
     if (window.feather) {
       window.feather.replace();
     }
-  }, [activeTab, selectedConversation]);
+  }, [activeTab, selectedConversation, showEmojiPicker, showAttachmentMenu]);
 
   // Handle resize for better mobile responsiveness
   const [isMobile, setIsMobile] = useState(false);
@@ -162,6 +181,32 @@ function Notification() {
 
     // Clean up
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Handle click outside emoji picker and attachment menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(event.target) &&
+        event.target.id !== "emoji-button"
+      ) {
+        setShowEmojiPicker(false);
+      }
+
+      if (
+        attachmentMenuRef.current &&
+        !attachmentMenuRef.current.contains(event.target) &&
+        event.target.id !== "attachment-button"
+      ) {
+        setShowAttachmentMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   // Animations variants
@@ -231,6 +276,20 @@ function Notification() {
     }, 300);
   };
 
+  const handleReplyMessage = (messageId) => {
+    const messageToReply = messages.find((msg) => msg.id === messageId);
+    if (messageToReply) {
+      setReplyingTo(messageToReply);
+      if (messageInputRef.current) {
+        messageInputRef.current.focus();
+      }
+    }
+  };
+
+  const cancelReply = () => {
+    setReplyingTo(null);
+  };
+
   const sendMessage = (e) => {
     e.preventDefault();
     if (message.trim() === "") return;
@@ -248,10 +307,12 @@ function Notification() {
         month: "long",
         year: "numeric",
       }),
+      repliedTo: replyingTo ? replyingTo.id : null,
     };
 
     setMessages([...messages, newMessage]);
     setMessage("");
+    setReplyingTo(null);
 
     // Simulate response after a short delay
     setTimeout(() => {
@@ -269,14 +330,33 @@ function Notification() {
           month: "long",
           year: "numeric",
         }),
+        repliedTo: null,
       };
 
       setMessages((prev) => [...prev, responseMessage]);
     }, 2000);
   };
 
+  const handleEmojiClick = (emoji) => {
+    setMessage((prev) => prev + emoji);
+    setShowEmojiPicker(false);
+    if (messageInputRef.current) {
+      messageInputRef.current.focus();
+    }
+  };
+
+  const handleAttachmentClick = (type) => {
+    // Simulate attachment selection
+    alert(`Memilih ${type}`);
+    setShowAttachmentMenu(false);
+  };
+
   const getConversationById = (id) => {
     return conversations.find((conversation) => conversation.id === id);
+  };
+
+  const getMessageById = (id) => {
+    return messages.find((message) => message.id === id);
   };
 
   const getUnreadNotificationsCount = () => {
@@ -309,6 +389,30 @@ function Notification() {
         chatContainerRef.current.scrollHeight;
     }
   }, [selectedConversation, messages.length]);
+
+  // Emoji list for the simplified emoji picker
+  const emojis = [
+    "😊",
+    "👍",
+    "🙏",
+    "❤️",
+    "👌",
+    "🔥",
+    "✅",
+    "🎉",
+    "👏",
+    "🤔",
+    "😂",
+    "🚀",
+    "🌟",
+    "📢",
+    "♻️",
+    "🌱",
+    "🌍",
+    "🌈",
+    "👋",
+    "🙌",
+  ];
 
   return (
     <div className="w-full mx-auto px-3 sm:px-4 md:px-6 py-6 md:py-12 transition-colors duration-200">
@@ -480,7 +584,7 @@ function Notification() {
         </motion.div>
       )}
 
-      {/* Messages Tab Content - Completely redesigned for WhatsApp-like experience */}
+      {/* Messages Tab Content - Enhanced WhatsApp-like experience */}
       {activeTab === "messages" && (
         <div className="relative h-full">
           {/* Main container - Using AnimatePresence for smooth mobile transitions */}
@@ -527,16 +631,25 @@ function Notification() {
                         selectedConversation === conversation.id
                           ? "bg-gray-100 dark:bg-gray-700"
                           : "bg-white dark:bg-gray-800"
-                      } rounded-lg mx-2 my-2 shadow-sm`} 
-                      onClick={() => handleSelectConversation(conversation.id)}// Tambahkan rounded dan shadow
+                      } rounded-lg mx-2 my-2 shadow-sm`}
+                      onClick={() => handleSelectConversation(conversation.id)}
                     >
                       <div className="flex items-center">
                         <div className="relative flex-shrink-0">
                           <img
                             src={conversation.ecobuddy.avatar}
-                            className="h-10 w-10 rounded-full object-cover" // Ukuran lebih kecil untuk mobile
+                            className="h-10 w-10 rounded-full object-cover"
+                            alt={conversation.ecobuddy.name}
                           />
-                          <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white dark:border-gray-800" />
+                          <span
+                            className={`absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white dark:border-gray-800 ${
+                              conversation.ecobuddy.status === "online"
+                                ? "bg-green-500"
+                                : conversation.ecobuddy.status === "away"
+                                ? "bg-yellow-500"
+                                : "bg-gray-500"
+                            }`}
+                          />
                         </div>
 
                         <div className="ml-3 flex-1 min-w-0">
@@ -567,7 +680,7 @@ function Notification() {
               </motion.div>
             ) : null}
 
-            {/* Chat Detail View - WhatsApp-like UI with full-screen on mobile */}
+            {/* Chat Detail View - Enhanced WhatsApp-like UI with fixed chat bar on mobile */}
             {selectedConversation && (
               <motion.div
                 key="chat-detail"
@@ -648,144 +761,250 @@ function Notification() {
 
                   <div className="flex items-center space-x-1">
                     <button className="text-white p-2 rounded-full hover:bg-teal-700 dark:hover:bg-gray-700">
+                      <i data-feather="phone" className="h-5 w-5"></i>
+                    </button>
+                    <button className="text-white p-2 rounded-full hover:bg-teal-700 dark:hover:bg-gray-700">
+                      <i data-feather="video" className="h-5 w-5"></i>
+                    </button>
+                    <button className="text-white p-2 rounded-full hover:bg-teal-700 dark:hover:bg-gray-700">
                       <i data-feather="more-vertical" className="h-5 w-5"></i>
                     </button>
                   </div>
                 </div>
 
-                {/* WhatsApp-like Chat Background */}
-                <div
-                  ref={chatContainerRef}
-                  className="flex-1 overflow-y-auto p-3 md:p-4 space-y-4"
-                  style={{
-                    backgroundImage: darkMode
-                      ? "url(\"data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h80v80H0z' fill='%23222E35'/%3E%3Cpath opacity='.04' d='M0 0h40v40H0z' fill='%235A5A5A'/%3E%3Cpath opacity='.04' d='M40 40h40v40H40z' fill='%235A5A5A'/%3E%3C/svg%3E\")"
-                      : "url(\"data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h80v80H0z' fill='%23E5DDD5'/%3E%3Cpath opacity='.04' d='M0 0h40v40H0z' fill='%235A5A5A'/%3E%3Cpath opacity='.04' d='M40 40h40v40H40z' fill='%235A5A5A'/%3E%3C/svg%3E\")",
-                    backgroundRepeat: "repeat",
-                    overscrollBehavior: "contain",
-                    maxHeight: isMobile
-                      ? "calc(100vh - 120px)"
-                      : "calc(600px - 120px)",
-                  }}
-                >
-                  {/* Date separators and messages */}
-                  {Object.entries(groupMessagesByDate()).map(
-                    ([date, dateMessages]) => (
-                      <div key={date} className="space-y-2">
-                        <div className="flex justify-center">
-                          <div className="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-3 py-1 rounded-full">
+                {/* Main Chat Container - Using flex and making it full height */}
+                <div className="flex flex-col h-full">
+                  {/* Chat Messages Container */}
+                  <div
+                    ref={chatContainerRef}
+                    className="flex-1 overflow-y-auto p-3 md:p-4 bg-gray-50 dark:bg-gray-900"
+                  >
+                    {Object.entries(groupMessagesByDate()).map(
+                      ([date, messages]) => (
+                        <div key={date} className="text-center mb-6">
+                          <span className="inline-block px-3 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">
                             {date}
-                          </div>
-                        </div>
-
-                        {dateMessages.map((msg) => (
-                          <motion.div
-                            key={msg.id}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className={`flex ${
-                              msg.sender === "user"
-                                ? "justify-end"
-                                : "justify-start"
-                            }`}
-                          >
-                            <div
-                              className={`max-w-[80%] p-2 md:p-3 rounded-lg ${
+                          </span>
+                          {messages.map((msg) => (
+                            <motion.div
+                              key={msg.id}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className={`flex ${
                                 msg.sender === "user"
-                                  ? "bg-lime-100 dark:bg-lime-900 rounded-tr-none"
-                                  : "bg-white dark:bg-gray-700 rounded-tl-none"
-                              }`}
+                                  ? "justify-end"
+                                  : "justify-start"
+                              } my-2`}
                             >
-                              <p
-                                className={`text-sm ${
+                              <div
+                                className={`max-w-[85%] md:max-w-[70%] rounded-lg p-3 relative ${
                                   msg.sender === "user"
-                                    ? "text-gray-800 dark:text-gray-100"
-                                    : "text-gray-800 dark:text-gray-100"
+                                    ? "bg-lime-500 text-white rounded-br-none"
+                                    : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-bl-none"
                                 }`}
                               >
-                                {msg.message}
-                              </p>
-                              <p className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                {msg.time}
-                                {msg.sender === "user" && (
-                                  <i
-                                    data-feather="check-check"
-                                    className="h-3 w-3 inline-block ml-1 text-lime-500"
-                                  ></i>
+                                {/* Reply Preview */}
+                                {msg.repliedTo && (
+                                  <div
+                                    className={`mb-2 p-2 rounded-md ${
+                                      msg.sender === "user"
+                                        ? "bg-lime-600"
+                                        : "bg-gray-100 dark:bg-gray-700"
+                                    }`}
+                                  >
+                                    <p className="text-xs line-clamp-2 italic border-l-2 pl-2 border-gray-400">
+                                      {messages.find(
+                                        (m) => m.id === msg.repliedTo
+                                      )?.message || "Pesan sebelumnya"}
+                                    </p>
+                                  </div>
                                 )}
-                              </p>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </div>
-                    )
-                  )}
-                </div>
 
-                {/* Message Input */}
-                <div className="p-2 md:p-3 bg-white dark:bg-gray-850 border-t border-gray-200 dark:border-gray-700">
-                  <form
-                    onSubmit={sendMessage}
-                    className="flex items-center space-x-2"
-                  >
-                    <button
-                      type="button"
-                      className="p-2 text-gray-500 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <i data-feather="paperclip" className="h-5 w-5"></i>
-                    </button>
-                    <div className="flex-1 relative">
-                      <input
-                        ref={messageInputRef}
-                        type="text"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Ketik pesan"
-                        className="w-full rounded-full py-2 px-4 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-lime-500"
-                      />
-                      <button
-                        type="button"
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-300"
+                                <p className="text-sm">{msg.message}</p>
+                                <div className="flex items-center justify-end mt-1 space-x-1">
+                                  <span className="text-xs opacity-70">
+                                    {msg.time}
+                                  </span>
+                                  {msg.sender === "user" && (
+                                    <i
+                                      data-feather="check"
+                                      className="h-3 w-3 opacity-70"
+                                    ></i>
+                                  )}
+                                </div>
+
+                                {/* Reply Button */}
+                                <button
+                                  onClick={() => handleReplyMessage(msg.id)}
+                                  className={`absolute bg-white dark:bg-gray-700 shadow-md rounded-full p-1 ${
+                                    msg.sender === "user"
+                                      ? "right-auto left-0 -translate-x-1/2"
+                                      : "left-auto right-0 translate-x-1/2"
+                                  } top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300`}
+                                >
+                                  <i
+                                    data-feather="corner-up-left"
+                                    className="h-4 w-4"
+                                  ></i>
+                                </button>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      )
+                    )}
+                  </div>
+
+                  {/* Fixed Bottom Section for Reply Preview and Input */}
+                  <div className="sticky bottom-0 left-0 right-0 w-full bg-white dark:bg-gray-800 shadow-md">
+                    {/* Reply Preview */}
+                    {replyingTo && (
+                      <div className="px-4 py-2 bg-gray-100 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600">
+                        <div className="flex justify-between items-center">
+                          <div className="flex-1">
+                            <p className="text-xs text-gray-600 dark:text-gray-300 font-medium">
+                              Membalas{" "}
+                              {replyingTo.sender === "user"
+                                ? "Anda"
+                                : selectedConversation?.ecobuddy?.name ||
+                                  "Ecobuddy"}
+                            </p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">
+                              {replyingTo.message}
+                            </p>
+                          </div>
+                          <button
+                            onClick={cancelReply}
+                            className="ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                          >
+                            <i data-feather="x" className="h-4 w-4"></i>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Message Input Area */}
+                    <div className="p-3 md:p-4 border-t border-gray-200 dark:border-gray-700">
+                      <form
+                        onSubmit={sendMessage}
+                        className="flex items-center gap-2"
                       >
-                        <i data-feather="smile" className="h-5 w-5"></i>
-                      </button>
+                        {/* Attachment Menu */}
+                        <div className="relative">
+                          <button
+                            id="attachment-button"
+                            type="button"
+                            onClick={() =>
+                              setShowAttachmentMenu(!showAttachmentMenu)
+                            }
+                            className="text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300 p-2 rounded-full"
+                          >
+                            <i data-feather="plus" className="h-5 w-5"></i>
+                          </button>
+
+                          <AnimatePresence>
+                            {showAttachmentMenu && (
+                              <motion.div
+                                ref={attachmentMenuRef}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 10 }}
+                                className="absolute bottom-full left-0 mb-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700"
+                              >
+                                {[
+                                  "document",
+                                  "camera",
+                                  "gallery",
+                                  "location",
+                                ].map((type) => (
+                                  <button
+                                    key={type}
+                                    type="button"
+                                    onClick={() => handleAttachmentClick(type)}
+                                    className="flex items-center w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                  >
+                                    <i
+                                      data-feather={
+                                        type === "document"
+                                          ? "file-text"
+                                          : type === "camera"
+                                          ? "camera"
+                                          : type === "gallery"
+                                          ? "image"
+                                          : "map-pin"
+                                      }
+                                      className="h-4 w-4 mr-3"
+                                    ></i>
+                                    {type === "document" && "Dokumen"}
+                                    {type === "camera" && "Kamera"}
+                                    {type === "gallery" && "Galeri"}
+                                    {type === "location" && "Lokasi"}
+                                  </button>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+
+                        {/* Emoji Picker */}
+                        <div className="relative">
+                          <button
+                            id="emoji-button"
+                            type="button"
+                            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                            className="text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300 p-2 rounded-full"
+                          >
+                            <i data-feather="smile" className="h-5 w-5"></i>
+                          </button>
+
+                          <AnimatePresence>
+                            {showEmojiPicker && (
+                              <motion.div
+                                ref={emojiPickerRef}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 10 }}
+                                className="absolute bottom-full left-0 mb-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-2 grid grid-cols-6 gap-1 border border-gray-200 dark:border-gray-700"
+                              >
+                                {emojis.map((emoji) => (
+                                  <button
+                                    key={emoji}
+                                    type="button"
+                                    onClick={() => handleEmojiClick(emoji)}
+                                    className="text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md p-1"
+                                  >
+                                    {emoji}
+                                  </button>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+
+                        {/* Message Input */}
+                        <input
+                          ref={messageInputRef}
+                          type="text"
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          placeholder="Ketik pesan..."
+                          className="flex-1 py-2 px-4 bg-gray-100 dark:bg-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-lime-500 dark:focus:ring-lime-600 text-sm"
+                        />
+
+                        {/* Send Button */}
+                        <button
+                          type="submit"
+                          className="bg-lime-500 text-white p-2 rounded-full hover:bg-lime-600 transition-colors"
+                        >
+                          <i data-feather="send" className="h-5 w-5"></i>
+                        </button>
+                      </form>
                     </div>
-                    <button
-                      type="submit"
-                      className="p-2 bg-lime-500 text-white rounded-full hover:bg-lime-600 focus:outline-none"
-                    >
-                      <i data-feather="send" className="h-5 w-5"></i>
-                    </button>
-                  </form>
+                  </div>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
-
-          {/* Empty State (when no conversation is selected and not on mobile) */}
-          {!selectedConversation && !isMobile && (
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeIn}
-              className="hidden md:flex flex-col items-center justify-center w-2/3 absolute right-0 top-0 bottom-0 bg-white dark:bg-gray-800 rounded-lg md:rounded-xl shadow-sm"
-              style={{ height: "600px" }}
-            >
-              <div className="h-20 w-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
-                <i
-                  data-feather="message-circle"
-                  className="h-10 w-10 text-teal-500"
-                ></i>
-              </div>
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-                Pilih percakapan
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 text-center max-w-xs">
-                Pilih EcoBuddy untuk mulai berkomunikasi tentang pengambilan
-                sampah atau jadwal daur ulang Anda.
-              </p>
-            </motion.div>
-          )}
         </div>
       )}
     </div>

@@ -1,10 +1,22 @@
-import { useContext, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useContext, useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ThemeContext from "../../context/ThemeContext";
 
 function EcoCentralNotification() {
   const { darkMode } = useContext(ThemeContext);
   const [activeTab, setActiveTab] = useState("notifications");
+
+  // State untuk fitur tambahan chat
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showAttachmentMenu, setShowAttachmentMenu] = useState(false);
+  const [replyingTo, setReplyingTo] = useState(null);
+
+  // Ref untuk komponen
+  const messageInputRef = useRef(null);
+  const chatContainerRef = useRef(null);
+  const emojiPickerRef = useRef(null);
+  const attachmentMenuRef = useRef(null);
+
   const [notifications, setNotifications] = useState([
     {
       id: 1,
@@ -236,6 +248,43 @@ function EcoCentralNotification() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Handle reply message
+  const handleReplyMessage = (messageId) => {
+    const messageToReply = messages.find((msg) => msg.id === messageId);
+    if (messageToReply) {
+      setReplyingTo(messageToReply);
+      messageInputRef.current?.focus();
+    }
+  };
+
+  // Handle emoji click
+  const handleEmojiClick = (emoji) => {
+    setMessage((prev) => prev + emoji);
+    setShowEmojiPicker(false);
+  };
+
+  // Handle attachment click
+  const handleAttachmentClick = (type) => {
+    alert(`Memilih ${type}`);
+    setShowAttachmentMenu(false);
+  };
+
+  // Cancel reply
+  const cancelReply = () => {
+    setReplyingTo(null);
+  };
+
+  // Group messages by date
+  const groupMessagesByDate = () => {
+    const groups = {};
+    messages.forEach((msg) => {
+      const date = msg.date;
+      if (!groups[date]) groups[date] = [];
+      groups[date].push(msg);
+    });
+    return groups;
+  };
+
   // Animations variants
   const fadeIn = {
     hidden: { opacity: 0 },
@@ -274,6 +323,29 @@ function EcoCentralNotification() {
       )
     );
   };
+
+  const emojis = [
+    "😊",
+    "👍",
+    "🙏",
+    "❤️",
+    "👌",
+    "🔥",
+    "✅",
+    "🎉",
+    "👏",
+    "🤔",
+    "😂",
+    "🚀",
+    "🌟",
+    "📢",
+    "♻️",
+    "🌱",
+    "🌍",
+    "🌈",
+    "👋",
+    "🙌",
+  ];
 
   const handleSelectConversation = (id) => {
     setSelectedConversation(id);
@@ -337,11 +409,36 @@ function EcoCentralNotification() {
 
   // Auto-scroll to bottom of messages on load
   useEffect(() => {
-    const chatContainer = document.getElementById("chat-messages");
-    if (chatContainer) {
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   }, [selectedConversation, messages.length]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(event.target) &&
+        event.target.id !== "emoji-button"
+      ) {
+        setShowEmojiPicker(false);
+      }
+
+      if (
+        attachmentMenuRef.current &&
+        !attachmentMenuRef.current.contains(event.target) &&
+        event.target.id !== "attachment-button"
+      ) {
+        setShowAttachmentMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Handler for notification actions
   const handleNotificationAction = (id, action) => {
@@ -417,7 +514,7 @@ function EcoCentralNotification() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <div className="bg-teal-50 dark:bg-teal-900/30 p-3 md:p-4 rounded-lg">
+            <div className="bg-teal-50 dark:bg-teal-900/30 p-2 md:p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <h4 className="text-sm text-gray-500 dark:text-gray-400">
                   Pengambilan
@@ -437,7 +534,7 @@ function EcoCentralNotification() {
               </p>
             </div>
 
-            <div className="bg-red-50 dark:bg-red-900/30 p-3 md:p-4 rounded-lg">
+            <div className="bg-red-50 dark:bg-red-900/30 p-2 md:p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <h4 className="text-sm text-gray-500 dark:text-gray-400">
                   Keluhan
@@ -457,7 +554,7 @@ function EcoCentralNotification() {
               </p>
             </div>
 
-            <div className="bg-yellow-50 dark:bg-yellow-900/30 p-3 md:p-4 rounded-lg">
+            <div className="bg-yellow-50 dark:bg-yellow-900/30 p-2 md:p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <h4 className="text-sm text-gray-500 dark:text-gray-400">
                   Droppoints
@@ -477,7 +574,7 @@ function EcoCentralNotification() {
               </p>
             </div>
 
-            <div className="bg-blue-50 dark:bg-blue-900/30 p-3 md:p-4 rounded-lg">
+            <div className="bg-blue-50 dark:bg-blue-900/30 p-2 md:p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <h4 className="text-sm text-gray-500 dark:text-gray-400">
                   EcoHives
@@ -498,7 +595,7 @@ function EcoCentralNotification() {
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-700/50 p-3 md:p-4 rounded-lg">
+          <div className="bg-gray-50 dark:bg-gray-700/50 p-2 md:p-4 rounded-lg">
             <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
               Jenis Sampah Terkumpul
             </h4>
@@ -683,7 +780,7 @@ function EcoCentralNotification() {
                 key={notification.id}
                 variants={fadeIn}
                 whileTap={{ scale: 0.98 }}
-                className={`p-3 md:p-4 bg-white dark:bg-gray-800 rounded-lg md:rounded-xl shadow-sm border-l-4 ${
+                className={`p-2 md:p-4 bg-white dark:bg-gray-800 rounded-lg md:rounded-xl shadow-sm border-l-4 ${
                   notification.read
                     ? "border-gray-200 dark:border-gray-700"
                     : notification.status === "urgent"
@@ -817,7 +914,7 @@ function EcoCentralNotification() {
       {/* Messages Tab Content */}
       {activeTab === "messages" && (
         <div className="bg-white dark:bg-gray-800 rounded-lg md:rounded-xl shadow-sm overflow-hidden">
-          <div className="flex h-[600px]">
+          <div className="flex h-[calc(100vh-160px)] md:h-[600px]">
             {/* Conversations List */}
             <motion.div
               initial="hidden"
@@ -827,7 +924,7 @@ function EcoCentralNotification() {
                 selectedConversation && isMobile ? "hidden" : "block"
               }`}
             >
-              <div className="p-3 md:p-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="p-2 md:p-4 border-b border-gray-200 dark:border-gray-700">
                 <div className="relative">
                   <input
                     type="text"
@@ -847,7 +944,7 @@ function EcoCentralNotification() {
                     key={conversation.id}
                     variants={fadeIn}
                     whileTap={{ scale: 0.98 }}
-                    className={`p-3 md:p-4 border-b border-gray-200 dark:border-gray-700 cursor-pointer ${
+                    className={`p-2 md:p-4 border-b border-gray-200 dark:border-gray-700 cursor-pointer ${
                       selectedConversation === conversation.id
                         ? "bg-gray-100 dark:bg-gray-700"
                         : "hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -915,14 +1012,28 @@ function EcoCentralNotification() {
               initial="hidden"
               animate="visible"
               variants={slideFromRight}
-              className={`w-full md:w-2/3 flex flex-col ${
-                !selectedConversation && isMobile ? "hidden" : "block"
+              className={`w-full h-full md:w-2/3 flex flex-col ${
+                !selectedConversation && isMobile
+                  ? "hidden"
+                  : "flex flex-col flex-1"
               }`}
+              style={
+                isMobile && selectedConversation
+                  ? {
+                      position: "fixed",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      zIndex: 50,
+                    }
+                  : {}
+              }
             >
               {selectedConversation ? (
                 <>
                   {/* Chat Header */}
-                  <div className="p-3 md:p-4 border-b border-gray-200 dark:border-gray-700 flex items-center">
+                  <div className="sticky top-0 bg-white dark:bg-gray-800 z-10 p-2 md:p-4 border-b border-gray-200 dark:border-gray-700 flex items-center">
                     <button
                       onClick={() => setSelectedConversation(null)}
                       className="mr-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 p-1 rounded-full flex items-center justify-center"
@@ -969,50 +1080,220 @@ function EcoCentralNotification() {
 
                   {/* Chat Messages */}
                   <div
-                    id="chat-messages"
-                    className="flex-1 overflow-y-auto p-4 space-y-4"
+                    ref={chatContainerRef}
+                    className="flex-1 overflow-y-auto p-2 md:p-4 bg-gray-50 dark:bg-gray-900"
+                    style={{
+                      height: isMobile
+                        ? "calc(100vh - 130px)"
+                        : "calc(100vh - 180px)",
+                    }}
                   >
-                    {messages.map((msg) => (
-                      <motion.div
-                        key={msg.id}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className={`flex ${
-                          msg.sender === "ecocentral"
-                            ? "justify-end"
-                            : "justify-start"
-                        }`}
-                      >
-                        <div
-                          className={`max-w-[75%] p-3 rounded-lg ${
-                            msg.sender === "ecocentral"
-                              ? "bg-lime-500 text-white rounded-br-none"
-                              : "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-bl-none"
-                          }`}
-                        >
-                          <p className="text-sm">{msg.message}</p>
-                          <p className="text-xs mt-1 opacity-70 text-right">
-                            {msg.time}
-                          </p>
+                    {Object.entries(groupMessagesByDate()).map(
+                      ([date, messages]) => (
+                        <div key={date} className="text-center mb-6">
+                          <span className="inline-block px-3 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">
+                            {date}
+                          </span>
+                          {messages.map((msg) => (
+                            <motion.div
+                              key={msg.id}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className={`flex ${
+                                msg.sender === "ecocentral"
+                                  ? "justify-end"
+                                  : "justify-start"
+                              } my-2`}
+                            >
+                              <div
+                                className={`max-w-[85%] md:max-w-[70%] rounded-lg p-3 ${
+                                  msg.sender === "ecocentral"
+                                    ? "bg-lime-500 text-white rounded-br-none"
+                                    : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-bl-none"
+                                } relative`}
+                              >
+                                {/* Reply Preview */}
+                                {msg.repliedTo && (
+                                  <div
+                                    className={`mb-2 p-2 rounded-md ${
+                                      msg.sender === "ecocentral"
+                                        ? "bg-lime-600"
+                                        : "bg-gray-100 dark:bg-gray-700"
+                                    }`}
+                                  >
+                                    <p className="text-xs line-clamp-2 italic border-l-2 pl-2 border-gray-400">
+                                      {getMessageById(msg.repliedTo)?.message}
+                                    </p>
+                                  </div>
+                                )}
+
+                                <p className="text-sm">{msg.message}</p>
+                                <div className="flex items-center justify-end mt-1 space-x-1">
+                                  <span className="text-xs opacity-70">
+                                    {msg.time}
+                                  </span>
+                                  {msg.sender === "ecocentral" && (
+                                    <i
+                                      data-feather="check"
+                                      className="h-3 w-3 opacity-70"
+                                    ></i>
+                                  )}
+                                </div>
+
+                                {/* Reply Button */}
+                                <button
+                                  onClick={() => handleReplyMessage(msg.id)}
+                                  className={`absolute bg-white dark:bg-gray-700 shadow-md rounded-full p-1 ${
+                                    msg.sender === "ecocentral"
+                                      ? "right-auto left-0 -translate-x-1/2"
+                                      : "left-auto right-0 translate-x-1/2"
+                                  } top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300`}
+                                >
+                                  <i
+                                    data-feather="corner-up-left"
+                                    className="h-4 w-4"
+                                  ></i>
+                                </button>
+                              </div>
+                            </motion.div>
+                          ))}
                         </div>
-                      </motion.div>
-                    ))}
+                      )
+                    )}
                   </div>
 
                   {/* Chat Input */}
-                  <div className="p-3 md:p-4 border-t border-gray-200 dark:border-gray-700">
-                    <form onSubmit={sendMessage} className="flex items-center">
+                  {/* Reply Preview */}
+                  {replyingTo && (
+                    <div className="px-4 py-2 bg-gray-100 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600">
+                      <div className="flex justify-between items-center">
+                        <div className="flex-1">
+                          <p className="text-xs text-gray-600 dark:text-gray-300 font-medium">
+                            Membalas{" "}
+                            {replyingTo.sender === "ecocentral"
+                              ? "Anda"
+                              : getConversationById(selectedConversation)
+                                  ?.partner.name}
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">
+                            {replyingTo.message}
+                          </p>
+                        </div>
+                        <button
+                          onClick={cancelReply}
+                          className="ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                        >
+                          <i data-feather="x" className="h-4 w-4"></i>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Message Input */}
+                  <div className="p-2 md:p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                    <form
+                      onSubmit={sendMessage}
+                      className="flex items-center gap-1 md:space-x-2"
+                    >
+                      {/* Attachment Menu */}
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setShowAttachmentMenu(!showAttachmentMenu)
+                          }
+                          className="text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300 p-2 rounded-full"
+                        >
+                          <i data-feather="plus" className="h-5 w-5"></i>
+                        </button>
+
+                        <AnimatePresence>
+                          {showAttachmentMenu && (
+                            <motion.div
+                              ref={attachmentMenuRef}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 10 }}
+                              className="absolute bottom-full left-0 mb-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700"
+                            >
+                              {[
+                                "document",
+                                "camera",
+                                "gallery",
+                                "location",
+                              ].map((type) => (
+                                <button
+                                  key={type}
+                                  type="button"
+                                  onClick={() => handleAttachmentClick(type)}
+                                  className="flex items-center w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                >
+                                  <i
+                                    data-feather={
+                                      type === "document"
+                                        ? "file-text"
+                                        : type === "camera"
+                                        ? "camera"
+                                        : type === "gallery"
+                                        ? "image"
+                                        : "map-pin"
+                                    }
+                                    className="h-4 w-4 mr-3"
+                                  ></i>
+                                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                                </button>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
+                      {/* Emoji Picker */}
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                          className="text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300 p-2 rounded-full"
+                        >
+                          <i data-feather="smile" className="h-5 w-5"></i>
+                        </button>
+
+                        <AnimatePresence>
+                          {showEmojiPicker && (
+                            <motion.div
+                              ref={emojiPickerRef}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 10 }}
+                              className="absolute bottom-full left-0 mb-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-2 grid grid-cols-6 gap-1 border border-gray-200 dark:border-gray-700"
+                            >
+                              {emojis.map((emoji) => (
+                                <button
+                                  key={emoji}
+                                  type="button"
+                                  onClick={() => handleEmojiClick(emoji)}
+                                  className="text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md p-1"
+                                >
+                                  {emoji}
+                                </button>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+
                       <input
+                        ref={messageInputRef}
                         type="text"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Ketik pesan..."
-                        className="flex-1 py-2 px-3 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white border-0 focus:ring-2 focus:ring-lime-500"
+                        className="flex-1 py-2 px-3 md:px-4 bg-gray-100 dark:bg-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-lime-500 dark:focus:ring-lime-600 text-xs md:text-sm"
                       />
+
                       <button
                         type="submit"
-                        className="ml-2 p-2 bg-lime-500 text-white rounded-lg"
-                        disabled={message.trim() === ""}
+                        className="bg-lime-500 text-white p-2 rounded-full hover:bg-lime-600 transition-colors"
                       >
                         <i data-feather="send" className="h-5 w-5"></i>
                       </button>
