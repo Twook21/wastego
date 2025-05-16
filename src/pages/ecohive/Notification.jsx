@@ -777,12 +777,12 @@ function Notification() {
                   {/* Chat Messages Container */}
                   <div
                     ref={chatContainerRef}
-                    className="flex-1 overflow-y-auto p-3 md:p-4 bg-gray-50 dark:bg-gray-900"
+                    className="flex-1 overflow-y-auto p-3 md:p-4 bg-gray-50 dark:bg-gray-950"
                   >
                     {Object.entries(groupMessagesByDate()).map(
                       ([date, messages]) => (
                         <div key={date} className="text-center mb-6">
-                          <span className="inline-block px-3 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">
+                          <span className="inline-block px-3 py-1 text-xs bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full">
                             {date}
                           </span>
                           {messages.map((msg) => (
@@ -797,10 +797,10 @@ function Notification() {
                               } my-2`}
                             >
                               <div
-                                className={`max-w-[85%] md:max-w-[70%] rounded-lg p-3 relative ${
+                                className={`max-w-[85%] md:max-w-[70%] rounded-lg p-3 relative text-left ${
                                   msg.sender === "user"
-                                    ? "bg-lime-500 text-white rounded-br-none"
-                                    : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-bl-none"
+                                    ? "bg-lime-500 text-white rounded-br-none shadow-md"
+                                    : "bg-white dark:bg-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-700 rounded-bl-none shadow-md"
                                 }`}
                               >
                                 {/* Reply Preview */}
@@ -812,7 +812,7 @@ function Notification() {
                                         : "bg-gray-100 dark:bg-gray-700"
                                     }`}
                                   >
-                                    <p className="text-xs line-clamp-2 italic border-l-2 pl-2 border-gray-400">
+                                    <p className="text-xs line-clamp-2 italic border-l-2 pl-2 border-gray-400 dark:border-gray-500">
                                       {messages.find(
                                         (m) => m.id === msg.repliedTo
                                       )?.message || "Pesan sebelumnya"}
@@ -840,7 +840,7 @@ function Notification() {
                                     msg.sender === "user"
                                       ? "right-auto left-0 -translate-x-1/2"
                                       : "left-auto right-0 translate-x-1/2"
-                                  } top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300`}
+                                  } top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 transition-colors`}
                                 >
                                   <i
                                     data-feather="corner-up-left"
@@ -856,10 +856,10 @@ function Notification() {
                   </div>
 
                   {/* Fixed Bottom Section for Reply Preview and Input */}
-                  <div className="sticky bottom-0 left-0 right-0 w-full bg-white dark:bg-gray-800 shadow-md">
+                  <div className="sticky bottom-0 left-0 right-0 w-full bg-white dark:bg-gray-900 shadow-md">
                     {/* Reply Preview */}
                     {replyingTo && (
-                      <div className="px-4 py-2 bg-gray-100 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600">
+                      <div className="px-4 py-2 bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
                         <div className="flex justify-between items-center">
                           <div className="flex-1">
                             <p className="text-xs text-gray-600 dark:text-gray-300 font-medium">
@@ -875,7 +875,7 @@ function Notification() {
                           </div>
                           <button
                             onClick={cancelReply}
-                            className="ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                            className="ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
                           >
                             <i data-feather="x" className="h-4 w-4"></i>
                           </button>
@@ -897,7 +897,7 @@ function Notification() {
                             onClick={() =>
                               setShowAttachmentMenu(!showAttachmentMenu)
                             }
-                            className="text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300 p-2 rounded-full"
+                            className="text-gray-500 dark:text-gray-400 hover:text-lime-700 dark:hover:text-lime-500 p-2 rounded-full transition-colors"
                           >
                             <i data-feather="plus" className="h-5 w-5"></i>
                           </button>
@@ -921,7 +921,7 @@ function Notification() {
                                     key={type}
                                     type="button"
                                     onClick={() => handleAttachmentClick(type)}
-                                    className="flex items-center w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                    className="flex items-center w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                                   >
                                     <i
                                       data-feather={
@@ -952,7 +952,7 @@ function Notification() {
                             id="emoji-button"
                             type="button"
                             onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                            className="text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300 p-2 rounded-full"
+                            className="text-gray-500 dark:text-gray-400 hover:text-lime-700 dark:hover:text-lime-500 p-2 rounded-full transition-colors"
                           >
                             <i data-feather="smile" className="h-5 w-5"></i>
                           </button>
@@ -971,7 +971,7 @@ function Notification() {
                                     key={emoji}
                                     type="button"
                                     onClick={() => handleEmojiClick(emoji)}
-                                    className="text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md p-1"
+                                    className="text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md p-1 transition-colors"
                                   >
                                     {emoji}
                                   </button>
@@ -988,13 +988,14 @@ function Notification() {
                           value={message}
                           onChange={(e) => setMessage(e.target.value)}
                           placeholder="Ketik pesan..."
-                          className="flex-1 py-2 px-4 bg-gray-100 dark:bg-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-lime-500 dark:focus:ring-lime-600 text-sm"
+                          className="flex-1 py-2 px-4 bg-gray-100 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-400 rounded-full focus:outline-none focus:ring-2 focus:ring-lime-500 dark:focus:ring-lime-500 text-sm transition-colors"
                         />
 
                         {/* Send Button */}
                         <button
                           type="submit"
-                          className="bg-lime-500 text-white p-2 rounded-full hover:bg-lime-600 transition-colors"
+                          className="bg-lime-500 text-white p-2 rounded-full hover:bg-lime-600 dark:hover:bg-lime-600 dark:bg-lime-600 transition-colors"
+                          disabled={!message.trim()}
                         >
                           <i data-feather="send" className="h-5 w-5"></i>
                         </button>

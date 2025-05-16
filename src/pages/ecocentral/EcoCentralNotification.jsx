@@ -1091,7 +1091,7 @@ function EcoCentralNotification() {
                     {Object.entries(groupMessagesByDate()).map(
                       ([date, messages]) => (
                         <div key={date} className="text-center mb-6">
-                          <span className="inline-block px-3 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">
+                          <span className="inline-block px-3 py-1 text-xs bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full">
                             {date}
                           </span>
                           {messages.map((msg) => (
@@ -1106,22 +1106,22 @@ function EcoCentralNotification() {
                               } my-2`}
                             >
                               <div
-                                className={`max-w-[85%] md:max-w-[70%] rounded-lg p-3 ${
+                                className={`max-w-[85%] md:max-w-[70%] rounded-lg p-3 text-left ${
                                   msg.sender === "ecocentral"
-                                    ? "bg-lime-500 text-white rounded-br-none"
-                                    : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-bl-none"
-                                } relative`}
+                                    ? "bg-lime-500 dark:bg-lime-500 text-white rounded-br-none"
+                                    : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none"
+                                } relative shadow-sm`}
                               >
                                 {/* Reply Preview */}
                                 {msg.repliedTo && (
                                   <div
                                     className={`mb-2 p-2 rounded-md ${
                                       msg.sender === "ecocentral"
-                                        ? "bg-lime-600"
+                                        ? "bg-lime-700 dark:bg-lime-800"
                                         : "bg-gray-100 dark:bg-gray-700"
                                     }`}
                                   >
-                                    <p className="text-xs line-clamp-2 italic border-l-2 pl-2 border-gray-400">
+                                    <p className="text-xs line-clamp-2 italic border-l-2 pl-2 border-gray-400 dark:border-gray-500">
                                       {getMessageById(msg.repliedTo)?.message}
                                     </p>
                                   </div>
@@ -1147,7 +1147,7 @@ function EcoCentralNotification() {
                                     msg.sender === "ecocentral"
                                       ? "right-auto left-0 -translate-x-1/2"
                                       : "left-auto right-0 translate-x-1/2"
-                                  } top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300`}
+                                  } top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-white transition-colors`}
                                 >
                                   <i
                                     data-feather="corner-up-left"
@@ -1165,7 +1165,7 @@ function EcoCentralNotification() {
                   {/* Chat Input */}
                   {/* Reply Preview */}
                   {replyingTo && (
-                    <div className="px-4 py-2 bg-gray-100 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600">
+                    <div className="px-4 py-2 bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
                       <div className="flex justify-between items-center">
                         <div className="flex-1">
                           <p className="text-xs text-gray-600 dark:text-gray-300 font-medium">
@@ -1181,7 +1181,7 @@ function EcoCentralNotification() {
                         </div>
                         <button
                           onClick={cancelReply}
-                          className="ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                          className="ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
                         >
                           <i data-feather="x" className="h-4 w-4"></i>
                         </button>
@@ -1202,7 +1202,7 @@ function EcoCentralNotification() {
                           onClick={() =>
                             setShowAttachmentMenu(!showAttachmentMenu)
                           }
-                          className="text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300 p-2 rounded-full"
+                          className="text-gray-500 dark:text-gray-400 hover:text-lime-700 dark:hover:text-lime-500 p-2 rounded-full transition-colors"
                         >
                           <i data-feather="plus" className="h-5 w-5"></i>
                         </button>
@@ -1214,7 +1214,7 @@ function EcoCentralNotification() {
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, y: 10 }}
-                              className="absolute bottom-full left-0 mb-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700"
+                              className="absolute bottom-full left-0 mb-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-10"
                             >
                               {[
                                 "document",
@@ -1226,7 +1226,7 @@ function EcoCentralNotification() {
                                   key={type}
                                   type="button"
                                   onClick={() => handleAttachmentClick(type)}
-                                  className="flex items-center w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                  className="flex items-center w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                                 >
                                   <i
                                     data-feather={
@@ -1253,7 +1253,7 @@ function EcoCentralNotification() {
                         <button
                           type="button"
                           onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                          className="text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300 p-2 rounded-full"
+                          className="text-gray-500 dark:text-gray-400 hover:text-lime-700 dark:hover:text-lime-500 p-2 rounded-full transition-colors"
                         >
                           <i data-feather="smile" className="h-5 w-5"></i>
                         </button>
@@ -1265,14 +1265,14 @@ function EcoCentralNotification() {
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, y: 10 }}
-                              className="absolute bottom-full left-0 mb-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-2 grid grid-cols-6 gap-1 border border-gray-200 dark:border-gray-700"
+                              className="absolute bottom-full left-0 mb-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-2 grid grid-cols-6 gap-1 border border-gray-200 dark:border-gray-700 z-10"
                             >
                               {emojis.map((emoji) => (
                                 <button
                                   key={emoji}
                                   type="button"
                                   onClick={() => handleEmojiClick(emoji)}
-                                  className="text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md p-1"
+                                  className="text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md p-1 transition-colors"
                                 >
                                   {emoji}
                                 </button>
@@ -1288,12 +1288,13 @@ function EcoCentralNotification() {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Ketik pesan..."
-                        className="flex-1 py-2 px-3 md:px-4 bg-gray-100 dark:bg-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-lime-500 dark:focus:ring-lime-600 text-xs md:text-sm"
+                        className="flex-1 py-2 px-3 md:px-4 bg-gray-100 dark:bg-gray-700 border dark:border-gray-600 rounded-full focus:outline-none focus:ring-2 focus:ring-lime-500 dark:focus:ring-lime-500 text-xs md:text-sm text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                       />
 
                       <button
                         type="submit"
-                        className="bg-lime-500 text-white p-2 rounded-full hover:bg-lime-600 transition-colors"
+                        className="bg-lime-500 dark:bg-lime-500 text-white p-2 rounded-full hover:bg-lime-500 dark:hover:bg-lime-700 transition-colors"
+                        disabled={!message.trim()}
                       >
                         <i data-feather="send" className="h-5 w-5"></i>
                       </button>
