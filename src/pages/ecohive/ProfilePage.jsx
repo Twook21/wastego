@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -27,6 +29,85 @@ import {
 const ProfilePage = () => {
   // State untuk mode edit
   const [isEditing, setIsEditing] = useState(false);
+  const [editData, setEditData] = useState({});
+  const [crop, setCrop] = useState({ aspect: 1 / 1 });
+  const [src, setSrc] = useState(null);
+  const [croppedImageUrl, setCroppedImageUrl] = useState(null);
+  const [showCropModal, setShowCropModal] = useState(false);
+  const imageRef = useRef(null);
+  const [error, setError] = useState("");
+
+  // Fungsi untuk membuat gambar cropped
+  const getCroppedImg = () => {
+    const canvas = document.createElement("canvas");
+    const scaleX = imageRef.current.naturalWidth / imageRef.current.width;
+    const scaleY = imageRef.current.naturalHeight / imageRef.current.height;
+
+    canvas.width = crop.width * scaleX;
+    canvas.height = crop.height * scaleY;
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+      imageRef.current,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width * scaleX,
+      crop.height * scaleY
+    );
+
+    return new Promise((resolve) => {
+      canvas.toBlob((blob) => {
+        resolve(URL.createObjectURL(blob));
+      }, "image/jpeg");
+    });
+  };
+
+  // Handle file upload untuk avatar
+  const handleAvatarChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSrc(reader.result);
+        setShowCropModal(true);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Handle apply crop
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    // Validasi panjang maksimum
+    const maxLengths = {
+      name: 50,
+      email: 70,
+      phone: 15,
+      address: 100,
+    };
+
+    if (maxLengths[name] && value.length > maxLengths[name]) return;
+
+    setEditData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // Handle apply crop untuk avatar
+  const handleApplyCrop = async () => {
+    const croppedUrl = await getCroppedImg();
+    setEditData((prev) => ({
+      ...prev,
+      avatar: croppedUrl, // Update editData bukan profileData langsung
+    }));
+    setShowCropModal(false);
+  };
 
   // State untuk data profil
   const [profileData, setProfileData] = useState({
@@ -48,14 +129,11 @@ const ProfilePage = () => {
     systemUpdates: false,
   });
 
-  // Handle perubahan data profil
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData({
-      ...profileData,
-      [name]: value,
-    });
-  };
+  useEffect(() => {
+    if (isEditing) {
+      setEditData({ ...profileData });
+    }
+  }, [isEditing]);
 
   // Toggle pengaturan notifikasi
   const toggleNotification = (setting) => {
@@ -65,28 +143,36 @@ const ProfilePage = () => {
     });
   };
 
-  // Handle submit form
+  // Handle submit form dengan validasi
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Di sini akan ada kode untuk menyimpan data ke server
+
+    // Validasi field wajib diisi
+    const requiredFields = ["name", "email", "phone", "address"];
+    const isEmpty = requiredFields.some((field) => !editData[field]?.trim());
+
+    if (isEmpty) {
+      setError("Harap isi semua bidang yang wajib");
+      return;
+    }
+
+    // Validasi format email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(editData.email)) {
+      setError("Format email tidak valid");
+      return;
+    }
+
+    // Update data profil hanya jika valid
+    setProfileData(editData);
     setIsEditing(false);
+    setError("");
   };
 
-  // Handle file upload untuk avatar
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Di dunia nyata, kita akan upload file ke server
-      // dan mendapatkan URL-nya
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileData({
-          ...profileData,
-          avatar: reader.result,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
+  // Handle cancel edit
+  const handleCancel = () => {
+    setIsEditing(false);
+    setError("");
   };
 
   // Variants animasi
@@ -138,6 +224,53 @@ const ProfilePage = () => {
         </p>
       </motion.div>
 
+      {/* Modal untuk crop */}
+      <AnimatePresence>
+        {showCropModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-transparent backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full"
+            >
+              <h3 className="text-lg font-semibold mb-4">Crop Foto Profil</h3>
+
+              {src && (
+                <ReactCrop crop={crop} onChange={(c) => setCrop(c)} aspect={1}>
+                  <img
+                    ref={imageRef}
+                    src={src}
+                    alt="Crop preview"
+                    className="max-h-[60vh]"
+                  />
+                </ReactCrop>
+              )}
+
+              <div className="mt-4 flex justify-end space-x-3">
+                <button
+                  onClick={() => setShowCropModal(false)}
+                  className="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
+                >
+                  Batal
+                </button>
+                <button
+                  onClick={handleApplyCrop}
+                  className="px-4 py-2 bg-teal-600 dark:bg-lime-600 text-white rounded-md hover:bg-teal-700 dark:hover:bg-lime-700"
+                >
+                  Terapkan
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Kolom kiri - Info profil */}
         <motion.div
@@ -169,14 +302,24 @@ const ProfilePage = () => {
               <div className="flex flex-col sm:flex-row items-center mb-6">
                 <div className="relative mb-4 sm:mb-0 sm:mr-6">
                   <div className="w-24 h-24 rounded-full overflow-hidden bg-teal-200 dark:bg-teal-700 flex items-center justify-center text-2xl font-bold text-white shadow-md">
-                    {profileData.avatar ? (
+                    {isEditing ? (
+                      editData.avatar ? ( // Gunakan editData saat dalam mode edit
+                        <img
+                          src={editData.avatar}
+                          alt="Profile"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span>{profileData.name?.substring(0, 2)}</span>
+                      )
+                    ) : profileData.avatar ? (
                       <img
                         src={profileData.avatar}
                         alt="Profile"
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <span>EK</span>
+                      <span>{profileData.name?.substring(0, 2)}</span>
                     )}
                   </div>
                   {isEditing && (
@@ -210,8 +353,9 @@ const ProfilePage = () => {
                       <input
                         type="text"
                         name="name"
-                        value={profileData.name}
+                        value={editData.name}
                         onChange={handleInputChange}
+                        maxLength={30} // Batasan maksimal 50 karakter
                         className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
                       />
                     ) : (
@@ -227,7 +371,6 @@ const ProfilePage = () => {
                   </div>
                 </div>
               </div>
-
               <div className="space-y-4">
                 <motion.div
                   variants={itemVariants}
@@ -239,13 +382,38 @@ const ProfilePage = () => {
                   </div>
                   <div className="sm:w-2/3">
                     {isEditing ? (
-                      <input
-                        type="email"
-                        name="email"
-                        value={profileData.email}
-                        onChange={handleInputChange}
-                        className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
-                      />
+                      <div>
+                        <input
+                          type="email"
+                          name="email"
+                          value={editData.email}
+                          onChange={(e) => {
+                            const email = e.target.value;
+
+                            // Validasi panjang teks
+                            if (email.length > 70) {
+                              return;
+                            }
+
+                            // Validasi format email
+                            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            if (!emailRegex.test(email)) {
+                              // Tampilkan error jika format tidak sesuai
+                              setError("Format email tidak valid");
+                            } else {
+                              setError(""); // Hapus pesan error jika format valid
+                            }
+
+                            // Update nilai hanya jika valid
+                            handleInputChange(e);
+                          }}
+                          maxLength={100}
+                          className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                        />
+                        {error && (
+                          <p className="text-sm text-red-600 mt-1">{error}</p>
+                        )}
+                      </div>
                     ) : (
                       <span className="text-sm font-medium text-gray-900 dark:text-white">
                         {profileData.email}
@@ -267,7 +435,7 @@ const ProfilePage = () => {
                       <>
                         <select
                           name="countryCode"
-                          value={profileData.countryCode}
+                          value={editData.countryCode}
                           onChange={handleInputChange}
                           className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                         >
@@ -281,7 +449,7 @@ const ProfilePage = () => {
                         <input
                           type="tel"
                           name="phone"
-                          value={profileData.phone}
+                          value={editData.phone}
                           onChange={handleInputChange}
                           pattern="[0-9]+" // Hanya angka
                           maxLength={15} // Batas maksimal panjang karakter
@@ -308,13 +476,14 @@ const ProfilePage = () => {
                     {isEditing ? (
                       <textarea
                         name="address"
-                        value={profileData.address}
+                        value={editData.address}
                         onChange={handleInputChange}
                         rows="2"
+                        maxLength={100} // Batas maksimal panjang karakter
                         className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full resize-none"
                       />
                     ) : (
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">
+                      <span className="text-sm font-medium text-gray-900 dark:text-white whitespace-pre-wrap break-words">
                         {profileData.address}
                       </span>
                     )}
@@ -331,86 +500,134 @@ const ProfilePage = () => {
                   </div>
                   <div className="sm:w-2/3">
                     {isEditing ? (
-                      <>
-                        <div className="flex flex-col space-y-4">
-                          {/* Pilihan Hari Mulai */}
-                          <div className="flex items-center space-x-2">
-                            <label className="text-sm font-medium text-gray-900 dark:text-white">
-                              Dari:
-                            </label>
+                      <div className="flex flex-col space-y-4">
+                        {/* Pilihan Hari Mulai */}
+                        <div className="flex flex-col space-y-2">
+                          <label className="text-sm font-medium text-gray-900 dark:text-white">
+                            Hari Operasional:
+                          </label>
+                          <div className="flex gap-2 flex-col sm:flex-row">
                             <select
                               name="startDay"
-                              value={profileData.startDay || ""}
+                              value={editData.startDay || ""}
                               onChange={handleInputChange}
                               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                              required
                             >
                               <option value="" disabled>
-                                Pilih Hari
+                                Mulai Hari
                               </option>
-                              <option value="Senin">Senin</option>
-                              <option value="Selasa">Selasa</option>
-                              <option value="Rabu">Rabu</option>
-                              <option value="Kamis">Kamis</option>
-                              <option value="Jumat">Jumat</option>
-                              <option value="Sabtu">Sabtu</option>
-                              <option value="Minggu">Minggu</option>
+                              {[
+                                "Senin",
+                                "Selasa",
+                                "Rabu",
+                                "Kamis",
+                                "Jumat",
+                                "Sabtu",
+                                "Minggu",
+                              ].map((day) => (
+                                <option key={day} value={day}>
+                                  {day}
+                                </option>
+                              ))}
                             </select>
-                          </div>
-                          {/* Pilihan Hari Akhir */}
-                          <div className="flex items-center space-x-2">
-                            <label className="text-sm font-medium text-gray-900 dark:text-white">
-                              Sampai:
-                            </label>
+                            <span className="hidden sm:inline self-center text-gray-500">
+                              sampai
+                            </span>
                             <select
                               name="endDay"
-                              value={profileData.endDay || ""}
+                              value={editData.endDay || ""}
                               onChange={handleInputChange}
                               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                              required
+                              // Perbaikan 1: Menggunakan editData sebagai referensi
+                              disabled={!editData.startDay}
                             >
                               <option value="" disabled>
-                                Pilih Hari
+                                Sampai Hari
                               </option>
-                              <option value="Senin">Senin</option>
-                              <option value="Selasa">Selasa</option>
-                              <option value="Rabu">Rabu</option>
-                              <option value="Kamis">Kamis</option>
-                              <option value="Jumat">Jumat</option>
-                              <option value="Sabtu">Sabtu</option>
-                              <option value="Minggu">Minggu</option>
+                              {[
+                                "Senin",
+                                "Selasa",
+                                "Rabu",
+                                "Kamis",
+                                "Jumat",
+                                "Sabtu",
+                                "Minggu",
+                              ]
+                                .filter((day) => {
+                                  const startIndex = [
+                                    "Senin",
+                                    "Selasa",
+                                    "Rabu",
+                                    "Kamis",
+                                    "Jumat",
+                                    "Sabtu",
+                                    "Minggu",
+                                  ].indexOf(editData.startDay); // Perbaikan 2: Menggunakan editData
+                                  return editData.startDay
+                                    ? [
+                                        "Senin",
+                                        "Selasa",
+                                        "Rabu",
+                                        "Kamis",
+                                        "Jumat",
+                                        "Sabtu",
+                                        "Minggu",
+                                      ].slice(startIndex)
+                                    : [];
+                                })
+                                .map((day) => (
+                                  <option key={day} value={day}>
+                                    {day}
+                                  </option>
+                                ))}
                             </select>
                           </div>
-                          {/* Input Waktu */}
-                          <div className="flex items-center space-x-2">
-                            <label className="text-sm font-medium text-gray-900 dark:text-white">
-                              Jam:
-                            </label>
+                        </div>
+
+                        {/* Input Waktu */}
+                        <div className="flex flex-col space-y-2">
+                          <label className="text-sm font-medium text-gray-900 dark:text-white">
+                            Jam Operasional:
+                          </label>
+                          <div className="flex items-center gap-2">
                             <input
                               type="time"
                               name="startTime"
-                              value={profileData.startTime || ""}
+                              value={editData.startTime || ""}
                               onChange={handleInputChange}
                               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                              required
                             />
-                            <span className="text-gray-900 dark:text-white">
-                              -
-                            </span>
+                            <span className="text-gray-500">sampai</span>
                             <input
                               type="time"
                               name="endTime"
-                              value={profileData.endTime || ""}
+                              value={editData.endTime || ""}
                               onChange={handleInputChange}
                               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-lime-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                              required
+                              min={profileData.startTime || ""}
                             />
                           </div>
                         </div>
-                      </>
+                      </div>
                     ) : (
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">
-                        {profileData.startDay || "N/A"} -{" "}
-                        {profileData.endDay || "N/A"},{" "}
-                        {profileData.startTime || "N/A"} -{" "}
-                        {profileData.endTime || "N/A"}
-                      </span>
+                      <div className="flex flex-col space-y-1">
+                        <div className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                          {profileData.startDay === profileData.endDay
+                            ? profileData.startDay || "N/A"
+                            : `${profileData.startDay || "N/A"} - ${
+                                profileData.endDay || "N/A"
+                              }`}
+                        </div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">
+                          {profileData.startTime && profileData.endTime
+                            ? `${profileData.startTime} - ${profileData.endTime}`
+                            : "N/A"}
+                        </div>
+                      </div>
                     )}
                   </div>
                 </motion.div>
@@ -424,7 +641,7 @@ const ProfilePage = () => {
                 >
                   <motion.button
                     type="button"
-                    onClick={() => setIsEditing(false)}
+                    onClick={handleCancel}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"

@@ -54,8 +54,10 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
   // Event listener untuk menutup notifikasi ketika klik di luar
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Tutup notifikasi jika klik di luar panel notifikasi dan di luar tombol notifikasi
+      // Only close notification on desktop when clicking outside
+      // On mobile, we'll only use the explicit close button
       if (
+        window.innerWidth >= 768 && // Only apply for desktop/tablet (md breakpoint)
         notificationOpen && 
         notificationRef.current && 
         !notificationRef.current.contains(event.target) &&
@@ -76,6 +78,43 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [notificationOpen]);
+
+  // Prevent background scrolling when notifications are open on mobile
+  useEffect(() => {
+    if (notificationOpen) {
+      // Save the current body scroll position
+      const scrollY = window.scrollY;
+      // Add styles to lock the body
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.overflow = 'hidden';
+      
+      return () => {
+        // Remove the styles and restore scroll position when notifications are closed
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [notificationOpen]);
+
+  // Prevent notification panel from closing on touch events in mobile view
+  const handleTouchStart = (e) => {
+    // Prevent default behavior only on mobile
+    if (window.innerWidth < 768) {
+      e.stopPropagation();
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    // Prevent default behavior only on mobile
+    if (window.innerWidth < 768) {
+      e.stopPropagation();
+    }
+  };
 
   const unreadCount = notifications.filter((notif) => !notif.read).length;
 
@@ -160,11 +199,15 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
         <div className="flex items-center space-x-2 sm:space-x-4">
           {/* Notifications */}
           <div className="relative">
-            <motion.button
+                          <motion.button
               ref={notificationButtonRef}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => setNotificationOpen(!notificationOpen)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setNotificationOpen(!notificationOpen);
+              }}
               className="p-1 rounded-full text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500 transition-colors relative"
               aria-label="Notifications"
             >
@@ -190,7 +233,10 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                     animate={{ opacity: 0.5 }}
                     exit={{ opacity: 0 }}
                     className="fixed inset-0 bg-black z-40 md:hidden"
-                    onClick={() => setNotificationOpen(false)}
+                    onClick={(e) => {
+                      // Prevent closing when clicking overlay
+                      e.stopPropagation();
+                    }}
                   />
                   
                   {/* Mobile full-screen notification panel */}
@@ -201,11 +247,18 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                     exit="exit"
                     variants={mobileSlideIn}
                     className="fixed inset-y-0 right-0 w-full sm:w-80 bg-white dark:bg-gray-800 shadow-xl z-50 md:hidden flex flex-col"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <div className="p-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20">
                       <div className="flex items-center space-x-2">
                         <button 
-                          onClick={() => setNotificationOpen(false)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setNotificationOpen(false);
+                          }}
                           className="p-1 rounded-full text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500"
                         >
                           <ChevronLeft size={20} />
@@ -215,7 +268,11 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                         </h3>
                       </div>
                       <button
-                        onClick={markAllAsRead}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          markAllAsRead();
+                        }}
                         className="text-sm text-teal-600 dark:text-lime-500 hover:underline"
                       >
                         Tandai dibaca
@@ -230,11 +287,16 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: index * 0.05 }}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                toggleNotificationRead(notification.id);
+                              }}
                               className={`p-3 hover:bg-gray-50 dark:hover:bg-gray-700 ${
                                 notification.read
                                   ? ""
                                   : "bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20"
-                              } transition-colors`}
+                              } transition-colors cursor-pointer`}
                             >
                               <div className="flex items-start">
                                 <div
@@ -269,23 +331,14 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                                     {notification.time}
                                   </p>
                                 </div>
-                                {/* Read/Unread toggle button */}
-                                <motion.button
-                                  whileHover={{ scale: 1.1 }}
-                                  whileTap={{ scale: 0.9 }}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleNotificationRead(notification.id);
-                                  }}
-                                  className={`ml-2 p-1 rounded-full ${
-                                    notification.read
-                                      ? "text-gray-400 hover:text-teal-600"
-                                      : "text-lime-500 hover:text-lime-600"
-                                  }`}
-                                  title={notification.read ? "Tandai belum dibaca" : "Tandai sudah dibaca"}
-                                >
+                                {/* Read/Unread indicator (not interactive on mobile - whole area is clickable) */}
+                                <div className={`ml-2 p-1 rounded-full ${
+                                  notification.read
+                                    ? "text-gray-400"
+                                    : "text-lime-500"
+                                }`}>
                                   {notification.read ? <Circle size={16} /> : <Check size={16} />}
-                                </motion.button>
+                                </div>
                               </div>
                             </motion.div>
                           ))}
@@ -314,6 +367,7 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                     exit="exit"
                     variants={dropdownVariants}
                     className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl ring-1 ring-black ring-opacity-5 z-50 overflow-hidden hidden md:block"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <div className="p-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20">
                       <h3 className="text-lg font-medium text-teal-900 dark:text-white">
@@ -323,15 +377,23 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          onClick={markAllAsRead}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            markAllAsRead();
+                          }}
                           className="text-sm text-teal-600 dark:text-lime-500 hover:underline"
                         >
                           Tandai semua dibaca
                         </motion.button>
-                        <motion.button
+                                                  <motion.button
                           whileHover={{ scale: 1.1, rotate: 90 }}
                           whileTap={{ scale: 0.9 }}
-                          onClick={() => setNotificationOpen(false)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setNotificationOpen(false);
+                          }}
                           className="p-1 text-gray-500 hover:text-teal-900 dark:text-gray-400 dark:hover:text-lime-500"
                         >
                           <X size={18} />
@@ -349,6 +411,7 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: index * 0.05 }}
+                              onClick={() => toggleNotificationRead(notification.id)}
                               className={`p-3 hover:bg-gray-50 dark:hover:bg-gray-700 ${
                                 notification.read
                                   ? ""
@@ -388,23 +451,14 @@ const TopBar = ({ sidebarOpen, setSidebarOpen, currentSection }) => {
                                     {notification.time}
                                   </p>
                                 </div>
-                                {/* Read/Unread toggle button */}
-                                <motion.button
-                                  whileHover={{ scale: 1.1 }}
-                                  whileTap={{ scale: 0.9 }}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleNotificationRead(notification.id);
-                                  }}
-                                  className={`ml-2 p-1 rounded-full ${
-                                    notification.read
-                                      ? "text-gray-400 hover:text-teal-600"
-                                      : "text-lime-500 hover:text-lime-600"
-                                  }`}
-                                  title={notification.read ? "Tandai belum dibaca" : "Tandai sudah dibaca"}
-                                >
+                                {/* Read/Unread indicator (whole notification area is clickable) */}
+                                <div className={`ml-2 p-1 rounded-full ${
+                                  notification.read
+                                    ? "text-gray-400"
+                                    : "text-lime-500"
+                                }`}>
                                   {notification.read ? <Circle size={16} /> : <Check size={16} />}
-                                </motion.button>
+                                </div>
                               </div>
                             </motion.div>
                           ))}
