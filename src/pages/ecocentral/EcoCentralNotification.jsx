@@ -553,15 +553,15 @@ function EcoCentralNotification() {
 
       {/* Tabs */}
       <motion.div
-        className="mb-4 md:mb-6 border-b border-gray-200 dark:border-gray-700"
+        className="mb-2 md:mb-6 border-b border-gray-200 dark:border-gray-700"
         initial="hidden"
         animate="visible"
         variants={fadeIn}
       >
-        <div className="flex space-x-4 md:space-x-6 overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
+        <div className="flex space-x-2 md:space-x-6 overflow-x-auto pb-1 md:pb-0 hide-scrollbar">
           <button
             onClick={() => setActiveTab("notifications")}
-            className={`relative whitespace-nowrap pb-3 px-1 ${
+            className={`relative whitespace-nowrap pb-2 md:pb-3 px-0.5 md:px-1 ${
               activeTab === "notifications"
                 ? "text-lime-500 border-b-2 border-lime-500"
                 : "text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300"
@@ -570,13 +570,11 @@ function EcoCentralNotification() {
             <div className="flex items-center">
               <i
                 data-feather="bell"
-                className="h-4 w-4 md:h-5 md:w-5 mr-1 md:mr-2"
+                className="h-3 w-3 md:h-5 md:w-5 mr-0.5 md:mr-2"
               ></i>
-              <span className="text-sm md:text-base font-medium">
-                Pemberitahuan
-              </span>
+              <span className="text-xs md:text-base font-medium">Notif</span>
               {getUnreadNotificationsCount() > 0 && (
-                <span className="ml-1 md:ml-2 bg-lime-500 text-white text-xs rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center">
+                <span className="ml-0.5 md:ml-2 bg-lime-500 text-white text-xs rounded-full w-3 h-3 md:w-5 md:h-5 flex items-center justify-center text-[10px] md:text-xs">
                   {getUnreadNotificationsCount()}
                 </span>
               )}
@@ -584,7 +582,7 @@ function EcoCentralNotification() {
           </button>
           <button
             onClick={() => setActiveTab("messages")}
-            className={`relative whitespace-nowrap pb-3 px-1 ${
+            className={`relative whitespace-nowrap pb-2 md:pb-3 px-0.5 md:px-1 ${
               activeTab === "messages"
                 ? "text-lime-500 border-b-2 border-lime-500"
                 : "text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300"
@@ -593,11 +591,11 @@ function EcoCentralNotification() {
             <div className="flex items-center">
               <i
                 data-feather="message-square"
-                className="h-4 w-4 md:h-5 md:w-5 mr-1 md:mr-2"
+                className="h-3 w-3 md:h-5 md:w-5 mr-0.5 md:mr-2"
               ></i>
-              <span className="text-sm md:text-base font-medium">Pesan</span>
+              <span className="text-xs md:text-base font-medium">Pesan</span>
               {getTotalUnreadMessagesCount() > 0 && (
-                <span className="ml-1 md:ml-2 bg-lime-500 text-white text-xs rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center">
+                <span className="ml-0.5 md:ml-2 bg-lime-500 text-white text-xs rounded-full w-3 h-3 md:w-5 md:h-5 flex items-center justify-center text-[10px] md:text-xs">
                   {getTotalUnreadMessagesCount()}
                 </span>
               )}
@@ -605,7 +603,7 @@ function EcoCentralNotification() {
           </button>
           <button
             onClick={() => setActiveTab("ecohives")}
-            className={`relative whitespace-nowrap pb-3 px-1 ${
+            className={`relative whitespace-nowrap pb-2 md:pb-3 px-0.5 md:px-1 ${
               activeTab === "ecohives"
                 ? "text-lime-500 border-b-2 border-lime-500"
                 : "text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300"
@@ -614,14 +612,14 @@ function EcoCentralNotification() {
             <div className="flex items-center">
               <i
                 data-feather="truck"
-                className="h-4 w-4 md:h-5 md:w-5 mr-1 md:mr-2"
+                className="h-3 w-3 md:h-5 md:w-5 mr-0.5 md:mr-2"
               ></i>
-              <span className="text-sm md:text-base font-medium">EcoHives</span>
+              <span className="text-xs md:text-base font-medium">Hives</span>
             </div>
           </button>
           <button
             onClick={() => setActiveTab("ecobuddies")}
-            className={`relative whitespace-nowrap pb-3 px-1 ${
+            className={`relative whitespace-nowrap pb-2 md:pb-3 px-0.5 md:px-1 ${
               activeTab === "ecobuddies"
                 ? "text-lime-500 border-b-2 border-lime-500"
                 : "text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300"
@@ -630,16 +628,14 @@ function EcoCentralNotification() {
             <div className="flex items-center">
               <i
                 data-feather="users"
-                className="h-4 w-4 md:h-5 md:w-5 mr-1 md:mr-2"
+                className="h-3 w-3 md:h-5 md:w-5 mr-0.5 md:mr-2"
               ></i>
-              <span className="text-sm md:text-base font-medium">
-                EcoBuddies
-              </span>
+              <span className="text-xs md:text-base font-medium">Buddies</span>
             </div>
           </button>
           <button
             onClick={() => setActiveTab("droppoints")}
-            className={`relative whitespace-nowrap pb-3 px-1 ${
+            className={`relative whitespace-nowrap pb-2 md:pb-3 px-0.5 md:px-1 ${
               activeTab === "droppoints"
                 ? "text-lime-500 border-b-2 border-lime-500"
                 : "text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-gray-300"
@@ -648,11 +644,9 @@ function EcoCentralNotification() {
             <div className="flex items-center">
               <i
                 data-feather="map-pin"
-                className="h-4 w-4 md:h-5 md:w-5 mr-1 md:mr-2"
+                className="h-3 w-3 md:h-5 md:w-5 mr-0.5 md:mr-2"
               ></i>
-              <span className="text-sm md:text-base font-medium">
-                Droppoints
-              </span>
+              <span className="text-xs md:text-base font-medium">Drop</span>
             </div>
           </button>
         </div>
@@ -666,15 +660,16 @@ function EcoCentralNotification() {
           variants={staggerItems}
           className="space-y-3 md:space-y-4"
         >
-          <div className="flex justify-between items-center mb-2 md:mb-4">
-            <h3 className="text-lg font-medium text-teal-900 dark:text-white">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2 md:mb-4">
+            <h3 className="text-base md:text-lg font-medium text-teal-900 dark:text-white mb-2 md:mb-0">
               Pemberitahuan & Alerts
             </h3>
-            <div className="flex items-center">
-              <button className="text-sm text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-white mr-4">
-                Tandai semua dibaca
+            <div className="flex items-center w-full md:w-auto justify-between">
+              <button className="text-xs md:text-sm text-gray-500 dark:text-gray-400 hover:text-teal-900 dark:hover:text-white mr-2 md:mr-4 truncate">
+                <span className="hidden md:inline">Tandai semua dibaca</span>
+                <span className="md:hidden">Tandai semua dibaca</span>
               </button>
-              <select className="text-sm bg-gray-100 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-lime-500 text-gray-800 dark:text-white py-1 px-2">
+              <select className="text-xs md:text-sm bg-gray-100 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-lime-500 text-gray-800 dark:text-white py-2 px-3 md:py-1 md:px-2">
                 <option value="all">Semua</option>
                 <option value="unread">Belum dibaca</option>
                 <option value="urgent">Penting</option>

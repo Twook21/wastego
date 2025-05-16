@@ -430,7 +430,7 @@ const EcoCentralManagement = () => {
           <motion.div
             key={deposit.id}
             variants={fadeIn}
-            className="rounded-lg shadow-sm bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 overflow-hidden"
+            className="rounded-lg shadow-lg border border-gray-400 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 overflow-hidden"
           >
             {/* Card Header */}
             <div

@@ -276,7 +276,7 @@ const Dashboard = () => {
           <h2 className="text-2xl font-bold text-teal-900 dark:text-white">
             Performa dan Analisis
           </h2>
-          <div className="flex p-1 bg-gray-100 dark:bg-gray-700 rounded-lg">
+          <div className="flex justify-center p-1 bg-gray-100 dark:bg-gray-700 rounded-lg">
             <button
               className={`px-4 py-2 text-sm font-medium rounded-md ${
                 activeTab === "bulanan"
@@ -341,10 +341,44 @@ const Dashboard = () => {
                 <YAxis yAxisId="left" stroke="#9CA3AF" />
                 <YAxis yAxisId="right" orientation="right" stroke="#9CA3AF" />
                 <Tooltip
+                  content={({ payload }) => (
+                    <div className="bg-gray-800 dark:bg-gray-700 p-2 rounded-md text-xs shadow-lg">
+                      {payload?.map((entry, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center text-white"
+                        >
+                          <div
+                            className="w-2 h-2 rounded-full mr-2"
+                            style={{ backgroundColor: entry.color }}
+                          />
+                          <span>
+                            {entry.name}: {entry.value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  wrapperStyle={{
+                    maxWidth: isMobile ? 150 : "auto",
+                    position: "absolute",
+                    top: isMobile ? -20 : "auto",
+                    left: isMobile ? 10 : "auto",
+                    zIndex: 10,
+                  }}
+                  itemStyle={{
+                    fontSize: isMobile ? 10 : 12,
+                    padding: isMobile ? 2 : 4,
+                  }}
                   contentStyle={{
                     backgroundColor: "#1F2937",
                     borderColor: "#374151",
                     color: "#F9FAFB",
+                    padding: isMobile ? 8 : 12,
+                    fontSize: isMobile ? 12 : 14,
+                  }}
+                  labelStyle={{
+                    fontSize: isMobile ? 10 : 12,
                   }}
                 />
                 <Legend />
@@ -389,7 +423,7 @@ const Dashboard = () => {
                   cx="50%"
                   cy="50%"
                   labelLine={!isMobile}
-                  outerRadius={isMobile ? 80 : 120}
+                  outerRadius={isMobile ? 80 : 100}
                   fill="#8884d8"
                   dataKey="value"
                   label={({ name, percent }) =>
@@ -479,12 +513,44 @@ const Dashboard = () => {
                     tick={{ fill: "#9CA3AF", fontSize: isMobile ? 12 : 14 }}
                   />
                   <Tooltip
+                    content={({ payload }) => (
+                      <div className="bg-gray-800 dark:bg-gray-700 p-2 rounded-md text-xs shadow-lg">
+                        {payload?.map((entry, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center text-white"
+                          >
+                            <div
+                              className="w-2 h-2 rounded-full mr-2"
+                              style={{ backgroundColor: entry.color }}
+                            />
+                            <span>
+                              {entry.name}: {entry.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    wrapperStyle={{
+                      maxWidth: isMobile ? 150 : "auto",
+                      position: "absolute",
+                      top: isMobile ? -20 : "auto",
+                      left: isMobile ? 10 : "auto",
+                      zIndex: 10,
+                    }}
+                    itemStyle={{
+                      fontSize: isMobile ? 10 : 12,
+                      padding: isMobile ? 2 : 4,
+                    }}
                     contentStyle={{
                       backgroundColor: "#1F2937",
                       borderColor: "#374151",
                       color: "#F9FAFB",
-                      fontSize: isMobile ? "12px" : "14px",
-                      padding: isMobile ? "6px" : "10px",
+                      padding: isMobile ? 8 : 12,
+                      fontSize: isMobile ? 12 : 14,
+                    }}
+                    labelStyle={{
+                      fontSize: isMobile ? 10 : 12,
                     }}
                   />
                   <Legend

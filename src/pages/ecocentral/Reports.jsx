@@ -239,37 +239,42 @@ const ReportsAnalysis = () => {
       </motion.div>
 
       {/* Tab Navigation */}
-      <div className="border-b border-gray-200 dark:border-gray-700 mb-8">
-        <nav className="flex space-x-8 overflow-x-auto pb-2" aria-label="Tabs">
+      <div className="border-b border-gray-200 dark:border-gray-700 mb-6 sm:mb-8">
+        <nav
+          className="flex w-full gap-1 sm:gap-8 overflow-x-hidden sm:overflow-x-auto pb-1 sm:pb-2"
+          aria-label="Tabs"
+        >
           <button
             className={`${
               activeTab === "sampah"
                 ? "border-teal-600 text-teal-600 dark:text-teal-500"
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
-            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+            } flex-1 sm:flex-none text-[11px] sm:text-sm py-1.5 sm:py-4 px-1.5 sm:px-1 border-b-2 font-medium whitespace-nowrap text-center leading-tight`}
             onClick={() => setActiveTab("sampah")}
           >
             Rekap Data Sampah
           </button>
+
           <button
             className={`${
               activeTab === "performa"
                 ? "border-teal-600 text-teal-600 dark:text-teal-500"
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
-            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+            } flex-1 sm:flex-none text-[11px] sm:text-sm py-1.5 sm:py-4 px-1.5 sm:px-1 border-b-2 font-medium whitespace-nowrap text-center leading-tight`}
             onClick={() => setActiveTab("performa")}
           >
             Grafik Performa
           </button>
+
           <button
             className={`${
               activeTab === "tren"
                 ? "border-teal-600 text-teal-600 dark:text-teal-500"
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
-            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+            } flex-1 sm:flex-none text-[11px] sm:text-sm py-1.5 sm:py-4 px-1.5 sm:px-1 border-b-2 font-medium whitespace-nowrap text-center leading-tight`}
             onClick={() => setActiveTab("tren")}
           >
-            Analisis Tren Kontribusi
+            Analisis Tren
           </button>
         </nav>
       </div>
@@ -756,14 +761,14 @@ const ReportsAnalysis = () => {
           </motion.div>
 
           {/* Performance Chart */}
-          <motion.div className="grid grid-cols-1 gap-6 mb-8" variants={fadeIn}>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-6">
+          <motion.div className="grid grid-cols-1 gap-3 mb-4" variants={fadeIn}>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-3">
+              <h3 className="text-sm font-medium text-teal-900 dark:text-white mb-3">
                 {timeFrame === "bulanan"
                   ? "Performa Bulanan"
                   : "Performa Tahunan"}
               </h3>
-              <div className="h-96">
+              <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart
                     data={
@@ -771,72 +776,95 @@ const ReportsAnalysis = () => {
                         ? monthlyPerformanceData
                         : yearlyPerformanceData
                     }
-                    margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+                    margin={{ top: 5, right: 10, left: 5, bottom: 5 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                    <CartesianGrid strokeDasharray="2 2" stroke="#374151" />
                     <XAxis
                       dataKey="name"
                       stroke="#9CA3AF"
-                      tick={{ fontSize: 12 }}
+                      tick={{ fontSize: 10 }}
+                      height={20}
                     />
                     <YAxis
                       yAxisId="left"
                       stroke="#9CA3AF"
-                      width={80} // Menambahkan lebar untuk axis kiri
+                      width={50}
                       label={{
-                        value: "Total Sampah (kg)",
+                        value: "Sampah (kg)",
                         angle: -90,
                         position: "insideLeft",
-                        style: { textAnchor: "middle", fill: "#9CA3AF" },
-                        dx: -10, // Menggeser label ke kiri
+                        style: {
+                          textAnchor: "middle",
+                          fill: "#9CA3AF",
+                          fontSize: "0.65rem",
+                          whiteSpace: "nowrap",
+                        },
+                        dx: -3,
                       }}
+                      tick={{ fontSize: 9 }}
                     />
                     <YAxis
                       yAxisId="right"
                       orientation="right"
                       stroke="#9CA3AF"
-                      width={80} // Menambahkan lebar untuk axis kanan
+                      width={50}
                       label={{
                         value: "EcoBuddy & Partisipasi",
                         angle: 90,
                         position: "insideRight",
-                        style: { textAnchor: "middle", fill: "#9CA3AF" },
-                        dx: 10, // Menggeser label ke kanan
+                        style: {
+                          textAnchor: "middle",
+                          fill: "#9CA3AF",
+                          fontSize: "0.65rem",
+                          whiteSpace: "nowrap",
+                        },
+                        dx: 3,
                       }}
+                      tick={{ fontSize: 9 }}
                     />
                     <Tooltip
                       contentStyle={{
                         backgroundColor: "#1F2937",
                         borderColor: "#374151",
                         color: "#F9FAFB",
+                        fontSize: "0.7rem",
                       }}
                     />
-                    <Legend wrapperStyle={{ paddingTop: 20 }} />
+                    <Legend
+                      wrapperStyle={{
+                        paddingTop: 5,
+                        fontSize: "0.7rem",
+                      }}
+                      iconSize={8}
+                      iconType="circle"
+                    />
                     <Area
                       yAxisId="left"
                       type="monotone"
                       dataKey="sampah"
-                      name="Total Sampah (kg)"
+                      name="Total Sampah"
                       fill="#10B981"
                       stroke="#10B981"
                       fillOpacity={0.2}
+                      strokeWidth={1.5}
                     />
                     <Bar
                       yAxisId="right"
                       dataKey="ecoBuddy"
-                      name="EcoBuddy Aktif"
+                      name="EcoBuddy"
                       fill="#6366F1"
-                      radius={[4, 4, 0, 0]}
+                      radius={[3, 3, 0, 0]}
+                      barSize={10}
                     />
                     <Line
                       yAxisId="right"
                       type="monotone"
                       dataKey="partisipasi"
-                      name="Tingkat Partisipasi (%)"
+                      name="Partisipasi (%)"
                       stroke="#EC4899"
-                      strokeWidth={2}
-                      dot={{ r: 4 }}
-                      activeDot={{ r: 6 }}
+                      strokeWidth={1.5}
+                      dot={{ r: 2 }}
+                      activeDot={{ r: 4 }}
                     />
                   </ComposedChart>
                 </ResponsiveContainer>
@@ -902,7 +930,7 @@ const ReportsAnalysis = () => {
               <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-6">
                 Korelasi EcoBuddy & Partisipasi
               </h3>
-              
+
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <ScatterChart
