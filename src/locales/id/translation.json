@@ -1,0 +1,269 @@
+{
+    "nav": {
+        "home": "Beranda",
+        "about": "Tentang",
+        "download": "Download",
+        "signIn": "Masuk",
+        "joinUs": "Bergabung",
+        "document_title": "WasteGo | Kelola Sampah dengan Mudah & Efisien"
+    },
+    "hero": {
+        "headline1": "Sampah jadi peluang.",
+        "headline2": "Semua punya akses.",
+        "subheadline": "Platform end-to-end yang menghubungkan warga, kolektor, dan pemerintah untuk menjadikan pengelolaan sampah lebih cerdas, adil, dan berkelanjutan.",
+        "cta_demo": "Minta Demo",
+        "cta_watch": "Lihat Cara Kerja",
+        "stat_pilot": "Pengguna Awal",
+        "stat_cities": "Kota Aktif",
+        "stat_rating": "Rating",
+        "earning_label": "Pendapatan Hari Ini",
+        "impact_label": "Dampak Minggu Ini",
+        "impact_desc": "12.4 kg sampah didaur ulang",
+        "impact_progress": "Progress"
+    },
+    "problem": {
+        "label": "Masalah yang Kami Selesaikan",
+        "title": "Sistem pengelolaan sampah Indonesia masih rusak.",
+        "p1": "Truk sampah beroperasi setengah penuh, membuang BBM & waktu.",
+        "p2": "Pengumpul sampah tidak mendapat bayaran yang adil atau transparan.",
+        "p3": "Pemerintah tidak punya data real-time tentang aliran sampah.",
+        "p4": "Warga masih kesulitan menemukan jadwal jemput yang konsisten."
+    },
+    "how": {
+        "label": "Cara Kerja",
+        "title": "Simpel. Cepat. Menguntungkan.",
+        "step1_title": "Resident Requests",
+        "step1_desc": "Warga menjadwalkan pengambilan sampah via aplikasi dalam hitungan detik.",
+        "step2_title": "AI Dispatches",
+        "step2_desc": "Sistem mengoptimalkan rute dan mengirim EcoBuddy terdekat secara otomatis.",
+        "step3_title": "Everyone Earns",
+        "step3_desc": "Warga mendapat reward, collector menerima pembayaran instan, data masuk ke dashboard kota."
+    },
+    "traction": {
+        "label": "Traksi Nyata",
+        "title": "Bukan sekadar ide. Kami sudah berjalan.",
+        "users": "Pengguna Awal",
+        "cities": "Kota Aktif",
+        "waste": "Sampah Dikelola",
+        "satisfaction": "Kepuasan Pengguna"
+    },
+    "features": {
+        "label": "Platform",
+        "title1": "Dibangun untuk",
+        "title2": "semua pihak.",
+        "subtitle": "Satu ekosistem yang menguntungkan warga, kolektor, dan pemda sekaligus.",
+        "f1_title": "AI Route Optimization",
+        "f1_desc": "Algoritma cerdas kami mengoptimalkan rute pengumpulan secara real-time, memangkas biaya operasional hingga 40% dan memastikan tidak ada pengambilan yang terlewat.",
+        "f1_t1": "Rute Otomatis",
+        "f1_t2": "Real-time Tracking",
+        "f1_t3": "Hemat BBM 40%",
+        "f2_title": "Pembayaran Instan",
+        "f2_desc": "Kolektor menerima pembayaran langsung setelah setiap pengambilan. Tanpa tunggu, tanpa potongan tersembunyi.",
+        "f2_stat": "biaya transaksi",
+        "f3_stat_label": "Akurasi Tracking",
+        "f4_title": "Dashboard Pemda",
+        "f4_desc": "Pemerintah kota mendapat visibilitas penuh: volume sampah harian, titik kritis, kinerja kolektor, dan laporan ESG otomatis, semua dalam satu tampilan.",
+        "f4_link": "Pelajari Selengkapnya"
+    },
+    "testimonials": {
+        "label": "Testimoni",
+        "title": "Kata mereka yang sudah merasakan.",
+        "subtitle": "Suara asli dari para pengguna awal yang menggunakan WasteGo dalam keseharian mereka.",
+        "t1_name": "Budi Santoso",
+        "t1_role": "Mitra Pengepul Lokal",
+        "t1_quote": "Sistem rute WasteGo mengubah cara kami bekerja. Waktu operasional jauh lebih efisien dan volume sampah terkelola melonjak tanpa harus menambah truk.",
+        "t2_name": "Sabrina Y.",
+        "t2_role": "Penggerak Komunitas Lingkungan",
+        "t2_quote": "Aplikasi ini memotivasi warga dengan luar biasa. Sistem insentif instannya terbukti mengubah drastis pola perilaku memilah sampah dari sumbernya.",
+        "t3_name": "Hendra Surya",
+        "t3_role": "Manajer ESG Perusahaan",
+        "t3_quote": "Dashboard analitiknya sangat membantu pelaporan Corporate Sustainability. Kami akhirnya punya data end-to-end yang solid dan real-time.",
+        "t4_name": "Rani Puspita",
+        "t4_role": "Pengguna Aktif, Sidoarjo",
+        "t4_quote": "Jadwal jemput selalu tepat waktu. Antarmukanya juga elegan, membuat saya tidak merasa sedang memakai aplikasi sampah tradisional."
+    },
+    "cta": {
+        "title": "Bergabung dalam program akses awal kami.",
+        "subtitle": "Kami membuka kolaborasi dengan pemerintah kota, investor, dan mitra strategis yang ingin memimpin transformasi pengelolaan sampah di Indonesia.",
+        "btn_demo": "Minta Demo Sekarang",
+        "btn_learn": "Pelajari WasteGo"
+    },
+    "about": {
+        "hero": {
+            "kicker": "Tentang WasteGo",
+            "title_prefix": "Dibangun oleh orang-orang yang percaya sampah adalah",
+            "title_highlight": "sumber daya yang belum dimaksimalkan.",
+            "description": "WasteGo dimulai pada 2024 sebagai proyek kampus dan berkembang menjadi misi: memperbaiki infrastruktur persampahan Indonesia dengan teknologi yang bekerja untuk semua pihak."
+        },
+        "stats": {
+            "items": {
+                "founders": "Founder",
+                "users": "Pengguna Awal",
+                "cities": "Kota",
+                "founded": "Berdiri"
+            }
+        },
+        "direction": {
+            "kicker": "Arah Kami",
+            "title": "Visi & Misi",
+            "vision_title": "Visi",
+            "vision_desc": "Menjadi platform pengelolaan sampah terdepan di Indonesia yang menghubungkan komunitas, kolektor, dan pengolah dalam satu ekosistem yang efisien.",
+            "mission_title": "Misi",
+            "mission_items": {
+                "m1": "Mengedukasi masyarakat tentang pemilahan sampah dan pembuangan yang bertanggung jawab",
+                "m2": "Mendorong penghasilan yang adil dan transparan bagi para kolektor sampah",
+                "m3": "Memberikan data persampahan real-time yang dapat ditindaklanjuti oleh pemerintah",
+                "m4": "Mempercepat adopsi ekonomi sirkular melalui data dan teknologi"
+            }
+        },
+        "values": {
+            "kicker": "Nilai Kami",
+            "title": "Prinsip yang kami pegang.",
+            "items": {
+                "v1_title": "Ekonomi Sirkular",
+                "v1_desc": "Setiap kilogram yang tercatat membawa kita lebih dekat ke masa depan minim sampah.",
+                "v2_title": "Ekonomi yang Adil",
+                "v2_desc": "Kolektor berhak mendapatkan penghasilan yang adil melalui pembayaran transparan dan tepat waktu.",
+                "v3_title": "Data untuk Tata Kelola",
+                "v3_desc": "Kota membutuhkan intelijen real-time untuk membuat kebijakan yang lebih tepat.",
+                "v4_title": "Planet sebagai Prioritas",
+                "v4_desc": "Dampak lingkungan adalah kompas utama kami, bukan sekadar angka di dashboard."
+            }
+        },
+        "journey": {
+            "kicker": "Perjalanan",
+            "title": "Cerita Kami",
+            "milestones": {
+                "m1_year": "2024",
+                "m1_event": "Ide lahir dari riset pengelolaan sampah di kampus. Lima founder bersatu membangun solusi.",
+                "m2_year": "Q1 2025",
+                "m2_event": "MVP diluncurkan dan 50 pengguna awal pertama berhasil onboard di Surabaya.",
+                "m3_year": "Q2 2025",
+                "m3_event": "Ekspansi ke 3 kota, mencapai 500+ pengguna aktif, serta meluncurkan EcoHive dan EcoCentral.",
+                "m4_year": "2025 →",
+                "m4_event": "Skalasi menuju 10 kota sambil menyiapkan roadmap tokenisasi kredit karbon."
+            }
+        },
+        "team": {
+            "kicker": "Tim Kami",
+            "title": "Siapa yang membangun ini.",
+            "subtitle": "5 builder dari Surabaya, Indonesia.",
+            "members": {
+                "theo": {
+                    "role": "Mobile Developer",
+                    "quote": "Mengubah sampah menjadi peluang."
+                },
+                "akmal": {
+                    "role": "Frontend & UI/UX",
+                    "quote": "Alam butuh aksi, bukan sekadar kata."
+                },
+                "alfi": {
+                    "role": "Backend Developer",
+                    "quote": "Transformasi sampah, ciptakan masa depan."
+                },
+                "fahmi": {
+                    "role": "Product Owner",
+                    "quote": "Langkah kecil, dampak besar."
+                },
+                "david": {
+                    "role": "QA & Mobile Developer",
+                    "quote": "Sampah adalah jejak peradaban."
+                }
+            }
+        },
+        "cta": {
+            "title": "Ingin berkolaborasi?",
+            "desc": "Kami terbuka untuk kerja sama dengan pemerintah kota, investor, dan NGO yang punya misi serupa.",
+            "button": "Hubungi Kami"
+        }
+    },
+    "footer": {
+        "tagline": "Solusi manajemen sampah cerdas untuk ekosistem yang lebih bersih dan berkelanjutan. Mendorong perubahan positif satu langkah setiap harinya.",
+        "nav_title": "Navigasi",
+        "nav_home": "Beranda",
+        "nav_about": "Tentang Kami",
+        "nav_services": "Layanan",
+        "nav_download": "Download",
+        "program_title": "Program",
+        "contact_title": "Hubungi Kami",
+        "privacy": "Kebijakan Privasi",
+        "terms": "Syarat & Ketentuan",
+        "copyright": "WasteGo. Seluruh hak cipta dilindungi."
+    },
+    "download": {
+        "hero": {
+            "title": "Mulai dalam Hitungan Menit",
+            "title_highlight": "Jemput Sampah & Daur Ulang Lebih Cerdas",
+            "description": "WasteGo adalah aplikasi pengelolaan sampah yang membantu rumah tangga menjadwalkan penjemputan, melacak proses secara real-time, dan melihat dampak daur ulang yang terukur.",
+            "cta_play": "Google Play",
+            "cta_play_aria": "Download WasteGo di Google Play",
+            "cta_appstore": "App Store",
+            "cta_appstore_aria": "Download WasteGo di App Store",
+            "cta_apk": "APK Langsung",
+            "cta_apk_aria": "Download APK WasteGo langsung"
+        },
+        "qr": {
+            "title": "Scan QR untuk Download Cepat",
+            "image_alt": "QR code download WasteGo",
+            "description": "Buka kamera ponsel, scan QR, lalu langsung menuju jalur install WasteGo paling cepat.",
+            "note_title": "Kenapa Aktivasi Lebih Cepat",
+            "note_desc": "CTA yang jelas dan alur sederhana membantu mengurangi drop-off dari minat ke install."
+        },
+        "stats": {
+            "items": {
+                "s1_value": "< 2 menit",
+                "s1_label": "Dari download ke aksi pertama",
+                "s2_value": "3 langkah",
+                "s2_label": "Dari install ke request pickup pertama",
+                "s3_value": "Android & iOS",
+                "s3_label": "Aplikasi pengelolaan sampah mobile-first",
+                "s4_value": "MVP Ready",
+                "s4_label": "Siap untuk user dan reviewer startup"
+            }
+        },
+        "features": {
+            "kicker": "Fitur Inti WasteGo",
+            "title": "Semua yang dibutuhkan untuk pengelolaan sampah digital.",
+            "items": {
+                "f1_title": "Jadwal Jemput Sampah Lebih Cepat",
+                "f1_desc": "Buat request penjemputan sampah rumah tangga dalam alur singkat dan konsisten.",
+                "f2_title": "Tracking Proses Real-time",
+                "f2_desc": "Pantau status penjemputan secara live dari request, proses, hingga selesai.",
+                "f3_title": "Dampak Daur Ulang Terukur",
+                "f3_desc": "Lihat progres daur ulang dan reward pengguna dalam satu dashboard ringkas."
+            }
+        },
+        "install": {
+            "kicker": "Cara Download",
+            "title": "Mulai pakai WasteGo dalam 3 langkah.",
+            "desc": "Ikuti alur ini untuk langsung menjadwalkan pickup pertama Anda.",
+            "steps": {
+                "step1_title": "Pilih sumber download",
+                "step1_desc": "Unduh lewat App Store, Google Play, atau APK langsung.",
+                "step2_title": "Install dan masuk",
+                "step2_desc": "Aplikasi ringan dengan onboarding cepat untuk pengguna baru.",
+                "step3_title": "Jadwalkan pickup pertama",
+                "step3_desc": "Atur request pertama Anda dan lihat dampak daur ulang secara langsung."
+            }
+        },
+        "faq": {
+            "kicker": "FAQ Download WasteGo",
+            "title": "Pertanyaan umum sebelum install aplikasi.",
+            "items": {
+                "q1": "Apakah WasteGo tersedia di Android dan iOS?",
+                "a1": "Ya. Anda bisa download WasteGo melalui Google Play, App Store, atau APK langsung.",
+                "q2": "Apa fungsi utama aplikasi WasteGo?",
+                "a2": "WasteGo digunakan untuk jadwal jemput sampah, tracking proses penjemputan, dan monitoring dampak daur ulang.",
+                "q3": "Berapa lama sampai bisa dipakai?",
+                "a3": "Rata-rata pengguna bisa install dan membuat request pickup pertama dalam kurang dari 2 menit."
+            }
+        },
+        "closing": {
+            "kicker": "Langkah Berikutnya",
+            "title": "Install sekarang dan mulai pengelolaan sampah yang lebih efisien.",
+            "desc": "Download WasteGo, jadwalkan pickup pertama, dan pantau dampaknya langsung dari aplikasi.",
+            "cta_demo": "Jadwalkan Demo",
+            "cta_checklist": "Checklist Go-Live"
+        }
+    }
+}

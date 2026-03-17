@@ -1,741 +1,238 @@
-import { useContext, useEffect } from "react";
-import ThemeContext from "../context/ThemeContext";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import QRCode from "../assets/qr-placeholder.png"; // Placeholder, ganti dengan QR code asli
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import {
+  ArrowRight,
+  ChevronDown,
+  Download,
+  Play,
+  QrCode,
+} from "lucide-react";
+import QRCode from "../assets/qr-placeholder.png";
 
 function DownloadPage() {
-  const { darkMode } = useContext(ThemeContext);
+  const { t } = useTranslation();
+  const [openFaq, setOpenFaq] = useState(0);
+
+  const installSteps = [
+    {
+      title: t("download.install.steps.step1_title"),
+      desc: t("download.install.steps.step1_desc"),
+    },
+    {
+      title: t("download.install.steps.step2_title"),
+      desc: t("download.install.steps.step2_desc"),
+    },
+    {
+      title: t("download.install.steps.step3_title"),
+      desc: t("download.install.steps.step3_desc"),
+    },
+  ];
+  const faqItems = [
+    { q: t("download.faq.items.q1"), a: t("download.faq.items.a1") },
+    { q: t("download.faq.items.q2"), a: t("download.faq.items.a2") },
+    { q: t("download.faq.items.q3"), a: t("download.faq.items.a3") },
+  ];
 
   useEffect(() => {
-    if (window.feather) {
-      window.feather.replace();
-    }
+    window.scrollTo(0, 0);
   }, []);
-
-  useEffect(() => {
-    window.scrollTo(0, 0); 
-  }, []);
-
-  // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const pulseAnimation = {
-    scale: [1, 1.05, 1],
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-      repeatType: "reverse",
-    },
-  };
-
-  const buttonHover = {
-    scale: 1.05,
-    transition: {
-      duration: 0.2,
-    },
-  };
 
   return (
-    <div className="bg-white dark:bg-gray-900 transition-colors duration-200 overflow-hidden">
-      {/* Header */}
-      <motion.section
-        className="bg-teal-900 dark:bg-gray-800 text-white py-16"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1
-            className="text-4xl font-bold mb-6"
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
-            Download WasteGo
-          </motion.h1>
-          <motion.p
-            className="text-xl max-w-3xl mx-auto"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
-            Mulai perjalanan Anda menuju gaya hidup ramah lingkungan dengan
-            mengunduh aplikasi kami
-          </motion.p>
-        </div>
-      </motion.section>
+    <div className="relative overflow-hidden bg-surface-50 text-surface-900 dark:bg-[#010909] dark:text-surface-50 [&_p]:leading-relaxed">
+      <div className="pointer-events-none absolute -left-20 top-20 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 top-0 h-80 w-80 rounded-full bg-primary/20 blur-3xl" />
 
-      {/* Download Options */}
-      <section className="py-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-bold text-teal-900 dark:text-white mb-6">
-                Unduh Sekarang
-              </h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-8">
-                WasteGo tersedia di App Store dan Google Play. Unduh sekarang
-                dan mulai berkontribusi untuk lingkungan yang lebih bersih.
-              </p>
-
-              <motion.div
-                className="space-y-4"
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                {/* App Store Button */}
-                <motion.a
-                  href="#"
-                  className="flex items-center justify-center md:justify-start bg-black text-white rounded-lg px-4 py-2 w-full md:w-64 hover:bg-gray-800 transition-colors"
-                  variants={fadeInUp}
-                  whileHover={buttonHover}
-                >
-                  <svg
-                    className="w-8 h-8 mr-3"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                  </svg>
-                  <div>
-                    <div className="text-xs">Download on the</div>
-                    <div className="text-lg font-semibold font-sans -mt-1">
-                      App Store
-                    </div>
-                  </div>
-                </motion.a>
-
-                {/* Google Play Button */}
-                <motion.a
-                  href="#"
-                  className="flex items-center justify-center md:justify-start bg-black text-white rounded-lg px-4 py-2 w-full md:w-64 hover:bg-gray-800 transition-colors"
-                  variants={fadeInUp}
-                  whileHover={buttonHover}
-                >
-                  <svg
-                    className="w-8 h-8 mr-3"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
-                  </svg>
-                  <div>
-                    <div className="text-xs">GET IT ON</div>
-                    <div className="text-lg font-semibold font-sans -mt-1">
-                      Google Play
-                    </div>
-                  </div>
-                </motion.a>
-
-                {/* Direct APK Download */}
-                <motion.a
-                  href="#"
-                  className="flex items-center  justify-center md:justify-start bg-teal-900 dark:bg-lime-500 dark:text-teal-900 text-white rounded-lg px-4 py-2 w-full md:w-64 hover:bg-teal-900-light dark:hover:opacity-90 transition-colors"
-                  variants={fadeInUp}
-                  whileHover={buttonHover}
-                >
-                  <svg
-                    className="w-6 h-6 mr-3"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                    />
-                  </svg>
-                  <div>
-                    <div className="text-lg font-semibold">
-                      Unduh APK Langsung
-                    </div>
-                  </div>
-                </motion.a>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              className="flex justify-center"
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <motion.div
-                className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300 text-center"
-                whileHover={{ boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)" }}
-                transition={{ duration: 0.3 }}
-              >
-                <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4">
-                  Scan untuk Download
-                </h3>
-                <motion.div
-                  className="bg-white p-2 rounded-lg inline-block"
-                  animate={pulseAnimation}
-                >
-                  <img
-                    src={QRCode}
-                    alt="QR Code untuk download WasteGo"
-                    className="w-48 h-48 mx-auto"
-                  />
-                </motion.div>
-                <p className="text-gray-600 dark:text-gray-300 mt-4 text-sm">
-                  Scan QR code ini dengan kamera ponsel Anda untuk mengunduh
-                  aplikasi
-                </p>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* System Requirements */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12 "
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4">
-              Kebutuhan Sistem
-            </h2>
-            <motion.div
-              className="h-1 w-20 bg-lime-500 dark:bg-lime-500-light mx-auto"
-              initial={{ width: 0 }}
-              whileInView={{ width: "5rem" }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            ></motion.div>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <motion.div
-              className="bg-white dark:bg-gray-700 p-6 rounded-lg border shadow-lg border-gray-300"
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-            >
-              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4 flex items-center">
-                <svg
-                  className="w-6 h-6 mr-2 text-lime-500 dark:text-lime-500-light"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M17.6,9.48l1.84-3.18c0.16-0.31,0.04-0.69-0.26-0.85c-0.29-0.15-0.65-0.06-0.83,0.22l-1.88,3.24 c-2.86-1.21-6.08-1.21-8.94,0L5.65,5.67c-0.19-0.29-0.58-0.38-0.87-0.2C4.5,5.65,4.41,6.01,4.56,6.3L6.4,9.48 C3.3,11.25,1.28,14.44,1,18h22C22.72,14.44,20.7,11.25,17.6,9.48z M7,15.25c-0.69,0-1.25-0.56-1.25-1.25 c0-0.69,0.56-1.25,1.25-1.25S8.25,13.31,8.25,14C8.25,14.69,7.69,15.25,7,15.25z M17,15.25c-0.69,0-1.25-0.56-1.25-1.25 c0-0.69,0.56-1.25,1.25-1.25s1.25,0.56,1.25,1.25C18.25,14.69,17.69,15.25,17,15.25z" />
-                </svg>
-                Android
-              </h3>
-              <motion.ul
-                className="space-y-2 text-gray-600 dark:text-gray-300"
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
-                    •
-                  </span>
-                  <span>Android 6.0 (Marshmallow) atau lebih tinggi</span>
-                </motion.li>
-                <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
-                    •
-                  </span>
-                  <span>RAM minimal 2GB</span>
-                </motion.li>
-                <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
-                    •
-                  </span>
-                  <span>Penyimpanan minimal 50MB</span>
-                </motion.li>
-                <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
-                    •
-                  </span>
-                  <span>Koneksi internet</span>
-                </motion.li>
-                <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
-                    •
-                  </span>
-                  <span>Akses lokasi GPS</span>
-                </motion.li>
-              </motion.ul>
-            </motion.div>
-
-            <motion.div
-              className="bg-white dark:bg-gray-700 p-6 rounded-lg border shadow-lg border-gray-300"
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-            >
-              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-4 flex items-center">
-                <svg
-                  className="w-6 h-6 mr-2 text-lime-500 dark:text-lime-500-light"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                </svg>
-                iOS
-              </h3>
-              <motion.ul
-                className="space-y-2 text-gray-600 dark:text-gray-300"
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
-                    •
-                  </span>
-                  <span>iOS 12.0 atau lebih tinggi</span>
-                </motion.li>
-                <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
-                    •
-                  </span>
-                  <span>Compatible dengan iPhone, iPad, dan iPod touch</span>
-                </motion.li>
-                <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
-                    •
-                  </span>
-                  <span>Penyimpanan minimal 100MB</span>
-                </motion.li>
-                <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
-                    •
-                  </span>
-                  <span>Koneksi internet</span>
-                </motion.li>
-                <motion.li className="flex items-start" variants={fadeInUp}>
-                  <span className="mr-2 text-lime-500 dark:text-lime-500-light">
-                    •
-                  </span>
-                  <span>Akses lokasi GPS</span>
-                </motion.li>
-              </motion.ul>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4">
-              Fitur Aplikasi
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
-              WasteGo menawarkan berbagai fitur untuk memudahkan Anda dalam
-              pengelolaan sampah sehari-hari
-            </p>
-            <motion.div
-              className="h-1 w-20 bg-lime-500 dark:bg-lime-500-light mx-auto mt-4"
-              initial={{ width: 0 }}
-              whileInView={{ width: "5rem" }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            ></motion.div>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
-              variants={fadeInUp}
-              whileHover={{
-                y: -10,
-                boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div
-                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
-              >
-                <i data-feather="calendar" className="text-teal-900"></i>
-              </motion.div>
-              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
-                Penjadwalan Mudah
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Jadwalkan pengambilan sampah dengan beberapa klik. Pilih waktu
-                yang nyaman dan pantau status pengambilan.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
-              variants={fadeInUp}
-              whileHover={{
-                y: -10,
-                boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div
-                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
-              >
-                <i data-feather="compass" className="text-teal-900"></i>
-              </motion.div>
-              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
-                Pelacakan Real-time
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Lacak pengumpul sampah secara real-time dan dapatkan notifikasi
-                saat mereka tiba di lokasi Anda.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
-              variants={fadeInUp}
-              whileHover={{
-                y: -10,
-                boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div
-                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
-              >
-                <i data-feather="trash-2" className="text-teal-900"></i>
-              </motion.div>
-              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
-                Klasifikasi Sampah
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Pelajari cara memilah sampah dengan panduan visual dan informasi
-                tentang jenis-jenis sampah.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
-              variants={fadeInUp}
-              whileHover={{
-                y: -10,
-                boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div
-                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
-              >
-                <i data-feather="repeat" className="text-teal-900"></i>
-              </motion.div>
-              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
-                Statistik Lingkungan
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Lihat dampak positif Anda terhadap lingkungan melalui statistik
-                pengurangan emisi karbon dan sampah terdaur ulang.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
-              variants={fadeInUp}
-              whileHover={{
-                y: -10,
-                boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div
-                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
-              >
-                <i data-feather="book-open" className="text-teal-900"></i>
-              </motion.div>
-              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
-                Edukasi
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Akses artikel, tips, dan video tentang cara mengurangi sampah
-                dan hidup lebih ramah lingkungan.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg border shadow-lg border-gray-300"
-              variants={fadeInUp}
-              whileHover={{
-                y: -10,
-                boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div
-                className="bg-lime-500 dark:bg-lime-500-dark bg-opacity-20 dark:bg-opacity-30 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
-              >
-                <i data-feather="award" className="text-teal-900"></i>
-              </motion.div>
-              <h3 className="text-xl font-semibold text-teal-900 dark:text-white mb-2">
-                Sistem Reward
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Dapatkan poin dan penghargaan untuk setiap sampah yang Anda daur
-                ulang, tukarkan dengan hadiah menarik.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold text-teal-900 dark:text-lime-500 mb-4">
-              Pertanyaan Umum
-            </h2>
-            <motion.div
-              className="h-1 w-20 bg-lime-500 dark:bg-lime-500-light mx-auto"
-              initial={{ width: 0 }}
-              whileInView={{ width: "5rem" }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            ></motion.div>
-          </motion.div>
-
-          <motion.div
-            className="space-y-6"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.div
-              className="bg-white dark:bg-gray-700 rounded-lg border shadow-lg border-gray-300 overflow-hidden"
-              variants={fadeInUp}
-              whileHover={{
-                y: -5,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <button className="w-full text-left p-6">
-                <h3 className="text-lg font-semibold text-teal-900 dark:text-white">
-                  Apakah aplikasi ini gratis?
-                </h3>
-                <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Ya, WasteGo dapat diunduh dan digunakan secara gratis. Kami
-                  menyediakan layanan dasar pengumpulan sampah tanpa biaya,
-                  namun beberapa layanan premium mungkin dikenakan biaya
-                  tambahan.
-                </p>
-              </button>
-            </motion.div>
-
-            <motion.div
-              className="bg-white dark:bg-gray-700 rounded-lg border shadow-lg border-gray-300 overflow-hidden"
-              variants={fadeInUp}
-              whileHover={{
-                y: -5,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <button className="w-full text-left p-6">
-                <h3 className="text-lg font-semibold text-teal-900 dark:text-white">
-                  Di kota mana saja aplikasi ini tersedia?
-                </h3>
-                <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Saat ini, WasteGo tersedia di Jakarta, Bandung, Surabaya,
-                  Yogyakarta, dan beberapa kota besar lainnya di Indonesia. Kami
-                  terus memperluas jangkauan kami ke lebih banyak daerah.
-                </p>
-              </button>
-            </motion.div>
-
-            <motion.div
-              className="bg-white dark:bg-gray-700 rounded-lg border shadow-lg border-gray-300 overflow-hidden"
-              variants={fadeInUp}
-              whileHover={{
-                y: -5,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <button className="w-full text-left p-6">
-                <h3 className="text-lg font-semibold text-teal-900 dark:text-white">
-                  Bagaimana cara kerja sistem poin?
-                </h3>
-                <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Untuk setiap kg sampah yang Anda kumpulkan, Anda akan
-                  mendapatkan poin sesuai dengan jenisnya. Sampah plastik,
-                  logam, dan elektronik biasanya memberikan poin lebih banyak.
-                  Poin dapat ditukarkan dengan voucher atau disumbangkan untuk
-                  program penghijauan.
-                </p>
-              </button>
-            </motion.div>
-
-            <motion.div
-              className="bg-white dark:bg-gray-700 rounded-lg border shadow-lg border-gray-300 overflow-hidden"
-              variants={fadeInUp}
-              whileHover={{
-                y: -5,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <button className="w-full text-left p-6">
-                <h3 className="text-lg font-semibold text-teal-900 dark:text-white">
-                  Apakah saya bisa menjadi pengumpul sampah?
-                </h3>
-                <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Ya, kami selalu mencari mitra pengumpul sampah. Anda dapat
-                  mendaftar sebagai mitra melalui aplikasi atau menghubungi tim
-                  kami untuk informasi lebih lanjut tentang persyaratan dan
-                  prosedur.
-                </p>
-              </button>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            className="text-center mt-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <motion.a
-              href="mailto:support@sampahapp.com"
-              className="text-teal-900 dark:text-lime-500 hover:underline"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-            >
-              Masih punya pertanyaan? Hubungi kami
-            </motion.a>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 bg-lime-500 dark:bg-lime-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2
-            className="text-3xl font-bold text-teal-900 dark:text-white mb-6"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+      <section className="relative border-b border-surface-200/80 px-6 pb-20 pt-28 dark:border-surface-800/80 md:pb-24">
+        <div className="mx-auto grid w-full max-w-5xl items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+          <Motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            className="max-w-xl"
           >
-            Siap Memulai?
-          </motion.h2>
-          <motion.p
-            className="text-xl text-teal-900-dark dark:text-gray-200 mb-8 max-w-3xl mx-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            Download WasteGo sekarang dan jadilah bagian dari solusi pengelolaan
-            sampah yang lebih baik untuk Indonesia.
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <motion.a
-              href="#"
-              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-900 dark:bg-teal-900 dark:text-lime-500 hover:bg-opacity-90"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-            >
-              Download Sekarang
-            </motion.a>
-            <motion.div
-              className="w-full sm:w-auto"
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Link
-                to="/about"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-teal-900 dark:border-white text-base font-medium rounded-md text-teal-900 dark:text-white hover:bg-white hover:text-teal-900"
+            <h1 className="max-w-2xl text-4xl font-black leading-[1.1] tracking-[-0.01em] text-primary dark:text-white md:text-5xl lg:text-6xl">
+              {t("download.hero.title")}
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-dark dark:from-white dark:to-accent">
+                {t("download.hero.title_highlight")}
+              </span>
+            </h1>
+            <p className="mt-6 max-w-lg text-base text-surface-600 dark:text-surface-300 md:text-lg">
+              {t("download.hero.description")}
+            </p>
+
+            <div className="mt-9 flex flex-wrap items-center gap-4">
+              <a
+                href="#"
+                className="btn-glow px-6 py-3 text-sm font-semibold"
+                aria-label={t("download.hero.cta_play_aria")}
               >
-                Pelajari Lebih Lanjut
+                <Play size={16} />
+                {t("download.hero.cta_play")}
+              </a>
+              <a
+                href="#"
+                className="btn-primary px-6 py-3 text-sm font-semibold"
+                aria-label={t("download.hero.cta_appstore_aria")}
+              >
+                <Download size={16} />
+                {t("download.hero.cta_appstore")}
+              </a>
+              <a
+                href="#"
+                className="rounded-2xl border border-primary/20 bg-white px-6 py-3 text-sm font-semibold text-primary transition hover:-translate-y-0.5 hover:border-primary/40 dark:border-surface-700 dark:bg-surface-900 dark:text-white"
+                aria-label={t("download.hero.cta_apk_aria")}
+              >
+                <ArrowRight size={16} className="inline mr-1" />
+                {t("download.hero.cta_apk")}
+              </a>
+            </div>
+          </Motion.div>
+
+          <Motion.div
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="glass-card relative rounded-3xl p-6 md:p-7"
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-surface-500">
+                {t("download.qr.title")}
+              </p>
+              <QrCode className="text-accent-dark dark:text-accent" size={18} />
+            </div>
+            <div className="rounded-2xl border border-surface-200/80 bg-white p-4 dark:border-surface-600 dark:bg-white">
+              <img
+                src={QRCode}
+                alt={t("download.qr.image_alt")}
+                className="mx-auto h-52 w-52 rounded-xl object-cover dark:invert-0 dark:brightness-100"
+              />
+            </div>
+            <p className="mt-5 text-[15px] text-surface-600 dark:text-surface-300">
+              {t("download.qr.description")}
+            </p>
+            <div className="mt-5 grid grid-cols-3 gap-3">
+              {installSteps.map((step, index) => (
+                <div
+                  key={step.title}
+                  className="rounded-xl border border-surface-200 bg-white px-3 py-2.5 text-center dark:border-surface-700 dark:bg-surface-900/70"
+                >
+                  <p className="text-xs font-black text-primary dark:text-white">{index + 1}</p>
+                  <p className="mt-1.5 text-[11px] leading-4 text-surface-600 dark:text-surface-300">{step.title}</p>
+                </div>
+              ))}
+            </div>
+          </Motion.div>
+        </div>
+      </section>
+
+      <section className="px-6 py-20 md:py-24">
+        <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+          <div className="rounded-3xl border border-surface-200 bg-white p-8 dark:border-surface-800 dark:bg-surface-900/80">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent-dark dark:text-accent">
+              {t("download.install.kicker")}
+            </p>
+            <h2 className="mt-2 text-3xl font-black text-primary dark:text-white md:text-4xl">
+              {t("download.install.title")}
+            </h2>
+            <p className="mt-4 text-[15px] text-surface-600 dark:text-surface-300">
+              {t("download.install.desc")}
+            </p>
+            <div className="mt-6 rounded-2xl border border-accent/25 bg-accent/10 p-4 text-sm font-semibold text-accent-dark dark:text-accent">
+              Clean 3-step flow. Less friction. Faster first action.
+            </div>
+          </div>
+
+          <div className="relative space-y-4 pl-5 md:pl-6">
+            <div className="absolute left-1.5 top-2 h-[calc(100%-1rem)] w-px bg-surface-200 dark:bg-surface-700" />
+            {installSteps.map((step, index) => (
+              <Motion.div
+                key={step.title}
+                initial={{ opacity: 0, x: 18 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className="relative rounded-2xl border border-surface-200 bg-white p-5 dark:border-surface-800 dark:bg-surface-900"
+              >
+                <span className="absolute -left-[1.85rem] top-6 inline-flex h-4 w-4 rounded-full border-2 border-white bg-accent dark:border-[#010909]" />
+                <div className="flex items-start gap-4">
+                  <div className="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-black text-white dark:bg-accent dark:text-primary">
+                    {index + 1}
+                  </div>
+                  <div>
+                    <p className="text-[15px] font-bold leading-snug text-primary dark:text-white">{step.title}</p>
+                    <p className="mt-2 text-[15px] text-surface-600 dark:text-surface-300">{step.desc}</p>
+                  </div>
+                </div>
+              </Motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-12">
+        <div className="mx-auto max-w-4xl rounded-3xl border border-surface-200 bg-white p-8 dark:border-surface-800 dark:bg-surface-900">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent-dark dark:text-accent">
+            {t("download.faq.kicker")}
+          </p>
+          <h2 className="mt-2 text-2xl font-black text-primary dark:text-white md:text-3xl">
+            {t("download.faq.title")}
+          </h2>
+          <div className="mt-6 space-y-3">
+            {faqItems.map((item, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div
+                  key={item.q}
+                  className={`rounded-2xl border bg-surface-50/70 dark:bg-surface-900/70 ${isOpen
+                    ? "border-accent/40"
+                    : "border-surface-200 dark:border-surface-800"
+                    }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? -1 : index)}
+                    className="flex w-full items-center justify-between gap-4 px-5 py-[18px] text-left md:py-5"
+                  >
+                    <span className="text-[15px] font-semibold leading-relaxed text-primary dark:text-white">{item.q}</span>
+                    <ChevronDown
+                      size={18}
+                      className={`shrink-0 text-surface-500 transition-transform duration-300 ${isOpen ? "rotate-180 text-accent-dark dark:text-accent" : ""}`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <p className="px-5 pb-5 text-[15px] text-surface-600 dark:text-surface-300">
+                      {item.a}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-20">
+        <div className="mx-auto max-w-5xl rounded-3xl border border-primary/15 bg-primary p-8 text-white dark:border-accent/20 dark:bg-[#082627] md:p-10">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-8">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+                {t("download.closing.kicker")}
+              </p>
+              <h3 className="mt-2 text-2xl font-black md:text-3xl">
+                {t("download.closing.title")}
+              </h3>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/80">
+                {t("download.closing.desc")}
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link to="/contact" className="btn-glow px-6 py-3 text-sm uppercase tracking-wider">
+                {t("download.closing.cta_demo")}
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
