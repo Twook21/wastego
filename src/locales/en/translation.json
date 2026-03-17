@@ -1,0 +1,269 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About",
+        "download": "Download",
+        "signIn": "Sign In",
+        "joinUs": "Join Us",
+        "document_title": "WasteGo | Manage Waste Easily & Efficiently"
+    },
+    "hero": {
+        "headline1": "Waste into value.",
+        "headline2": "For everyone.",
+        "subheadline": "An end-to-end platform connecting residents, collectors, and local governments, making waste management smarter, fairer, and more sustainable.",
+        "cta_demo": "Request a Demo",
+        "cta_watch": "See How It Works",
+        "stat_pilot": "Early Users",
+        "stat_cities": "Active Cities",
+        "stat_rating": "Rating",
+        "earning_label": "Today's Earnings",
+        "impact_label": "This Week's Impact",
+        "impact_desc": "12.4 kg waste recycled",
+        "impact_progress": "Progress"
+    },
+    "problem": {
+        "label": "Problem We Solve",
+        "title": "Indonesia's waste management system is broken.",
+        "p1": "Garbage trucks run half-empty, wasting fuel and time.",
+        "p2": "Waste collectors don't get fair or transparent payments.",
+        "p3": "Local governments lack real-time data on waste flows.",
+        "p4": "Residents still struggle to find a reliable pickup schedule."
+    },
+    "how": {
+        "label": "How It Works",
+        "title": "Simple. Fast. Profitable.",
+        "step1_title": "Resident Requests",
+        "step1_desc": "Residents schedule a waste pickup via the app in seconds.",
+        "step2_title": "AI Dispatches",
+        "step2_desc": "The system optimizes routes and automatically sends the nearest EcoBuddy.",
+        "step3_title": "Everyone Earns",
+        "step3_desc": "Residents earn rewards, collectors receive instant payment, and data flows into the city dashboard."
+    },
+    "traction": {
+        "label": "Real Traction",
+        "title": "Not just an idea. We're already running.",
+        "users": "Early Users",
+        "cities": "Active Cities",
+        "waste": "Waste Managed",
+        "satisfaction": "User Satisfaction"
+    },
+    "features": {
+        "label": "Platform",
+        "title1": "Built for",
+        "title2": "everyone.",
+        "subtitle": "One ecosystem that benefits residents, collectors, and local governments simultaneously.",
+        "f1_title": "AI Route Optimization",
+        "f1_desc": "Our smart algorithm optimizes collection routes in real-time, cutting operational costs by up to 40% and ensuring no pickup is missed.",
+        "f1_t1": "Auto Routes",
+        "f1_t2": "Real-time Tracking",
+        "f1_t3": "40% Fuel Savings",
+        "f2_title": "Instant Payments",
+        "f2_desc": "Collectors receive payment immediately after every pickup. No waiting, no hidden fees.",
+        "f2_stat": "transaction fee",
+        "f3_stat_label": "Tracking Accuracy",
+        "f4_title": "Gov Dashboard",
+        "f4_desc": "City governments gain full visibility: daily waste volume, critical hotspots, collector performance, and automated ESG reports, all in one view.",
+        "f4_link": "Learn More"
+    },
+    "testimonials": {
+        "label": "Testimonials",
+        "title": "Hear from those who've felt the difference.",
+        "subtitle": "Real voices from early adopters who use WasteGo in their daily workflow.",
+        "t1_name": "Budi Santoso",
+        "t1_role": "Local Collector Partner",
+        "t1_quote": "WasteGo's routing system transformed how we work. Operational time is much more efficient, and managed waste volume surged without needing more trucks.",
+        "t2_name": "Sabrina Y.",
+        "t2_role": "Environmental Community Leader",
+        "t2_quote": "This app motivates residents remarkably. The instant incentive system is proven to drastically change behavior towards sorting waste at the source.",
+        "t3_name": "Hendra Surya",
+        "t3_role": "Corporate ESG Manager",
+        "t3_quote": "The analytics dashboard greatly helps our Corporate Sustainability reporting. We finally have solid, real-time end-to-end data.",
+        "t4_name": "Rani Puspita",
+        "t4_role": "Active Resident, Sidoarjo",
+        "t4_quote": "Pickup schedule is always on time. The interface is also elegant, making me feel like I'm not using a traditional waste app."
+    },
+    "cta": {
+        "title": "Join our early access program.",
+        "subtitle": "We're opening collaboration with city governments, investors, and strategic partners who want to lead waste management transformation in Indonesia.",
+        "btn_demo": "Request a Demo",
+        "btn_learn": "Learn About WasteGo"
+    },
+    "about": {
+        "hero": {
+            "kicker": "About WasteGo",
+            "title_prefix": "Built by people who believe waste is an",
+            "title_highlight": "untapped resource.",
+            "description": "WasteGo started in 2024 as a university project and grew into a mission: fixing Indonesia's waste infrastructure with technology that works for every stakeholder."
+        },
+        "stats": {
+            "items": {
+                "founders": "Founders",
+                "users": "Early Users",
+                "cities": "Cities",
+                "founded": "Founded"
+            }
+        },
+        "direction": {
+            "kicker": "Our Direction",
+            "title": "Vision & Mission",
+            "vision_title": "Vision",
+            "vision_desc": "To become Indonesia's leading waste platform that connects communities, collectors, and recyclers in one efficient ecosystem.",
+            "mission_title": "Mission",
+            "mission_items": {
+                "m1": "Educate communities on waste sorting and responsible disposal",
+                "m2": "Enable fair, transparent earnings for waste collectors",
+                "m3": "Provide governments with real-time waste intelligence",
+                "m4": "Accelerate circular economy adoption through data and technology"
+            }
+        },
+        "values": {
+            "kicker": "Our Values",
+            "title": "What we stand for.",
+            "items": {
+                "v1_title": "Circular Economy",
+                "v1_desc": "Every tracked kilogram moves us closer to a zero-waste future.",
+                "v2_title": "Fair Economics",
+                "v2_desc": "Collectors should earn fairly through transparent and timely payments.",
+                "v3_title": "Data for Governance",
+                "v3_desc": "Cities need real-time intelligence to make better policy decisions.",
+                "v4_title": "Planet First",
+                "v4_desc": "Environmental impact is our north star, not just a dashboard metric."
+            }
+        },
+        "journey": {
+            "kicker": "Journey",
+            "title": "Our Story",
+            "milestones": {
+                "m1_year": "2024",
+                "m1_event": "The idea was born from university waste-management research. Five founders came together.",
+                "m2_year": "Q1 2025",
+                "m2_event": "MVP launched and the first 50 early users onboarded in Surabaya.",
+                "m3_year": "Q2 2025",
+                "m3_event": "Expanded to 3 cities, reached 500+ active users, and launched EcoHive and EcoCentral.",
+                "m4_year": "2025 →",
+                "m4_event": "Scaling to 10 cities while preparing the roadmap for carbon-credit tokenization."
+            }
+        },
+        "team": {
+            "kicker": "The Team",
+            "title": "Who's building this.",
+            "subtitle": "5 builders from Surabaya, Indonesia.",
+            "members": {
+                "theo": {
+                    "role": "Mobile Developer",
+                    "quote": "Turning waste into opportunities."
+                },
+                "akmal": {
+                    "role": "Frontend & UI/UX",
+                    "quote": "Nature needs action, not just words."
+                },
+                "alfi": {
+                    "role": "Backend Developer",
+                    "quote": "Transform waste, create the future."
+                },
+                "fahmi": {
+                    "role": "Product Owner",
+                    "quote": "One small step, big impact."
+                },
+                "david": {
+                    "role": "QA & Mobile Developer",
+                    "quote": "Trash is the trace of civilization."
+                }
+            }
+        },
+        "cta": {
+            "title": "Want to collaborate?",
+            "desc": "We're open to partnerships with city governments, investors, and NGOs who share our mission.",
+            "button": "Get In Touch"
+        }
+    },
+    "footer": {
+        "tagline": "Smart waste management solution for a cleaner and more sustainable ecosystem. Driving positive change one step at a time.",
+        "nav_title": "Navigation",
+        "nav_home": "Home",
+        "nav_about": "About Us",
+        "nav_services": "Services",
+        "nav_download": "Download",
+        "program_title": "Program",
+        "contact_title": "Contact Us",
+        "privacy": "Privacy Policy",
+        "terms": "Terms & Conditions",
+        "copyright": "WasteGo. All rights reserved."
+    },
+    "download": {
+        "hero": {
+            "title": "Start in Minutes",
+            "title_highlight": "Smarter Pickup & Recycling",
+            "description": "WasteGo is a waste management app that helps households schedule pickups, track every collection in real-time, and monitor measurable recycling impact.",
+            "cta_play": "Google Play",
+            "cta_play_aria": "Download WasteGo on Google Play",
+            "cta_appstore": "App Store",
+            "cta_appstore_aria": "Download WasteGo on App Store",
+            "cta_apk": "Direct APK",
+            "cta_apk_aria": "Download WasteGo direct APK"
+        },
+        "qr": {
+            "title": "Scan QR for Faster Download",
+            "image_alt": "WasteGo download QR code",
+            "description": "Open your camera, scan the QR code, and go directly to the fastest WasteGo install path.",
+            "note_title": "Why Activation Is Faster",
+            "note_desc": "Clear calls-to-action and simple flow reduce drop-off from interest to install."
+        },
+        "stats": {
+            "items": {
+                "s1_value": "< 2 mins",
+                "s1_label": "From download to first action",
+                "s2_value": "3 steps",
+                "s2_label": "From install to first pickup request",
+                "s3_value": "Android & iOS",
+                "s3_label": "Mobile-first waste management app",
+                "s4_value": "MVP Ready",
+                "s4_label": "Ready for users and startup reviewers"
+            }
+        },
+        "features": {
+            "kicker": "Core WasteGo Features",
+            "title": "Everything you need for digital waste management.",
+            "items": {
+                "f1_title": "Faster Waste Pickup Scheduling",
+                "f1_desc": "Create household pickup requests in a clean, consistent flow.",
+                "f2_title": "Real-time Process Tracking",
+                "f2_desc": "Track your pickup live from request, in-progress, to completed.",
+                "f3_title": "Measurable Recycling Impact",
+                "f3_desc": "Monitor recycling progress and rewards in one compact dashboard."
+            }
+        },
+        "install": {
+            "kicker": "How to Download",
+            "title": "Start using WasteGo in 3 steps.",
+            "desc": "Follow this flow to schedule your first pickup in minutes.",
+            "steps": {
+                "step1_title": "Choose your download source",
+                "step1_desc": "Install via App Store, Google Play, or direct APK.",
+                "step2_title": "Install and sign in",
+                "step2_desc": "Lightweight app with onboarding that is easy to follow.",
+                "step3_title": "Schedule your first pickup",
+                "step3_desc": "Set your first request and instantly see your recycling impact."
+            }
+        },
+        "faq": {
+            "kicker": "WasteGo Download FAQ",
+            "title": "Common questions before you install.",
+            "items": {
+                "q1": "Is WasteGo available on Android and iOS?",
+                "a1": "Yes. You can download WasteGo through Google Play, App Store, or direct APK.",
+                "q2": "What is WasteGo mainly used for?",
+                "a2": "WasteGo is used for pickup scheduling, real-time collection tracking, and recycling impact monitoring.",
+                "q3": "How fast can I start using it?",
+                "a3": "Most users can install and create their first pickup request in under 2 minutes."
+            }
+        },
+        "closing": {
+            "kicker": "Next Step",
+            "title": "Install now and make waste management more efficient.",
+            "desc": "Download WasteGo, schedule your first pickup, and track your impact directly from the app.",
+            "cta_demo": "Schedule Demo",
+            "cta_checklist": "Go-live Checklist"
+        }
+    }
+}

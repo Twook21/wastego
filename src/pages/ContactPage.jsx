@@ -1,429 +1,213 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import ThemeContext from "../context/ThemeContext";
+
+// Replace with your Formspree form ID: https://formspree.io
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
 
 function ContactPage() {
-  const { darkMode } = useContext(ThemeContext);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [formStatus, setFormStatus] = useState({
-    submitted: false,
-    success: false,
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
 
-  useEffect(() => {
-    if (window.feather) {
-      window.feather.replace();
-    }
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  useEffect(() => {
-    window.scrollTo(0, 0); // Menggulir ke atas saat komponen dirender
-  }, []);
+  const handleChange = (e) => setFormData(p => ({ ...p, [e.target.name]: e.target.value }));
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulasi submit form - in real app would connect to backend
-    setTimeout(() => {
-      setFormStatus({
-        submitted: true,
-        success: true,
-        message:
-          "Pesan Anda telah berhasil dikirim. Kami akan menghubungi Anda segera.",
+    setStatus("submitting");
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(formData),
       });
-      // Reset form after successful submission
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-    }, 1000);
+      if (res.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
-  // Animation variants - simplified for minimalist design
-  const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.5 } },
-  };
-
-  const slideUp = {
+  const fadeUp = {
     hidden: { y: 30, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
   };
+  const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } };
+
+  const contacts = [
+    { icon: "ri-map-pin-2-line", label: "Location", value: "Surabaya, Indonesia" },
+    { icon: "ri-mail-line", label: "Email", value: "wastego.idn@gmail.com" },
+    { icon: "ri-time-line", label: "Response Time", value: "Within 24 hours" },
+    { icon: "ri-linkedin-box-line", label: "LinkedIn", value: "linkedin.com/company/wastego" },
+  ];
+
+  const faqs = [
+    { q: "How does WasteGo work?", a: "Residents schedule pickups via the app. Our AI dispatches the nearest EcoBuddy, who collects and sorts the waste. Residents earn rewards; collectors receive instant payment." },
+    { q: "Which cities are currently served?", a: "We're currently active across 3 cities in East Java, with Surabaya as our primary hub. Expansion to 10 cities is planned for late 2025." },
+    { q: "Is WasteGo free to use?", a: "The app is free to download. Basic pickup scheduling is free. Premium features for businesses and local governments are priced separately." },
+    { q: "How can cities or organizations partner with WasteGo?", a: "We're actively looking for government and corporate partners. Please use the contact form and mention 'Partnership' in the subject." },
+  ];
 
   return (
-    <div className="transition-colors duration-200">
-      {/* Header Section - Simplified */}
-      <section className="bg-white dark:bg-gray-900 text-center py-16">
-        <div className="max-w-4xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeIn}
-            className="mb-4"
-          >
-            <h1 className="text-3xl font-bold text-teal-900 dark:text-white">
-              Hubungi Kami
-            </h1>
-            <div className="w-16 h-1 bg-lime-500 mx-auto my-4"></div>
-            <p className="text-gray-600 dark:text-gray-300">
-              Punya pertanyaan atau masukan? Kami siap membantu Anda.
-            </p>
+    <div className="relative bg-surface-50 dark:bg-[#010909]">
+
+      {/* ── HERO ── */}
+      <section className="relative pt-36 pb-20 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-accent/8 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-6 sm:px-8">
+          <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-2xl">
+            <motion.span variants={fadeUp} className="text-xs font-bold uppercase tracking-widest text-accent-dark dark:text-accent mb-4 block">Contact</motion.span>
+            <motion.h1 variants={fadeUp} className="text-5xl sm:text-6xl font-bold text-primary dark:text-white tracking-tight leading-tight mb-5">
+              Let's build something <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-dark dark:from-white dark:to-accent">impactful together.</span>
+            </motion.h1>
+            <motion.p variants={fadeUp} className="text-lg text-surface-600 dark:text-surface-300">
+              Whether you're a city government, investor, corporate partner, or just curious, we'd love to hear from you.
+            </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Form & Info - Simplified Layout */}
-      <section className="py-12 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Contact Form - Cleaner design */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={slideUp}
-              className="bg-white dark:bg-gray-900 p-6 rounded-lg border shadow-lg border-gray-300"
-            >
-              {formStatus.submitted && formStatus.success ? (
-                <motion.div
-                  className="p-4 rounded-lg border-l-4 border-lime-500 bg-lime-50 dark:bg-lime-900 dark:bg-opacity-20 text-gray-800 dark:text-gray-200"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  <h3 className="font-medium mb-1">Terima Kasih!</h3>
-                  <p>{formStatus.message}</p>
+      {/* ── FORM + INFO ── */}
+      <section className="pb-28">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}
+            className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+            {/* Form */}
+            <motion.div variants={fadeUp} className="lg:col-span-3 bg-white dark:bg-surface-800/40 border border-surface-200 dark:border-surface-700/50 rounded-3xl p-8 md:p-10">
+              {status === "success" ? (
+                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+                  className="h-full flex flex-col items-center justify-center text-center py-12">
+                  <div className="w-16 h-16 rounded-full bg-accent/15 flex items-center justify-center mb-6">
+                    <i className="ri-check-double-line text-3xl text-accent-dark dark:text-accent"></i>
+                  </div>
+                  <h3 className="text-2xl font-bold text-primary dark:text-white mb-3">Message Sent!</h3>
+                  <p className="text-surface-500 max-w-sm">We'll get back to you within 24 hours. Thank you for reaching out to WasteGo.</p>
+                  <button onClick={() => setStatus("idle")}
+                    className="mt-8 px-6 py-3 rounded-xl border border-surface-200 dark:border-surface-700 text-sm font-semibold text-primary dark:text-white hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors">
+                    Send Another
+                  </button>
                 </motion.div>
               ) : (
                 <>
-                  <h2 className="text-xl font-medium text-teal-900 dark:text-white mb-6">
-                    Kirim Pesan
-                  </h2>
-
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label
-                          htmlFor="name"
-                          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                        >
-                          Nama
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          className="block w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-lime-500 focus:border-lime-500"
-                        />
-                      </div>
-                      <div>
-                        <label
-                          htmlFor="email"
-                          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                        >
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          className="block w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-lime-500 focus:border-lime-500"
-                        />
-                      </div>
+                  <h2 className="text-2xl font-bold text-primary dark:text-white mb-8">Send a Message</h2>
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      {[
+                        { id: "name", label: "Full Name", type: "text", placeholder: "Your name" },
+                        { id: "email", label: "Email Address", type: "email", placeholder: "you@email.com" },
+                      ].map(f => (
+                        <div key={f.id}>
+                          <label htmlFor={f.id} className="block text-sm font-semibold text-surface-700 dark:text-surface-300 mb-2">{f.label}</label>
+                          <input type={f.type} id={f.id} name={f.id} value={formData[f.id]} onChange={handleChange} required
+                            placeholder={f.placeholder}
+                            className="w-full px-4 py-3 rounded-xl border border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-900/50 text-primary dark:text-white placeholder-surface-400 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/50 transition-all text-sm" />
+                        </div>
+                      ))}
                     </div>
                     <div>
-                      <label
-                        htmlFor="subject"
-                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                      >
-                        Subjek
-                      </label>
-                      <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-lime-500 focus:border-lime-500"
-                      />
+                      <label htmlFor="subject" className="block text-sm font-semibold text-surface-700 dark:text-surface-300 mb-2">Subject</label>
+                      <select id="subject" name="subject" value={formData.subject} onChange={handleChange} required
+                        className="w-full px-4 py-3 rounded-xl border border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-900/50 text-primary dark:text-white focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/50 transition-all text-sm">
+                        <option value="">Select a topic...</option>
+                        <option value="Partnership">Partnership / Collaboration</option>
+                        <option value="Investment">Investment Inquiry</option>
+                        <option value="Demo Request">Demo Request</option>
+                        <option value="Government">Government / Municipality</option>
+                        <option value="General">General Inquiry</option>
+                      </select>
                     </div>
                     <div>
-                      <label
-                        htmlFor="message"
-                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                      >
-                        Pesan
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        rows="4"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-1 focus:ring-lime-500 focus:border-lime-500"
-                      ></textarea>
+                      <label htmlFor="message" className="block text-sm font-semibold text-surface-700 dark:text-surface-300 mb-2">Message</label>
+                      <textarea id="message" name="message" rows="5" value={formData.message} onChange={handleChange} required
+                        placeholder="Tell us what you have in mind..."
+                        className="w-full px-4 py-3 rounded-xl border border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-900/50 text-primary dark:text-white placeholder-surface-400 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/50 transition-all text-sm resize-none"></textarea>
                     </div>
-                    <motion.div
-                      whileHover={{ scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
-                    >
-                      <button
-                        type="submit"
-                        className="w-full px-4 py-2 bg-lime-500 dark:bg-lime-500 text-teal-900 font-medium rounded-md hover:bg-lime-300 dark:hover:bg-lime-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
-                      >
-                        Kirim Pesan
-                      </button>
-                    </motion.div>
+                    {status === "error" && (
+                      <p className="text-sm text-red-500">Something went wrong. Please try again or email us directly.</p>
+                    )}
+                    <motion.button type="submit" disabled={status === "submitting"}
+                      whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
+                      className="w-full py-4 rounded-xl bg-primary dark:bg-white text-white dark:text-primary font-bold transition-all hover:bg-primary-dark dark:hover:bg-surface-100 flex items-center justify-center gap-2 disabled:opacity-60">
+                      {status === "submitting" ? (
+                        <><i className="ri-loader-4-line animate-spin"></i> Sending...</>
+                      ) : (
+                        <><i className="ri-send-plane-line"></i> Send Message</>
+                      )}
+                    </motion.button>
                   </form>
                 </>
               )}
             </motion.div>
 
-            {/* Contact Information - More minimal */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={slideUp}
-              className="bg-white dark:bg-gray-900 p-6 rounded-lg border shadow-lg border-gray-300"
-            >
-              <h2 className="text-xl font-medium text-teal-900 dark:text-white mb-6">
-                Informasi Kontak
-              </h2>
-
-              <div className="space-y-5">
-                <div className="flex items-start space-x-3">
-                  <div className="text-lime-500 dark:text-lime-500">
-                    <i data-feather="map-pin" className="h-5 w-5"></i>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">
-                      Alamat
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      Yogyakarta, Indonesia
-                      <br />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  <div className="text-lime-500 dark:text-lime-500">
-                    <i data-feather="phone" className="h-5 w-5"></i>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">
-                      Telepon
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      +62 21 1234 5678
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  <div className="text-lime-500 dark:text-lime-500">
-                    <i data-feather="mail" className="h-5 w-5"></i>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">
-                      Email
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      wastego.idn@gmail.com
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  <div className="text-lime-500 dark:text-lime-500">
-                    <i data-feather="clock" className="h-5 w-5"></i>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">
-                      Jam Operasional
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      Senin - Jumat: 08:00 - 17:00
-                      <br />
-                      Sabtu: 09:00 - 15:00
-                    </p>
+            {/* Contact Info */}
+            <motion.div variants={fadeUp} className="lg:col-span-2 flex flex-col gap-5">
+              <div className="bg-primary dark:bg-surface-800/40 border border-primary-light dark:border-surface-700/50 rounded-3xl p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-accent/10 rounded-full blur-[60px]"></div>
+                <div className="relative z-10">
+                  <h3 className="text-lg font-bold text-white mb-6">Contact Details</h3>
+                  <div className="space-y-5">
+                    {contacts.map(c => (
+                      <div key={c.label} className="flex items-start gap-4">
+                        <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                          <i className={`${c.icon} text-accent`}></i>
+                        </div>
+                        <div>
+                          <div className="text-xs text-white/50 font-medium">{c.label}</div>
+                          <div className="text-sm text-white font-semibold">{c.value}</div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              {/* Social Media - Simplified */}
-              <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">
-                  Ikuti Kami
-                </h3>
-                <div className="flex space-x-3">
-                  <a
-                    href="https://www.instagram.com/"
-                    className="text-gray-500 hover:text-lime-500 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
-                  >
-                    <i data-feather="instagram" className="h-5 w-5"></i>
-                  </a>
-                  <a
-                    href="https://www.facebook.com/"
-                    className="text-gray-500 hover:text-lime-500 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
-                  >
-                    <i data-feather="facebook" className="h-5 w-5"></i>
-                  </a>
-                  <a
-                    href="https://x.com/"
-                    className="text-gray-500 hover:text-lime-500 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
-                  >
-                    <i data-feather="twitter" className="h-5 w-5"></i>
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/company/wastego"
-                    className="text-gray-500 hover:text-lime-500 dark:text-gray-400 dark:hover:text-lime-500 transition-colors"
-                  >
-                    <i data-feather="linkedin" className="h-5 w-5"></i>
-                  </a>
+              <div className="bg-white dark:bg-surface-800/40 border border-surface-200 dark:border-surface-700/50 rounded-3xl p-8">
+                <h3 className="text-sm font-bold text-primary dark:text-white uppercase tracking-widest mb-5">Follow Us</h3>
+                <div className="flex gap-3">
+                  {[
+                    { icon: "ri-instagram-line", href: "https://www.instagram.com/" },
+                    { icon: "ri-linkedin-box-line", href: "https://www.linkedin.com/company/wastego" },
+                    { icon: "ri-twitter-x-line", href: "https://x.com/" },
+                    { icon: "ri-facebook-circle-line", href: "https://www.facebook.com/" },
+                  ].map(s => (
+                    <a key={s.icon} href={s.href} target="_blank" rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-xl border border-surface-200 dark:border-surface-700 flex items-center justify-center text-primary dark:text-white hover:bg-accent hover:text-primary hover:border-accent transition-all duration-300">
+                      <i className={`${s.icon} text-lg`}></i>
+                    </a>
+                  ))}
                 </div>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Map Section - Simplified */}
-      <section className="py-12 bg-white dark:bg-gray-900">
-        <div className="max-w-5xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={fadeIn}
-          >
-            <h2 className="text-xl font-medium text-teal-900 dark:text-white mb-6 text-center">
-              Temukan Kami
-            </h2>
-            <div className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
-              {/* Map Placeholder */}
-              <div className="h-72 w-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                <div className="text-center">
-                  <i
-                    data-feather="map"
-                    className="h-8 w-8 text-gray-400 dark:text-gray-500 mb-2"
-                  ></i>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Peta Lokasi WasteGo
-                  </p>
-                </div>
-              </div>
+      {/* ── FAQ ── */}
+      <section className="py-24 bg-surface-100 dark:bg-surface-900/40 border-t border-surface-200 dark:border-surface-800">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeUp} className="text-center mb-14">
+              <span className="text-xs font-bold uppercase tracking-widest text-accent-dark dark:text-accent">FAQ</span>
+              <h2 className="text-4xl font-bold text-primary dark:text-white tracking-tight mt-3">Common Questions</h2>
+            </motion.div>
+            <div className="space-y-4">
+              {faqs.map(faq => (
+                <motion.div key={faq.q} variants={fadeUp}
+                  className="bg-white dark:bg-surface-800/50 border border-surface-200 dark:border-surface-700/50 rounded-2xl p-7">
+                  <h3 className="font-bold text-primary dark:text-white mb-2">{faq.q}</h3>
+                  <p className="text-surface-500 dark:text-surface-400 text-sm leading-relaxed">{faq.a}</p>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* FAQ Section - Minimalist approach */}
-      <section className="py-12 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-3xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={fadeIn}
-            className="text-center mb-8"
-          >
-            <h2 className="text-xl font-medium text-teal-900 dark:text-white">
-              Pertanyaan Umum
-            </h2>
-            <div className="w-16 h-1 bg-lime-500 mx-auto my-4"></div>
-          </motion.div>
-
-          <div className="space-y-4">
-            {[
-              {
-                question: "Bagaimana cara kerja WasteGo?",
-                answer:
-                  "WasteGo menghubungkan Anda dengan pengumpul sampah terdekat. Anda dapat menjadwalkan pengambilan sampah melalui aplikasi dan melacak progres pengambilan.",
-              },
-              {
-                question: "Wilayah mana saja yang sudah dilayani oleh WasteGo?",
-                answer:
-                  "Saat ini, WasteGo melayani area Jabodetabek, Bandung, Surabaya, dan Denpasar. Kami terus memperluas jangkauan layanan kami.",
-              },
-              {
-                question: "Berapa biaya untuk menggunakan aplikasi WasteGo?",
-                answer:
-                  "Aplikasi WasteGo dapat diunduh dan digunakan secara gratis. Untuk layanan pengambilan sampah tertentu, mungkin ada biaya yang diterapkan.",
-              },
-            ].map((faq, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                whileHover={{
-                  y: -5,
-                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
-                }}
-                viewport={{ once: true, amount: 0.3 }}
-                variants={slideUp}
-                className="bg-white dark:bg-gray-900 rounded-lg border shadow-lg border-gray-300 p-4"
-              >
-                <h3 className="text-base font-medium text-teal-900 dark:text-white mb-2">
-                  {faq.question}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  {faq.answer}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section - More minimal */}
-      <section className="py-10 bg-lime-500 dark:bg-lime-500">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            variants={fadeIn}
-            className="text-white"
-          >
-            <h2 className="text-xl font-medium mb-3">
-              Bergabunglah dengan Komunitas WasteGo
-            </h2>
-            <p className="text-sm text-teal-900 dark:text-teal-900 mb-5">
-              Jadilah bagian dari perubahan positif untuk lingkungan.
-            </p>
-            <a
-              href="/download"
-              className="inline-block px-5 py-2 bg-teal-900 text-lime-500 font-medium rounded-md hover:bg-gray-100 transition-colors duration-200"
-            >
-              Download Aplikasi
-            </a>
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
+import { useTranslation } from "react-i18next";
 
 // route landing page
 import HomePage from "./pages/HomePage";
@@ -74,6 +75,8 @@ function AuthLayout({ children }) {
 }
 
 function App() {
+  const { t, i18n } = useTranslation();
+
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) return savedTheme === "dark";
@@ -90,13 +93,32 @@ function App() {
     }
   }, [darkMode]);
 
+  // Dynamic Page Title
+  useEffect(() => {
+    document.title = t("nav.document_title");
+  }, [i18n.language, t]);
+
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
+
+  // Scroll progress bar
+  useEffect(() => {
+    const bar = document.getElementById("scroll-progress");
+    const onScroll = () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = total > 0 ? (scrolled / total) * 100 : 0;
+      if (bar) bar.style.width = pct + "%";
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
       <Router basename={import.meta.env.BASE_URL}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+          <div className="flex flex-col min-h-screen bg-surface-50 dark:bg-[#010909] transition-colors duration-500">
+            <div id="scroll-progress"></div>
             <Routes>
               {/* EcoHive Routes - Use Outlet pattern */}
               <Route path="/ecohive" element={<EcoHiveLayout />}>

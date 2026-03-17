@@ -1,76 +1,332 @@
 @import "tailwindcss";
-@layer base, components, utilities;
+@custom-variant dark (&:where(.dark, .dark *));
 
-body {
-  font-family: 'Inter', sans-serif;
-  @apply text-gray-800;
+
+@theme {
+  --font-sans: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* High-End Startup Palette */
+  --color-primary: #022c2e;
+  --color-primary-light: #064e52;
+  --color-primary-dark: #01191a;
+
+  --color-accent: #b5ff00;
+  --color-accent-light: #d4ff66;
+  --color-accent-dark: #8cc300;
+
+  --color-surface-50: #fcfdfd;
+  --color-surface-100: #f1f5f9;
+  --color-surface-200: #e2e8f0;
+  --color-surface-300: #cbd5e1;
+  --color-surface-400: #94a3b8;
+  --color-surface-500: #64748b;
+  --color-surface-600: #475569;
+  --color-surface-700: #334155;
+  --color-surface-800: #1e293b;
+  --color-surface-900: #0f172a;
+
+  /* Custom Animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-reveal: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes live-pulse {
+
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.4;
+      transform: scale(0.85);
+    }
+  }
+
+  @keyframes progress-grow {
+    from {
+      width: 0%;
+    }
+
+    to {
+      width: var(--progress);
+    }
+  }
 }
 
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  body {
+    @apply font-sans antialiased text-surface-900 bg-surface-50 tracking-tight;
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  .dark body {
+    @apply text-surface-50;
+    background-color: #010909;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-200/50 rounded-full;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+  }
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* ─── Component Classes (plain CSS, no circular @apply) ─── */
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
-body {
-  margin: 0;
+.dark .glass {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-primary {
+  @apply px-8 py-4 bg-primary text-white rounded-2xl font-bold transition-all duration-500 flex items-center justify-center gap-2;
+
+  &:hover {
+    box-shadow: 0 20px 40px -15px rgba(2, 44, 46, 0.3);
+    transform: translateY(-4px);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.btn-accent {
+  @apply px-8 py-4 bg-accent text-primary rounded-2xl font-bold transition-all duration-500 flex items-center justify-center gap-2;
+
+  &:hover {
+    box-shadow: 0 20px 40px -15px rgba(181, 255, 0, 0.4);
+    transform: translateY(-4px);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.btn-glow {
+  @apply px-8 py-4 bg-accent text-primary rounded-2xl font-bold transition-all duration-500 flex items-center justify-center gap-2;
+
+  &:hover {
+    box-shadow: 0 0 40px rgba(181, 255, 0, 0.35);
+    transform: translateY(-4px);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.card-premium {
+  @apply bg-white dark:bg-surface-800 p-8 rounded-3xl shadow-sm border border-surface-100 dark:border-surface-800 transition-all duration-500;
+
+  &:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+  }
+}
+
+.bento-item {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  border-radius: 2.5rem;
+  transition: all 0.5s;
+}
+
+.dark .bento-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bento-item:hover {
+  border-color: rgba(181, 255, 0, 0.3);
+}
+
+.badge-premium {
+  @apply px-4 py-1.5 rounded-full bg-accent/10 text-accent-dark dark:text-accent font-bold tracking-widest uppercase border border-accent/20;
+  font-size: 10px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent font-black;
+  background-image: linear-gradient(to bottom right, var(--color-primary), var(--color-primary-light), var(--color-accent-dark));
+}
+
+.dark .gradient-text {
+  background-image: linear-gradient(to bottom right, #fff, #fff, var(--color-accent));
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(to right, var(--color-primary), var(--color-accent-dark));
+}
+
+.dark .text-gradient {
+  background-image: linear-gradient(to right, var(--color-accent), var(--color-accent-light));
+}
+
+/* ── Animated gradient headline ── */
+.text-gradient-animated {
+  background: linear-gradient(270deg,
+      var(--color-accent-dark),
+      var(--color-primary),
+      var(--color-accent),
+      var(--color-accent-dark));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 5s ease infinite;
+}
+
+.dark .text-gradient-animated {
+  background: linear-gradient(270deg,
+      var(--color-accent),
+      #ffffff,
+      var(--color-accent-light),
+      var(--color-accent));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 5s ease infinite;
+}
+
+/* ── Marquee ── */
+.marquee-track {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  width: max-content;
+  animation: marquee 28s linear infinite;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.marquee-track:hover {
+  animation-play-state: paused;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* ── Live dot ── */
+.live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: live-pulse 2s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
+/* ── Scroll progress bar ── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  background: var(--color-accent);
+  z-index: 9999;
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+}
